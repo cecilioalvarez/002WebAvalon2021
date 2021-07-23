@@ -27,9 +27,9 @@ public class ServletTablaMultiplicar extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 
 		writer.println("<html><body><table>");
-		for (int i = 1; i <= number; i++) {
+		for (int i = 1; i <= 10; i++) {
 
-			writer.print("<tr><td>" + i + " * " + number + " = " + i * number + "</tr></td>");
+			writer.print("<tr><td>" + i + " * " + number + " = " + i * number + "</td></tr>");
 		}
 		writer.println("</table></html></body>");
 
