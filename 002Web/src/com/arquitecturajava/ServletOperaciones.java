@@ -18,6 +18,7 @@ public class ServletOperaciones extends HttpServlet {
 		double num2= Double.parseDouble(request.getParameter("numero2"));
 		PrintWriter writer=response.getWriter();
 		writer.write("<html><body>");
+		writer.write("<p>Numero 1: "+num1+"Numero 2: "+num2+"</p>");
 		writer.write("<p>Suma: "+(num1+num2)+"</p>");
 		writer.write("<p>Resta: "+(num1-num2)+"</p>");
 		writer.write("<p>Multiplicacion: "+(num1*num2)+"</p>");
