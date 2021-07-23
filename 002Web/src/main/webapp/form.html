@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulario de prueba</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="FormServlet" method="GET">
+            <label for="numberField">Introduce un número para probar el Servlet:</label>
+            <input type="number" id="numberField" name="numberField">
+            <input type="radio" name="language" id="language_c" value="C">
+            <label for="language_c">C#</label>
+            <input type="radio" name="language" id="language_java" value="java">
+            <label for="language_java">Java</label>
+            <input type="radio" name="language" id="language_php" value="php">
+            <label for="language_php">PHP</label>
+            <input type="submit" id="send" name="send" value="Enviar">
+        </form>
+    </body>
+</html>

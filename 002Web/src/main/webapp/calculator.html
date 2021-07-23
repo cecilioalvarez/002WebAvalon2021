@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulario de prueba</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>Formulario «Calculadora»</h3>
+        <form action="CalculatorServlet" method="GET">
+            <label for="firstNumber">Introduce el primer número para operar:</label>
+            <input type="number" id="firstNumber" step="0.01" name="firstNumber">
+            <label for="secondNumber">Introduce el segundo número para operar:</label>
+            <input type="number" id="secondNumber" step="0.01" name="secondNumber">
+            <input type="submit" id="send" name="send" value="Enviar">
+        </form>
+    </body>
+</html>
