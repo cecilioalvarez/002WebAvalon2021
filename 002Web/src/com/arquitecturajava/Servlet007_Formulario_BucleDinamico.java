@@ -10,36 +10,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletTablaMultiplicar
+ * Servlet implementation class ServletBucleDinamico
  */
-@WebServlet("/ServletTablaMultiplicar")
-public class ServletTablaMultiplicar extends HttpServlet {
+@WebServlet("/Servlet007_Formulario_BucleDinamico")
+public class Servlet007_Formulario_BucleDinamico extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int numero=0;
+	
+		int tope=0;
 		
 		if(request.getParameter("numero").chars().allMatch(Character::isDigit)) {
 			
-			numero=Integer.parseInt(request.getParameter("numero"));
+			tope=Integer.parseInt(request.getParameter("numero"));
 			
 		}
 		
 		
 		
 		PrintWriter writer= response.getWriter();
-		writer.println("<html><body><table>");
-		for (int i=1;i<=10;i++) {
+		writer.println("<html><body>");
+		for (int i=1;i<=tope;i++) {
 			
-			writer.println("<tr><td>"+i+"</td><td>x</td><td>"+numero+"</td><td>=</td><td>"+(i*numero)+"</td></tr>");
+			writer.println("<p>"+i+"</p>");
 		}
-		writer.println("</table></body></html>");
-	
-
-	
+		writer.println("</body></html>");
 	}
 
 

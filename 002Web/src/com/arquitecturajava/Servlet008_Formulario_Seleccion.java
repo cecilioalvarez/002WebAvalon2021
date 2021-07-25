@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletRadios
  */
-@WebServlet("/ServletRadios")
-public class ServletRadios extends HttpServlet {
+@WebServlet("/Servlet008_Formulario_Seleccion")
+public class Servlet008_Formulario_Seleccion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

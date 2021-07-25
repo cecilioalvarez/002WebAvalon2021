@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletNombre
  */
-@WebServlet("/ServletNombre")
-public class ServletNombre extends HttpServlet {
+@WebServlet("/Servlet006_Formulario_Nombre")
+public class Servlet006_Formulario_Nombre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
    
@@ -22,7 +22,7 @@ public class ServletNombre extends HttpServlet {
 		
 		String nombre=request.getParameter("nombre");
 		PrintWriter pw= response.getWriter();
-		pw.println("hola"+ nombre);
+		pw.println("hola "+ nombre);
 	}
 
 
