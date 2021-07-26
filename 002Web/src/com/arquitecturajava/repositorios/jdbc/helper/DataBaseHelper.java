@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,7 +26,11 @@ public class DataBaseHelper {
 	
 	public DataBaseHelper() {
 		try {
-			dBProperties.load(new FileInputStream(new File("./Database/Database.properties")));
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream("DataBase.properties");
+
+			dBProperties.load(input);
+
 			url=dBProperties.getProperty("url");
 			user=dBProperties.getProperty("user");
 			pass=dBProperties.getProperty("pass");

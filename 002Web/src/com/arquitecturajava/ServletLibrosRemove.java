@@ -1,8 +1,6 @@
 package com.arquitecturajava;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,22 +12,16 @@ import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.Libro_RepositoryJDBC;
 
 /**
- * Servlet implementation class Libro
+ * Servlet implementation class ServletLibrosRemove
  */
-@WebServlet("/ServletLibro")
-public class ServletLibro extends HttpServlet {
+@WebServlet("/ServletLibrosRemove")
+public class ServletLibrosRemove extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String isbn = request.getParameter("isbn");
-		String titulo = request.getParameter("titulo");
-		String autor = request.getParameter("autor");
-		
-		Libro libro = new Libro(isbn, autor, titulo);
+      
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		LibroRepository repositorio = new Libro_RepositoryJDBC();
-		repositorio.addBook(libro);
-		
+		repositorio.removeBook(new Libro(request.getParameter("isbn")));
 		response.sendRedirect("ServletLibrosLista");
 	}
 
