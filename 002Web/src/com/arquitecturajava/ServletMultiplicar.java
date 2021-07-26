@@ -18,8 +18,8 @@ public class ServletMultiplicar extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int num1= Integer.parseInt(request.getParameter("numero1"));
-		
+		//int num1= Integer.parseInt(request.getParameter("numero1"));
+		double num1= Double.parseDouble(request.getParameter("numero1"));
 		PrintWriter writer=response.getWriter();
 		writer.write("<html><body>");
 		writer.write("<table style=\"border-collapse: collapse;width: 50%;text-align: center;\" border=\"2px solid black;\">");
@@ -31,6 +31,9 @@ public class ServletMultiplicar extends HttpServlet {
 			writer.write("<td>=</td>");
 			writer.write("<td>"+num1*i+"</td>");
 			writer.write("</tr>");
+			//Otra forma de hacerlo en una sola linea
+			//writer.println("<tr><td>" + i + " * " + number + " = " + i * number + "</tr></td>");
+
 		}
 		writer.write("</table>");
 		writer.write("</body></html>");
