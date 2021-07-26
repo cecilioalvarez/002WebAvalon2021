@@ -17,25 +17,27 @@ List<Libro> listaLibros = repositorio.buscarTodosLibros();
 <title>Insert title here</title>
 </head>
 <body>
-	<table style='border-collapse: collapse;width: 100%;text-align: center;' border='2px solid black;'>
+	<table style="border-collapse: collapse;width: 100%;text-align: center;" border="2px solid black;">
 		<thead>
 		<tr >
 			<th>ISBN</th>
 			<th>Titulo</th>
 			<th>Autor</th>
+			<th>Borrar</th>
 		</tr>
 		</thead>
 		<tbody>
 			<%for(Libro libro: listaLibros){ %>
-            <tr>
-            	<td><%=libro.getIsbn() %></td>
-            	<td><%=libro.getTitulo() %></td>
-            	<td><%=libro.getAutor() %></td>
-            </tr>
+	            <tr>
+	            	<td><%=libro.getIsbn() %></td>
+	            	<td><%=libro.getTitulo() %></td>
+	            	<td><%=libro.getAutor() %></td>
+	            	<td><a href="ServletLibrosRemove?isbn=<%=libro.getIsbn()%>">Borrar</a></td>
+	            </tr>
             <% } %>
 			<tr></tr>
 		</tbody>
 	</table>
-	<a href="formularioLibro">Nuevo Libro</a>
+	<a href="formularioLibroJSP.html">Nuevo Libro</a>
 </body>
 </html>
