@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.negocio.Libro;
+import com.arquitecturajava.repositorios.LibroRepository;
+import com.arquitecturajava.repositorios.jdbc.helper.LibroRepositoryJDBC;
 
 /**
  * Servlet implementation class ServletLibro
@@ -26,13 +28,15 @@ public class ServletLibro extends HttpServlet {
 		String autor= request.getParameter("autor");
 		
 		Libro libro= new Libro (isbn,titulo,autor);
-		
+		LibroRepository repositorio= new LibroRepositoryJDBC();
+		repositorio.insertar(libro);
 		
 		PrintWriter pw= response.getWriter();
 		pw.println("<html><body>");
-		pw.println(libro.getTitulo());
-		pw.println(libro.getAutor());
-		pw.println(libro.getIsbn());
+//		pw.println(libro.getTitulo());
+//		pw.println(libro.getAutor());
+//		pw.println(libro.getIsbn());
+		pw.println("hemos insertado");
 		pw.println("</body></html>");
 		
 	}
