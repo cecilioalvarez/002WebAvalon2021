@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.viejo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,18 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletBucle
+ * Servlet implementation class ServletRadios
  */
-@WebServlet("/ServletBucle")
-public class ServletBucle extends HttpServlet {
+@WebServlet("/ServletRadios")
+public class ServletRadios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter writer = response.getWriter();
-		writer.println("<html><body>");
-		for(int i=0; i<10;i++) {
-			writer.println("<p>" + i + "</p>");
-		}
-		writer.println("</body></html>");
+		writer.println("<html><body>" + request.getParameter("lenguaje")+"</body></html>");
 	}
+
+
 }
