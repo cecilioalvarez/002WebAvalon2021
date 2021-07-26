@@ -27,6 +27,7 @@ public class ServletLibrosLista extends HttpServlet {
 		List<Libro> listaLibros=repositorio.buscarTodos();
 		PrintWriter writer= response.getWriter();
 		writer.println("<html><body>");
+		
 		writer.println("<table border='1px solid black'>");
 		for (Libro libro: listaLibros) {
 			
