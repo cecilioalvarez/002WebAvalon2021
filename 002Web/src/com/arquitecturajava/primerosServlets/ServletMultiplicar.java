@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.primerosServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.primerosServlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ServletNombre")
-public class ServletNombre extends HttpServlet {
+@WebServlet("/ServletRadios")
+public class ServletRadios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String nombre = request.getParameter("nombre");
-		
-		PrintWriter pw = response.getWriter();
-		pw.write("Hola "+nombre);
+
+		PrintWriter writer = response.getWriter();
+		writer.write("<html><body>"+
+				request.getParameter("lenguaje")+
+				"</body></html>");
 	}
 
 }
