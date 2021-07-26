@@ -22,6 +22,7 @@ public class ServletLibro extends HttpServlet {
 		String autor= request.getParameter("autor");
 		
 		
+		
 	}
 
 }
