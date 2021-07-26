@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.viejo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,22 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ServletNombre
- */
-@WebServlet("/Servlet006_Formulario_Nombre")
-public class Servlet006_Formulario_Nombre extends HttpServlet {
+@WebServlet("/Servlet005_Hola")
+public class Servlet005_Hola extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
+
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String nombre=request.getParameter("nombre");
-		PrintWriter pw= response.getWriter();
-		pw.println("hola "+ nombre);
+	
+		PrintWriter writer=response.getWriter();
+		writer.write("<html><body>hola desde un servlet</body></html>");
 	}
-
 
 
 }
