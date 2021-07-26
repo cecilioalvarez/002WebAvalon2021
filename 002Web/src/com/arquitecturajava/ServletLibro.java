@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
-import com.arquitecturajava.repositorios.jdbc.helper.LibroRepositoryJDBC;
+import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
 
 /**
  * Servlet implementation class ServletLibro
