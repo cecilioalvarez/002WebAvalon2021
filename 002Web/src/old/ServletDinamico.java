@@ -1,4 +1,4 @@
-package arquitecturajava;
+package old;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,18 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletBucle
+ * Servlet implementation class ServletDinamico
  */
-@WebServlet("/ServletBucle")
-public class ServletBucle extends HttpServlet {
+@WebServlet("/ServletDinamico")
+public class ServletDinamico extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int tope = 0;
+
+		if (request.getParameter("numero").chars().allMatch(Character::isDigit)) {
+
+			tope = Integer.parseInt(request.getParameter("numero"));
+
+		}
 		PrintWriter writer = response.getWriter();
 		writer.println("<html><body>");
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i <= tope; i++) {
 			writer.println("<p>" + i + "</p>");
 
 		}

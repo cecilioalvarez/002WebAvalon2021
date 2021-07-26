@@ -1,4 +1,4 @@
-package arquitecturajava;
+package old;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,29 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ServletDinamico
- */
-@WebServlet("/ServletDinamico")
-public class ServletDinamico extends HttpServlet {
+@WebServlet("/servletHola")
+public class servletHola extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int tope = 0;
 
-		if (request.getParameter("numero").chars().allMatch(Character::isDigit)) {
-
-			tope = Integer.parseInt(request.getParameter("numero"));
-
-		}
 		PrintWriter writer = response.getWriter();
-		writer.println("<html><body>");
-		for (int i = 0; i <= tope; i++) {
-			writer.println("<p>" + i + "</p>");
-
-		}
-		writer.println("</body></html>");
+		writer.write("<html><body>Hola desde el servlet</body></html>");
 	}
 
 }

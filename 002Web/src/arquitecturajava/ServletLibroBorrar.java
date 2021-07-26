@@ -1,27 +1,29 @@
 package arquitecturajava;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import negocio.Libro;
+import repositorio.LibroRepository;
+import repositorio.jdbc.helper.LibroRepositoryJDBC;
+
 /**
- * Servlet implementation class ServletRadio
+ * Servlet implementation class ServletLibroBorrar
  */
-@WebServlet("/ServletRadio")
-public class ServletRadio extends HttpServlet {
+@WebServlet("/ServletLibroBorrar")
+public class ServletLibroBorrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		PrintWriter writer = response.getWriter();
-		writer.println("<html><body>" + request.getParameter("lenguaje") + "</html></body>");
 
+		LibroRepository repositorio = new LibroRepositoryJDBC();
+		repositorio.borrar(new Libro(request.getParameter("isbn")));
+		response.sendRedirect("ServletLibrosLista");
 	}
 
 }
