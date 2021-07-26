@@ -1,16 +1,31 @@
+body {
+    margin: 0 auto;
+}
+
+table {
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+    font-family: “Trebuchet MS”, Arial;
+    color: darkgrey;
+    border-collapse:collapse;
+    border: none;
+}
+
+table td {
+    border-bottom: solid thin #83aec0;
+    width: 300px;
+}
+
 table th {
-padding: 5px;
-font-size: 16px;
-background-color: #83aec0;
-background-image: url(fondo_th.png);
-background-repeat: repeat-x;
-color: #FFFFFF;
-border-right-width: 1px;
-border-bottom-width: 1px;
-border-right-style: solid;
-border-bottom-style: solid;
-border-right-color: #558FA6;
-border-bottom-color: #558FA6;
-font-family: “Trebuchet MS”, Arial;
-text-transform: uppercase;
+    padding: 5px;
+    font-size: 16px;
+    background-color: #83aec0;
+    background-image: url(fondo_th.png);
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #558FA6;
+    text-transform: uppercase;
 }

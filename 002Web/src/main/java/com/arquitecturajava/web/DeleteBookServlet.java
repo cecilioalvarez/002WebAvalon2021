@@ -20,6 +20,8 @@ public class DeleteBookServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<body>");
+            out.println("<p>Libro borrado correctamente</p>");
+            out.println("<a href='bookList.jsp'>Volver a la lista</a>");
             out.println("</body>");
             out.println("</html>");
         }

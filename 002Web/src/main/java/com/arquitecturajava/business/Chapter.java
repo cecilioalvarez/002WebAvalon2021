@@ -1,5 +1,7 @@
 package com.arquitecturajava.business;
 
+import java.util.Objects;
+
 public class Chapter {
 
     private String pk_title;
@@ -27,6 +29,35 @@ public class Chapter {
 
     public Book getFk_book() {
         return this.fk_book;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.pk_title);
+        hash = 31 * hash + Objects.hashCode(this.fk_book);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Chapter other = (Chapter) obj;
+        if (!Objects.equals(this.pk_title, other.pk_title)) {
+            return false;
+        }
+        if (!Objects.equals(this.fk_book, other.fk_book)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
