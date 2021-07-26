@@ -1,5 +1,7 @@
-package com.arquitecturajava.web1;
+package com.arquitecturajava.web;
 
+import com.arquitecturajava.business.Book;
+import com.arquitecturajava.repositories.BookRepositoryJDBC;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "RadioButtonServlet", urlPatterns = {"/RadioButtonServlet"})
-public class RadioButtonServlet extends HttpServlet {
+@WebServlet(name = "DeleteBookServlet", urlPatterns = {"/DeleteBookServlet"})
+public class DeleteBookServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -17,11 +19,7 @@ public class RadioButtonServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RadioButtonServlet</title>");            
-            out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RadioButtonServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -30,6 +28,7 @@ public class RadioButtonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        new BookRepositoryJDBC().delete(new Book(request.getParameter("isbn")));
         processRequest(request, response);
     }
 }

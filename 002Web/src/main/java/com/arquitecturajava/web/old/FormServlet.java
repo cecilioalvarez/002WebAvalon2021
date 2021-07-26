@@ -1,4 +1,4 @@
-package com.arquitecturajava.web1;
+package com.arquitecturajava.web.old;
 
 import java.io.IOException;
 import java.io.PrintWriter;
