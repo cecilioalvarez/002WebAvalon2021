@@ -31,12 +31,7 @@ public class Servlet011_Libro extends HttpServlet {
 		LibroRepository repositorio= new LibroRepositoryJDBC();
 		repositorio.insertar(libro);
 		
-		PrintWriter pw= response.getWriter();
-		pw.println("<html><body>");
-		pw.println(libro.getIsbn());
-		pw.println(libro.getTitulo());
-		pw.println(libro.getAutor());
-		pw.println("</body></html>");
+		response.sendRedirect("Servlet011_LibroTablaLink");
 	}
 
 }
