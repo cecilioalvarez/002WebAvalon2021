@@ -1,13 +1,15 @@
+<%@page import="repositorio.jdbc.helper.LibroRepositoryJDBC"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@page import="negocio.Libro" %>
-<%@page import="repositorio.LibroRepository" %>
-<%@page import="repositorio.jdbc.helper.LibroRepositoryJDBC" %>
+<%@page import="repositorio.jdbc.*" %>
+<%@page import="repositorio.servicios.LibroService" %>
+<%@page import="repositorio.servicios.standard.*" %>
 <%@page import="java.util.List" %>
 <%
 
-LibroRepository repositorio = new LibroRepositoryJDBC();
+LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
 List<Libro> listaLibros = repositorio.buscarTodos();
 
 

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import negocio.Libro;
 import repositorio.LibroRepository;
 import repositorio.jdbc.helper.LibroRepositoryJDBC;
+import repositorio.servicios.LibroService;
+import repositorio.servicios.standard.LibroServiceStandard;
 
 /**
  * Servlet implementation class ServletLibro
@@ -27,17 +29,10 @@ public class ServletLibro extends HttpServlet {
 		String titulo = request.getParameter("titulo");
 		String autor = request.getParameter("autor");
 		Libro libro = new Libro(isbn, titulo, autor);
-		LibroRepository repositorio = new LibroRepositoryJDBC();
+		LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
 		repositorio.insertar(libro);
 		response.sendRedirect("ListaLibrosJSP.jsp");
 
-		/*PrintWriter pw = response.getWriter();
-		pw.println("<html><body>");
-//		pw.println(libro.getIsbn());
-//		pw.println(libro.getTitulo());
-//		pw.println(libro.getAutor());
-		pw.println("Hemos insertado libro");
-		pw.println("</body></html>");*/
 	}
 
 }
