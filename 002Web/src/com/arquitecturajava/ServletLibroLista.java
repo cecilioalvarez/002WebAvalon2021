@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
+import com.arquitecturajava.servicios.LibroService;
+import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 /**
  * Servlet implementation class ServletLibroLista
@@ -23,8 +25,9 @@ public class ServletLibroLista extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LibroRepository repositorio = new LibroRepositoryJDBC();
-		List<Libro> listaLibros = repositorio.buscarTodos();
+		//LibroRepository repositorio = new LibroRepositoryJDBC();
+		LibroService servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
+		List<Libro> listaLibros = servicio.buscarTodos();
 		PrintWriter writer = response.getWriter();
 		writer.println("<html><body>");
 		writer.println("<table border='1px solid black'>");

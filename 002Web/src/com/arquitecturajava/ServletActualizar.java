@@ -14,17 +14,17 @@ import com.arquitecturajava.servicios.LibroService;
 import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 /**
- * Servlet implementation class ServletLibroBorrar
+ * Servlet implementation class ServletActualizar
  */
-@WebServlet("/ServletLibroBorrar")
-public class ServletLibroBorrar extends HttpServlet {
+@WebServlet("/ServletActualizar")
+public class ServletActualizar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+       
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Libro libro = new Libro(request.getParameter("isbn"),request.getParameter("titulo"),request.getParameter("autor"));
 		LibroService servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
-		
-		servicio.borrar(new Libro(request.getParameter("isbn")));
+		servicio.actualizar(libro);
 		response.sendRedirect("listalibros.jsp");
 	}
 

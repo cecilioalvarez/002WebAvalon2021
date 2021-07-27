@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <%@page import="com.arquitecturajava.negocio.Libro"%>
 <%@page import="java.util.List"%>
-<%@page import="com.arquitecturajava.repositorios.LibroRepository"%>
+<%@page import="com.arquitecturajava.repositorios.jdbc.*"%>
+<%@page import="com.arquitecturajava.servicios.LibroService"%>
 <%@page
-	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
+	import="com.arquitecturajava.servicios.standard.LibroServiceStandard"%>
 <%
-LibroRepository repositorio = new LibroRepositoryJDBC();
+LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
 List<Libro> listaLibros = repositorio.buscarTodos();
 %>
 
@@ -34,6 +35,8 @@ List<Libro> listaLibros = repositorio.buscarTodos();
 				<td><%=libro.getTitulo()%></td>
 				<td><%=libro.getAutor()%></td>
 				<td><a href="ServletLibroBorrar?isbn=<%=libro.getIsbn()%>">borrar</a></td>
+				<td><a href="detalle.jsp?isbn=<%=libro.getIsbn()%>">detalle</a></td>
+				<td><a href="formularioeditar.jsp?isbn=<%=libro.getIsbn()%>">editar</a></td>
 				
 			</tr>
 			<%
