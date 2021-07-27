@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
+import com.arquitecturajava.servicios.LibroService;
+import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 /**
  * Servlet implementation class ServletActualizar
@@ -25,9 +27,10 @@ public class ServletActualizar extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LibroRepository repositorio= new LibroRepositoryJDBC();
+	
 		Libro libro= new Libro(request.getParameter("isbn"),request.getParameter("titulo"),request.getParameter("autor"));
-		repositorio.actualizar(libro);
+		LibroService servicio= new LibroServiceStandard(new LibroRepositoryJDBC());
+		servicio.actualizar(libro);
 		response.sendRedirect("listalibros.jsp");
 		
 		
