@@ -14,7 +14,7 @@ import com.arquitecturajava.repositorios.jdbc.Libro_RepositoryJDBC;
 /**
  * Servlet implementation class ServletLibrosRemove
  */
-@WebServlet("/ServletLibrosRemove")
+@WebServlet("/ServletLibrosRemoveJSP")
 public class ServletLibrosRemove extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -22,7 +22,7 @@ public class ServletLibrosRemove extends HttpServlet {
 
 		LibroRepository repositorio = new Libro_RepositoryJDBC();
 		repositorio.removeBook(new Libro(request.getParameter("isbn")));
-		response.sendRedirect("ServletLibrosLista");
+		response.sendRedirect("ListaLibrosJSP.jsp");
 	}
 
 }
