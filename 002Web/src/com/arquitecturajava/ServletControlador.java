@@ -33,14 +33,15 @@ public class ServletControlador extends HttpServlet {
 
 			List<Libro> listaLibros = servicio.buscarTodos();
 			request.setAttribute("libros", listaLibros);
+			
 			despachador = request.getRequestDispatcher("listalibros.jsp");
+			//reenvida los datos del primer servlet controlador al jsp para que renderize
+			despachador.forward(request, response);
 
 		} else if (request.getParameter("accion").equals("borrar")) {
 
 			servicio.borrar(new Libro(request.getParameter("isbn")));
-			List<Libro> listaLibros = servicio.buscarTodos();
-			request.setAttribute("libros", listaLibros);
-			despachador = request.getRequestDispatcher("listalibros.jsp");
+			response.sendRedirect("ServletControlador");
 			
 			
 		} else if (request.getParameter("accion").equals("insertar")) {
@@ -52,18 +53,17 @@ public class ServletControlador extends HttpServlet {
 			Libro libro = new Libro(isbn, titulo, autor);
 			servicio.insertar(libro);
 
-			List<Libro> listaLibros = servicio.buscarTodos();
-			request.setAttribute("libros", listaLibros);
-			despachador = request.getRequestDispatcher("listalibros.jsp");
+			response.sendRedirect("ServletControlador");
 
 		} else {
 
 			despachador = request.getRequestDispatcher("formularioLibro.html");
+			despachador.forward(request, response);
 		}
 
-		// reenviamos todo a este vista
+		
 
-		despachador.forward(request, response);
+		
 
 	}
 
