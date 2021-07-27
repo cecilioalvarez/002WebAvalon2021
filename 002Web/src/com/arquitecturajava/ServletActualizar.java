@@ -1,7 +1,6 @@
 package com.arquitecturajava;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,24 +13,25 @@ import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
 
 /**
- * Servlet implementation class ServletLibro
+ * Servlet implementation class ServletActualizar
  */
-@WebServlet("/ServletLibro")
-public class ServletLibro extends HttpServlet {
+@WebServlet("/ServletActualizar")
+public class ServletActualizar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
+  
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String isbn= request.getParameter("isbn");
-		String titulo= request.getParameter("titulo");
-		String autor= request.getParameter("autor");
-		
-		Libro libro= new Libro (isbn,titulo,autor);
 		LibroRepository repositorio= new LibroRepositoryJDBC();
-		repositorio.insertar(libro);
-		
+		Libro libro= new Libro(request.getParameter("isbn"),request.getParameter("titulo"),request.getParameter("autor"));
+		repositorio.actualizar(libro);
 		response.sendRedirect("listalibros.jsp");
+		
+		
+		
 		
 	}
 

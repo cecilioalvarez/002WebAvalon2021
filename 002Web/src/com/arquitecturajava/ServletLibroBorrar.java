@@ -19,12 +19,13 @@ import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
 public class ServletLibroBorrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		LibroRepository repositorio= new LibroRepositoryJDBC();
 		repositorio.borrar(new Libro(request.getParameter("isbn")));
-		response.sendRedirect("ServletLibrosLista");
+		response.sendRedirect("listalibros.jsp");
 	
 	}
 

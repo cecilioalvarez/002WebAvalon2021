@@ -30,7 +30,9 @@ List<Libro> listaLibros=repositorio.buscarTodos();
 			<td><%=libro.getTitulo()%></td>
 			<td><%=libro.getAutor()%></td>
 			<td><a href="ServletLibroBorrar?isbn=<%=libro.getIsbn()%>">borrar</a></td>
-		
+		<td><a href="detalle.jsp?isbn=<%=libro.getIsbn()%>">detalle</a></td>
+			<td><a href="formularioeditar.jsp?isbn=<%=libro.getIsbn()%>">editar</a></td>
+	
 		</tr>
 		<% } %>
 		</tbody>
