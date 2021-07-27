@@ -23,39 +23,54 @@ public class LibraryServiceController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         this.libraryService = new LibraryServiceImplementation(new BookRepositoryJDBC());
-        RequestDispatcher requestDispatcher = null;
         
         if (request.getParameter("action") != null) {
             switch (request.getParameter("action")) {
-                case "delete":
-                    this.libraryService.delete(new Book(request.getParameter("isbn")));
-                    response.sendRedirect("LibraryServiceController");
+                case "deleteBook":
+                    this.deleteBook(request, response);
                     break;
                 case "editBook":
-                    Book bookToEdit = new Book(request.getParameter("isbn"));
-                    request.setAttribute("book", this.libraryService.selectWithChapters(bookToEdit));
-                    request.setAttribute("authors", new AuthorRepositoryJDBC().select());
-                    requestDispatcher = request.getRequestDispatcher("editBook.jsp");
-                    requestDispatcher.forward(request, response);
+                    this.goToBookEditingView(request, response);
                     break;
-                case "update":
-                    Book bookToUpdate = new Book(request.getParameter("isbn"), request.getParameter("title"), new Author(request.getParameter("author")));
-                    this.libraryService.update(bookToUpdate);
-                    response.sendRedirect("LibraryServiceController");
+                case "updateBook":
+                    this.updateBook(request, response);
                     break;
-                case "authorDetail":
-                    Author author = new AuthorRepositoryJDBC().select(new Author(request.getParameter("id")));
-                    request.setAttribute("author", author);
-                    requestDispatcher = request.getRequestDispatcher("authorDetail.jsp");
-                    requestDispatcher.forward(request, response);
+                case "showAuthorDetail":
+                    this.goToAuthorDetailView(request, response);
                     break;
                 default:
                     response.sendRedirect("LibraryServiceController");
             }
         } else {
             request.setAttribute("bookList", this.libraryService.selectWithChapters());
-            requestDispatcher = request.getRequestDispatcher("bookList.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("bookList.jsp");
             requestDispatcher.forward(request, response);
         }
+    }
+    
+    private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        this.libraryService.delete(new Book(request.getParameter("isbn")));
+        response.sendRedirect("LibraryServiceController");
+    }
+    
+    private void goToBookEditingView(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Book bookToEdit = new Book(request.getParameter("isbn"));
+        request.setAttribute("book", this.libraryService.selectWithChapters(bookToEdit));
+        request.setAttribute("authors", new AuthorRepositoryJDBC().select());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("editBook.jsp");
+        requestDispatcher.forward(request, response);
+    }
+    
+    private void updateBook(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Book bookToUpdate = new Book(request.getParameter("isbn"), request.getParameter("title"), new Author(request.getParameter("author")));
+        this.libraryService.update(bookToUpdate);
+        response.sendRedirect("LibraryServiceController");
+    }
+    
+    private void goToAuthorDetailView(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Author author = new AuthorRepositoryJDBC().select(new Author(request.getParameter("id")));
+        request.setAttribute("author", author);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("authorDetail.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

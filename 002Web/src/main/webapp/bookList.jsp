@@ -38,13 +38,13 @@
                             <td><%= book.getPk_isbn().toUpperCase() %></td>
                             <td><%= book.getTitle() %></td>
                             <td>
-                                <a href='LibraryServiceController?action=authorDetail&id=<%=book.getFk_author().getPk_id() %>'>
+                                <a href='LibraryServiceController?action=showAuthorDetail&id=<%=book.getFk_author().getPk_id() %>'>
                                     <%= book.getFk_author().getName() %>
                                 </a>
                             </td>
                             <td>
                                 <a href='LibraryServiceController?action=editBook&isbn=<%=book.getPk_isbn() %>'>Editar</a>
-                                <a href='LibraryServiceController?action=delete&isbn=<%=book.getPk_isbn() %>'>Borrar</a>
+                                <a href='LibraryServiceController?action=deleteBook&isbn=<%=book.getPk_isbn() %>'>Borrar</a>
                             </td>
                         </tr>
                 <%} %>

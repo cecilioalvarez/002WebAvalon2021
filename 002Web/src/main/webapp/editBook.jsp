@@ -51,7 +51,7 @@
                     </select>
                 </div>
             </fieldset>
-            <input type="hidden" id="action" name="action" value="update">
+            <input type="hidden" id="action" name="action" value="updateBook">
             <input type="submit" id="send" name="send" value="Actualizar"/>
         </form>
         <div>
