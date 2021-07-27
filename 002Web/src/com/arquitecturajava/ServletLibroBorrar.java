@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
+import com.arquitecturajava.servicios.LibroService;
+import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 /**
  * Servlet implementation class ServletLibroBorrar
@@ -23,8 +25,8 @@ public class ServletLibroBorrar extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		LibroRepository repositorio= new LibroRepositoryJDBC();
-		repositorio.borrar(new Libro(request.getParameter("isbn")));
+		LibroService servicio= new LibroServiceStandard(new LibroRepositoryJDBC());
+		servicio.borrar(new Libro(request.getParameter("isbn")));
 		response.sendRedirect("listalibros.jsp");
 	
 	}

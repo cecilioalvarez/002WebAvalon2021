@@ -2,12 +2,15 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@page  import="com.arquitecturajava.negocio.Libro" %>
+
 <%@page  import="java.util.List" %>
-<%@page  import="com.arquitecturajava.repositorios.LibroRepository" %>
-<%@page  import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC" %>
+<%@page  import="com.arquitecturajava.repositorios.jdbc.*" %>
+<%@page  import="com.arquitecturajava.servicios.LibroService" %>
+<%@page  import="com.arquitecturajava.servicios.standard.LibroServiceStandard" %>
 <%
-LibroRepository repositorio= new LibroRepositoryJDBC();
-List<Libro> listaLibros=repositorio.buscarTodos();
+
+LibroService servicio= new LibroServiceStandard(new LibroRepositoryJDBC());
+List<Libro> listaLibros=servicio.buscarTodos();
 %>
 <html>
 <head>
