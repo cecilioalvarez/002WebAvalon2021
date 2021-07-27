@@ -2,15 +2,12 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@page  import="com.arquitecturajava.negocio.Libro" %>
-
 <%@page  import="java.util.List" %>
-<%@page  import="com.arquitecturajava.repositorios.jdbc.*" %>
-<%@page  import="com.arquitecturajava.servicios.LibroService" %>
-<%@page  import="com.arquitecturajava.servicios.standard.LibroServiceStandard" %>
+
 <%
 
-LibroService servicio= new LibroServiceStandard(new LibroRepositoryJDBC());
-List<Libro> listaLibros=servicio.buscarTodos();
+// ya no accedo a la base de datos desde el jsp
+List<Libro> listaLibros=(List<Libro>)request.getAttribute("libros");
 %>
 <html>
 <head>
