@@ -41,6 +41,6 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 			%>
 		</tbody>
 	</table>
-	<a href="ServletControlador?accion=formulario">nuevo libro</a>
+	<a href="ServletControlador?accion=formularioInsertar">nuevo libro</a>
 </body>
 </html>
