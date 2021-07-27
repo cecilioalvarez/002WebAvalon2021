@@ -21,51 +21,54 @@ import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	LibroService servicio;
-	
-   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		servicio= new LibroServiceStandard(new LibroRepositoryJDBC());
-		RequestDispatcher despachador;
-		if (request.getParameter("accion")==null) {
-			
-			List<Libro> listaLibros=servicio.buscarTodos();
-			request.setAttribute("libros",listaLibros);
-			despachador= request.getRequestDispatcher("listalibros.jsp");
-			
-		}else  if (request.getParameter("accion").equals("borrar")){
-			
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
+		RequestDispatcher despachador = null;
+		if (request.getParameter("accion") == null) {
+
+			List<Libro> listaLibros = servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
+
+		} else if (request.getParameter("accion").equals("borrar")) {
+
 			servicio.borrar(new Libro(request.getParameter("isbn")));
-			List<Libro> listaLibros=servicio.buscarTodos();
-			request.setAttribute("libros",listaLibros);
-			despachador= request.getRequestDispatcher("listalibros.jsp");
-		}else {
-			String isbn= request.getParameter("isbn");
-			String titulo= request.getParameter("titulo");
-			String autor= request.getParameter("autor");
+			List<Libro> listaLibros = servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
 			
-			Libro libro= new Libro (isbn,titulo,autor);
+			
+		} else if (request.getParameter("accion").equals("insertar")) {
+
+			String isbn = request.getParameter("isbn");
+			String titulo = request.getParameter("titulo");
+			String autor = request.getParameter("autor");
+
+			Libro libro = new Libro(isbn, titulo, autor);
 			servicio.insertar(libro);
-			
-			List<Libro> listaLibros=servicio.buscarTodos();
-			request.setAttribute("libros",listaLibros);
-			despachador= request.getRequestDispatcher("listalibros.jsp");
+
+			List<Libro> listaLibros = servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
+
+		} else {
+
+			despachador = request.getRequestDispatcher("formularioLibro.html");
 		}
-		
-		
-		
+
 		// reenviamos todo a este vista
-		
+
 		despachador.forward(request, response);
-		
+
 	}
 
-	
-	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
