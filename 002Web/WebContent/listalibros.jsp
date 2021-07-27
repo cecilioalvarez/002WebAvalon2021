@@ -29,10 +29,12 @@ List<Libro> listaLibros=repositorio.buscarTodos();
 			<td><%=libro.getIsbn()%></td>
 			<td><%=libro.getTitulo()%></td>
 			<td><%=libro.getAutor()%></td>
+			<td><a href="ServletLibroBorrar?isbn=<%=libro.getIsbn()%>">borrar</a></td>
 		
 		</tr>
 		<% } %>
 		</tbody>
 	</table>
+	<a href="formularioLibro.html">nuevo libro</a>
 </body>
 </html>
