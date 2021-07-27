@@ -29,7 +29,7 @@ public class ServletLibro extends HttpServlet {
 		Libro libro = new Libro(isbn, titulo, autor);
 		LibroRepository repositorio = new LibroRepositoryJDBC();
 		repositorio.insertar(libro);
-		response.sendRedirect("ServletLibrosLista");
+		response.sendRedirect("ListaLibrosJSP.jsp");
 
 		/*PrintWriter pw = response.getWriter();
 		pw.println("<html><body>");

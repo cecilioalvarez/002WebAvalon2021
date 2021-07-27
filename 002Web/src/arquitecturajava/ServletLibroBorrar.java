@@ -23,7 +23,7 @@ public class ServletLibroBorrar extends HttpServlet {
 
 		LibroRepository repositorio = new LibroRepositoryJDBC();
 		repositorio.borrar(new Libro(request.getParameter("isbn")));
-		response.sendRedirect("ServletLibrosLista");
+		response.sendRedirect("ListaLibrosJSP.jsp");
 	}
 
 }
