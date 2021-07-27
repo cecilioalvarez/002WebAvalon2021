@@ -10,25 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
-import com.arquitecturajava.servicios.LibroService;
-import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 
-@WebServlet("/ServletLibroBorrar")
-public class ServletLibroBorrar extends HttpServlet {
+@WebServlet("/ServletActualizar")
+public class ServletActualizar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LibroService servicio=new LibroServiceStandard(new LibroRepositoryJDBC());
-		
-		servicio.borrar(new Libro(request.getParameter("isbn")));
-		response.sendRedirect("listaLibros.jsp");
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		LibroRepository repositorio=new LibroRepositoryJDBC();
+		Libro libro=new Libro(request.getParameter("isbn"),request.getParameter("titulo"),request.getParameter("autor"));
+		repositorio.actualizar(libro);
+		response.sendRedirect("listaLibros.jsp");
 	}
 
 }

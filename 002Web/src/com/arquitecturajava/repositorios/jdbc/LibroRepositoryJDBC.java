@@ -25,7 +25,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_BUSCAR_TODOS = "select * from libros";
 	final static String CONSULTA_BUSCAR_TODOS_CON_CAPITULOS = "select libros.*, capitulos.titulo as tituloCapitulo, capitulos.paginas from libros inner join capitulos on libros.isbn=capitulos.libros_isbn";
 	final static String CONSULTA_BUSCAR_UNO = "select * from libros where isbn=?";
-	final static String CONSULTA_ACTUALIZAR = "update libros set isbn=?, titulo=?, autor=? where isbn=?";
+	final static String CONSULTA_ACTUALIZAR = "update libros set titulo=? , autor=? where isbn=?";
 	final static String CONSULTA_BUSCAR_TITULO = "select * from libros where titulo=?";
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from libros where titulo=? AND autor=?";
 
@@ -107,6 +107,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 			Connection conn = helper.getConexion();
 			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_ACTUALIZAR);
 
+			
 			sentencia.setString(1, libro.getTitulo());
 			sentencia.setString(2, libro.getAutor());
 			sentencia.setString(3, libro.getIsbn());

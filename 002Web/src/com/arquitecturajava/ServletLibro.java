@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
+import com.arquitecturajava.servicios.LibroService;
+import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 
 
 
@@ -26,10 +28,10 @@ public class ServletLibro extends HttpServlet {
 		String titulo=request.getParameter("titulo");
 		String autor=request.getParameter("autor");
 		Libro libro=new Libro(isbn,titulo,autor);
-		LibroRepository repositorio=new LibroRepositoryJDBC();
-		repositorio.insertar(libro);
+		LibroService servicio=new LibroServiceStandard(new LibroRepositoryJDBC());
+		servicio.insertar(libro);
 		
-		response.sendRedirect("ServletLibrosLista");
+		response.sendRedirect("listaLibros.jsp");
 		
 		
 //		PrintWriter pw=response.getWriter();
