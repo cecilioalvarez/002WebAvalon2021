@@ -37,7 +37,8 @@ public class ServletLibroLista extends HttpServlet {
 		}
 		writer.println("</table>"); 
 		writer.println("<a href='FormularioLibro.html'> insertar</a>");
-		writer.println("</body></html>");
+		writer.println("</body></html>"); 
+		
 	}
 		
 }
