@@ -26,13 +26,32 @@ public class ServletControlador extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
-		List<Libro> listaLibros = servicio.buscarTodos();
-		//queremos volver a la lista de libros
-		RequestDispatcher despachador = request.getRequestDispatcher("listalibros.jsp");
-		//lista de libros pasarle unos datos en este caso una lista de libros
-		//a traves de la peticion adjuntamos los datos
-		request.setAttribute("libros", listaLibros);
-		//reenviamos todo a esta vista
+		RequestDispatcher despachador = null;
+		if(request.getParameter("accion")==null) {
+			List<Libro> listaLibros = servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
+		}else if(request.getParameter("accion").equals("borrar")){
+			servicio.borrar(new Libro(request.getParameter("isbn")));
+			List<Libro> listaLibros=servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
+		} else if(request.getParameter("accion").equals("insertar")) {
+			String isbn = request.getParameter("isbn");
+			String titulo = request.getParameter("titulo");
+			String autor = request.getParameter("autor");
+
+			Libro libro = new Libro(isbn, titulo, autor);
+			servicio.insertar(libro);
+
+			List<Libro> listaLibros = servicio.buscarTodos();
+			request.setAttribute("libros", listaLibros);
+			despachador = request.getRequestDispatcher("listalibros.jsp");
+
+		} else {
+			despachador = request.getRequestDispatcher("FormularioLibro.html");
+		}
+		
 		despachador.forward(request, response);
 	}
 

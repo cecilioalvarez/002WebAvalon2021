@@ -5,11 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="ServletLibro" method="POST">
+	<form action="ServletControlador" method="POST">
+		<p>ISBN: <input type="number" name="isbn" /></p>
+		<p>Titulo: <input type="text" name="titulo" /></p>
+		<p>Autor: <input type="text" name="autor" />  </p>
 		
-		ISBN: <input type="number" name="isbn" />
-		Titulo: <input type="text" name="titulo" />
-		Autor: <input type="text" name="autor" />  
+		
+		<input type="hidden" name="accion" value="insertar" />
 		<input type="submit" value="enviar datos" />
 	</form>
 </body>
