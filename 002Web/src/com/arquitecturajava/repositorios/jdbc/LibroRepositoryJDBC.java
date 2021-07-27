@@ -11,7 +11,7 @@ import java.util.List;
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
-import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
+import com.arquitecturajava.repositorios.jdbc.DataBaseHelper;
 
 
 public class LibroRepositoryJDBC implements LibroRepository {

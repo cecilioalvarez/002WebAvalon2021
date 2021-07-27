@@ -23,17 +23,10 @@ public class Servlet011_LibroBorrar extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-		LibroRepository repositorio=(LibroRepository) new LibroRepositoryJDBC();
+		LibroRepository repositorio=new LibroRepositoryJDBC();
 		repositorio.borrar(new Libro(request.getParameter("isbn")));
-		response.sendRedirect("Servlet011_LibroTablaLink");
+		response.sendRedirect("listalibros.jsp");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 }

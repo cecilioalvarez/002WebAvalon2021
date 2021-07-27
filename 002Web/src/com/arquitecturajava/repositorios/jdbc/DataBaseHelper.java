@@ -1,4 +1,4 @@
-package com.arquitecturajava.repositorios.jdbc.helper;
+package com.arquitecturajava.repositorios.jdbc;
 
 import java.io.File;
 import java.io.FileInputStream;
