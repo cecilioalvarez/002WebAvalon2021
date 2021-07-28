@@ -2,12 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List" %>
 <%@page import="com.arquitecturajavaJSP.negocio.Libro" %>
-<%@page import="com.arquitecturajavaJSP.repositorios.LibroRepository" %>
+<%@page import="com.arquitecturajavaJSP.servicios.LibroService" %>
+<%@page import="com.arquitecturajavaJSP.servicios.standard.LibroServiceStandard" %>
 <%@page import="com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC" %>
 
 <%
-LibroRepository repositorio = new Libro_RepositoryJDBC();
-Libro libro = repositorio.buscarLibro(request.getParameter("isbn"));
+Libro libro = (Libro) request.getAttribute("milibro");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,14 +16,15 @@ Libro libro = repositorio.buscarLibro(request.getParameter("isbn"));
 <title>Insert title here</title>
 </head>
 <body>
-<p>
-ISBN:<%=libro.getIsbn()%>
-</p>
-<p>
-Título:<%=libro.getTitulo()%>
-</p>
-<p>
-Autor:<%=libro.getAutor()%>
-</p>
+	<p>
+		ISBN:<%=libro.getIsbn()%>
+	</p>
+	<p>
+		Título:<%=libro.getTitulo()%>
+	</p>
+	<p>
+		Autor:<%=libro.getAutor()%>
+	</p>
+	<a href="ServletControlador" style="color: blue">Volver</a>
 </body>
 </html>

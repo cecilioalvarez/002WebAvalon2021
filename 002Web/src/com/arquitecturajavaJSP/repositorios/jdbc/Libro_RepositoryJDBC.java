@@ -21,7 +21,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	final static String queryFindAutor = "SELECT * FROM libro WHERE autor=?";
 	final static String queryFindTitulo = "SELECT * FROM libro WHERE titulo=?";
 	final static String QUERYFINDONE = "SELECT * FROM libro WHERE isbn=?";
-	final static String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
+	
 	final static String QUERYSELECTWITHCHAPTERS="select libro.isbn as isbn, libro.titulo as titulo, libro.autor as autor, Capitulos.titulo as tituloCapitulo, Capitulos.paginas as paginas from libro,Capitulos where libro.isbn= Capitulos.libros_isbn";
 	private static DataBaseHelper helper= new DataBaseHelper();
 	
@@ -39,7 +39,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 				prepSentencia.setString(3, libro.getAutor());
 			
 				prepSentencia.execute();
-			}catch (Exception ex) {
+			}catch (SQLException ex) {
 				ex.printStackTrace();
 				conn.rollback();
 			}
@@ -47,7 +47,6 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 			conn.commit();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -191,7 +190,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 		return librosAutor;
 	}
 	
-	@Override
+	/*@Override
 	public void modifyBook(Libro libro) {
 		
 		try(Connection conn = helper.getConexion();){
@@ -203,7 +202,9 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 				prepSentencia.setString(2, libro.getTitulo());
 				prepSentencia.setString(3, libro.getIsbn());
 			
-				prepSentencia.execute();
+				//prepSentencia.execute();
+				prepSentencia.executeUpdate();
+				
 			}catch (Exception ex) {
 				ex.printStackTrace();
 				conn.rollback();
@@ -215,6 +216,33 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}*/
+	
+	@Override
+	public int modifyBook(Libro libro) {
+		final String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
+		try(Connection conn = helper.getConexion();){
+			
+			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
+				//PreparedStatement
+			
+				prepSentencia.setString(1, libro.getAutor());
+				prepSentencia.setString(2, libro.getTitulo());
+				prepSentencia.setString(3, libro.getIsbn());
+			
+				//prepSentencia.execute();
+				return prepSentencia.executeUpdate();
+				
+			}catch (SQLException ex) {
+				ex.printStackTrace();
+				conn.rollback();
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	@Override

@@ -6,7 +6,7 @@
 </head>
 <body>
 <!-- ServletHola es la url del servlet -->
-	<form action="ServletLibroJSP" method="POST">
+	<form action="ServletControlador" method="POST">
 		<p>
 		<label for="isbn">ISBN: </label>
 		<input name="isbn"/>
@@ -20,6 +20,7 @@
 		<input name="autor"/>
 		</p>
 		<p>
+		<input type="hidden" name="accion" value="insertar"/>
 		<input type="submit" value="Enviar Datos"/>
 		</p>
 	</form>

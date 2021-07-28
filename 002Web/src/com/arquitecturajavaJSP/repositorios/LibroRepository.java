@@ -22,6 +22,7 @@ public interface LibroRepository {
 
 	List<Libro> buscarLibroAutorTitulo(String autor, String titulo);
 
-	void modifyBook(Libro libro);
+	//void modifyBook(Libro libro);
+	int modifyBook(Libro libro);
 
 }

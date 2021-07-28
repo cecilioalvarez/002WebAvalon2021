@@ -56,8 +56,8 @@ public class LibroServiceStandard implements LibroService {
 	}
 
 	@Override
-	public void modifyBook(Libro libro) {
-		repositorio.modifyBook(libro);
+	public int modifyBook(Libro libro) {
+		return repositorio.modifyBook(libro);
 	}
 	
 	

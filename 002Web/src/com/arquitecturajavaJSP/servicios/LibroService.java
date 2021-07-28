@@ -22,6 +22,6 @@ public interface LibroService {
 
 	List<Libro> buscarLibroAutorTitulo(String autor, String titulo);
 
-	void modifyBook(Libro libro);
+	int modifyBook(Libro libro);
 
 }

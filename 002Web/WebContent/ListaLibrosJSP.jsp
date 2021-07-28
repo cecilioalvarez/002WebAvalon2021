@@ -4,12 +4,10 @@
 
 <%@page import="java.util.List" %>
 <%@page import="com.arquitecturajavaJSP.negocio.Libro" %>
-<%@page import="com.arquitecturajavaJSP.repositorios.LibroRepository" %>
-<%@page import="com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC" %>
 
 <%
-LibroRepository repositorio = new Libro_RepositoryJDBC();
-List<Libro> listaLibros = repositorio.buscarTodosLibros();
+//Ya no accedo a DB desde jsp, sino al ServletControlador
+List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 %>
 <html>
 <head>
@@ -40,14 +38,14 @@ List<Libro> listaLibros = repositorio.buscarTodosLibros();
 	            	<td><%=libro.getIsbn() %></td>
 	            	<td><%=libro.getTitulo() %></td>
 	            	<td><%=libro.getAutor() %></td>
-	            	<td><a href="ServletLibrosRemoveJSP?isbn=<%=libro.getIsbn()%>" style="color: red">Borrar</a></td>
-	            	<td><a href="DetalleJSP.jsp?isbn=<%=libro.getIsbn()%>" style="color: purple">Detalle</a></td>
-	            	<td><a href="formularioEditarJSP.jsp?isbn=<%=libro.getIsbn()%>" style="color: blue">Modificar</a></td>
+	            	<td><a href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>" style="color: red">Borrar</a></td>
+	            	<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>" style="color: purple">Detalle</a></td>
+	            	<td><a href="ServletControlador?accion=formularioModificar&isbn=<%=libro.getIsbn()%>" style="color: blue">Modificar</a></td>
 	            </tr>
             <% } %>
 			<tr></tr>
 		</tbody>
 	</table>
-	<a href="formularioLibroJSP.html" style="color: green">Nuevo Libro</a>
+	<a href="ServletControlador?accion=formularioInsertar" style="color: green">Nuevo Libro</a>
 </body>
 </html>
