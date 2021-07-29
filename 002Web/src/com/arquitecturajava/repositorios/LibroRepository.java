@@ -2,6 +2,7 @@ package com.arquitecturajava.repositorios;
 
 import java.util.List;
 
+import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 
 public interface LibroRepository {
@@ -19,5 +20,7 @@ public interface LibroRepository {
 	List<Libro> buscarTituloyAutor(String titulo, String autor);
 
 	Libro buscarUno(String isbn);
+	
+	List<Capitulo> buscarTodosCapitulos(Libro libro);
 
 }

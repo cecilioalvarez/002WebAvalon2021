@@ -20,6 +20,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from Libros  where isbn =?";
 	final static String CONSULTA_BUSCAR_TODOS = "select * from Libros";
+	final static String CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO = "select * from Capitulos where libros_isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS_CON_CAPITULOS = "select Libros.isbn as isbn, Libros.titulo as titulo, Libros.autor as autor, Capitulos.titulo as tituloCapitulo, Capitulos.paginas as paginas from Libros,Capitulos where Libros.isbn= Capitulos.libros_isbn";
 	final static String CONSULTA_BUSCAR_UNO = "select * from Libros where isbn=?";
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from Libros where titulo=? and autor=?";
@@ -149,25 +150,26 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		try (Connection conn = helper.getConexion();
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS);) {
-			//jdbc los registros que vienen de jdbc son tabulares
+			// jdbc los registros que vienen de jdbc son tabulares
 			// es decir es una tabla de la base de datos
-			//o es un array o una matriz
+			// o es un array o una matriz
 			// deseamos convertirlo en un grafo
 			while (rs.next()) {
 
 				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				
+
 				if (!listaLibros.contains(l)) {
-					
+
 					listaLibros.add(l);
-					l.addCapitulo(new Capitulo (rs.getString("tituloCapitulo"),rs.getInt("paginas"),l));
-				}else {
+					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
+				} else {
 					// el libro ya esta en la lista
 					// traeme el ultimo item de la lista
 					// que es el libro y añade el capitulo
-					listaLibros.get(listaLibros.size()-1).addCapitulo(new Capitulo (rs.getString("tituloCapitulo"),rs.getInt("paginas"),l));
+					listaLibros.get(listaLibros.size() - 1)
+							.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
 				}
-				
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -175,6 +177,31 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		}
 
 		return listaLibros;
+
+	}
+
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
+
+		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
+
+		try (Connection conn = helper.getConexion();
+				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO)) {
+
+			sentencia.setString(1, libro.getIsbn());
+
+			ResultSet rs = sentencia.executeQuery();
+			while (rs.next()) {
+				Libro l= new Libro(rs.getString("libros_isbn"));
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l);
+				listaCapitulos.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return listaCapitulos;
 
 	}
 
