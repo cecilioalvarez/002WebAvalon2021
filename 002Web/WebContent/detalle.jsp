@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
     
 <%@page  import="com.arquitecturajava.negocio.Libro" %>
-<%@page  import="com.arquitecturajava.servicios.LibroService" %>
-<%@page  import="com.arquitecturajava.servicios.standard.LibroServiceStandard" %>
-<%@page  import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
+
 <%
-LibroService service= new LibroServiceStandard(new LibroRepositoryJDBC());
-Libro libro=service.buscarUno(request.getParameter("isbn"));
+
+Libro libro=(Libro)request.getAttribute("libro");
 %>   
 <!DOCTYPE html>
 <html>
