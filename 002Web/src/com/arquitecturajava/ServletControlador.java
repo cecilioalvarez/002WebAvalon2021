@@ -29,6 +29,7 @@ public class ServletControlador extends HttpServlet {
 
 		servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
 		RequestDispatcher despachador = null;
+		
 		if (request.getParameter("accion") == null) {
 
 			List<Libro> listaLibros = servicio.buscarTodos();
@@ -38,13 +39,23 @@ public class ServletControlador extends HttpServlet {
 			//reenvida los datos del primer servlet controlador al jsp para que renderize
 			despachador.forward(request, response);
 
-		} else if (request.getParameter("accion").equals("borrar")) {
+		} else if (request.getParameter("accion").equals("detalle")) {
+
+			Libro libro =servicio.buscarUno(request.getParameter("isbn"));
+			request.setAttribute("libro", libro);
+			despachador = request.getRequestDispatcher("detalle.jsp");
+			despachador.forward(request, response);
+			
+			
+		}else if (request.getParameter("accion").equals("borrar")) {
 
 			servicio.borrar(new Libro(request.getParameter("isbn")));
 			response.sendRedirect("ServletControlador");
 			
 			
-		} else if (request.getParameter("accion").equals("insertar")) {
+		}
+		
+		else if (request.getParameter("accion").equals("insertar")) {
 
 			String isbn = request.getParameter("isbn");
 			String titulo = request.getParameter("titulo");

@@ -25,5 +25,6 @@ Titulo:<%=libro.getTitulo()%>
 <p>
 Autor:<%=libro.getAutor()%>
 </p>
+<a href="ServletControlador">volver </a>
 </body>
 </html>
