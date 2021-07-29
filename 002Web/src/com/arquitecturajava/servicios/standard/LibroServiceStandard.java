@@ -51,7 +51,7 @@ public class LibroServiceStandard implements LibroService  {
 	@Override
 	public List<Capitulo> buscarTodosLosCapitulos() {
 		// TODO Auto-generated method stub
-		return null;
+		return repositorioCapitulo.buscarTodos();
 	}
 	
 	
