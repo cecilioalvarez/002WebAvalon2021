@@ -8,8 +8,9 @@
 	import="com.arquitecturajava.servicios.standard.LibroServiceStandard"%>
 <%@page
 	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
-<%	
-Libro libro = (Libro) request.getAttribute("libro");
+<%
+
+Libro libro=(Libro)request.getAttribute("libro");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,8 +30,8 @@ Libro libro = (Libro) request.getAttribute("libro");
 		<p>
 			Autor:<input type="text" name="autor" value="<%=libro.getAutor()%>" />
 		</p>
-		<input type="hidden" name="accion" value="actualizar"/>
-		<input type="submit" value="actualizar"/>
+		<input type="hidden" name="accion" value="actualizar" /> <input
+			type="submit" value="actualizar" />
 	</form>
 </body>
 </html>
