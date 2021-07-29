@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import negocio.Libro;
+import repositorio.jdbc.helper.CapituloRepositoryJDBC;
 import repositorio.jdbc.helper.LibroRepositoryJDBC;
 import repositorio.servicios.LibroService;
 import repositorio.servicios.standard.LibroServiceStandard;
@@ -26,7 +27,7 @@ public class ServletControlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion") == null) {
 
@@ -60,7 +61,6 @@ public class ServletControlador extends HttpServlet {
 			List<Libro> listaLibros = servicio.buscarTodos();
 			request.setAttribute("libros", listaLibros);
 			response.sendRedirect("ServletControlador");
-		
 
 		} else if (request.getParameter("accion").equals("actualizar")) {
 
@@ -85,7 +85,6 @@ public class ServletControlador extends HttpServlet {
 			despachador = request.getRequestDispatcher("formularioLibro.html");
 			despachador.forward(request, response);
 		}
-
 
 	}
 

@@ -1,4 +1,4 @@
-package arquitecturajava;
+/*package arquitecturajava;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import repositorio.servicios.standard.LibroServiceStandard;
 /**
  * Servlet implementation class ServletLibroBorrar
  */
-@WebServlet("/ServletLibroBorrar")
+/*@WebServlet("/ServletLibroBorrar")
 public class ServletLibroBorrar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,4 +27,4 @@ public class ServletLibroBorrar extends HttpServlet {
 		response.sendRedirect("ListaLibrosJSP.jsp");
 	}
 
-}
+}*/

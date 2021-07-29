@@ -1,4 +1,4 @@
-package arquitecturajava;
+/*package arquitecturajava;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ import repositorio.servicios.standard.LibroServiceStandard;
 /**
  * Servlet implementation class ServletLibro
  */
-@WebServlet("/ServletLibro")
+/*@WebServlet("/ServletLibro")
 public class ServletLibro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,4 +35,4 @@ public class ServletLibro extends HttpServlet {
 
 	}
 
-}
+}*/

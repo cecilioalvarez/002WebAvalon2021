@@ -2,6 +2,7 @@ package repositorio.servicios;
 
 import java.util.List;
 
+import negocio.Capitulo;
 import negocio.Libro;
 
 public interface LibroService {
@@ -20,4 +21,9 @@ public interface LibroService {
 
 	Libro buscarUno(String isbn);
 
+	List<Capitulo> buscarTodosLosCapitulos();
+
+	void borrarCapitulo(Capitulo capitulo);
+	
+	void insertarCapitulo(Capitulo capitulo);
 }

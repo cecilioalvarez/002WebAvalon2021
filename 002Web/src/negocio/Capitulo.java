@@ -13,6 +13,9 @@ public class Capitulo {
 		this.paginas = paginas;
 		this.libro = libro;
 	}
+	public Capitulo(String titulo) {
+		this.titulo = titulo;
+	}
 	public Libro getLibro() {
 		return libro;
 	}

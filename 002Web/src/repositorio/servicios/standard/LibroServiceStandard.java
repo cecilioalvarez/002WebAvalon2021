@@ -2,17 +2,21 @@ package repositorio.servicios.standard;
 
 import java.util.List;
 
+import negocio.Capitulo;
 import negocio.Libro;
+import repositorio.CapituloRepository;
 import repositorio.LibroRepository;
 import repositorio.servicios.LibroService;
 
 public class LibroServiceStandard implements LibroService {
 
 	private LibroRepository repositorio;
+	private CapituloRepository repositorioCapitulo;
 
-	public LibroServiceStandard(LibroRepository repositorio) {
+	public LibroServiceStandard(LibroRepository repositorio, CapituloRepository repositorioCapitulo) {
 		super();
 		this.repositorio = repositorio;
+		this.repositorioCapitulo = repositorioCapitulo;
 	}
 
 	@Override
@@ -48,6 +52,26 @@ public class LibroServiceStandard implements LibroService {
 	@Override
 	public Libro buscarUno(String isbn) {
 		return repositorio.buscarUno(isbn);
+	}
+
+	@Override
+	public List<Capitulo> buscarTodosLosCapitulos() {
+		// TODO Auto-generated method stub
+		return repositorioCapitulo.buscarTodos();
+	}
+
+	@Override
+	public void borrarCapitulo(Capitulo capitulo) {
+		// TODO Auto-generated method stub
+		repositorioCapitulo.borrarCapitulo(capitulo);
+
+	}
+
+	@Override
+	public void insertarCapitulo(Capitulo capitulo) {
+		// TODO Auto-generated method stub
+		repositorioCapitulo.insertarCapitulo(capitulo);
+
 	}
 
 }
