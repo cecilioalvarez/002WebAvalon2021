@@ -12,7 +12,7 @@ public interface CapituloRepository {
 
 	void borrar(Capitulo capitulo);
 
-	List<Capitulo> buscarTodos();
+	public List<Capitulo> buscarTodos();
 
 	Capitulo buscarUno(String titulo);
 

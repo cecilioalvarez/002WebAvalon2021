@@ -81,8 +81,8 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 				ResultSet rs = sentencia.executeQuery(CONSULTA);) {
 			while (rs.next()) {
 
-				Capitulo l = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
-				listaCapitulos.add(l);
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),null);
+				listaCapitulos.add(c);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
