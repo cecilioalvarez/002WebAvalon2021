@@ -28,5 +28,6 @@ Libro libro = servicio.buscarUno(request.getParameter("isbn"));
 	<p>
 		Autor:<%=libro.getAutor()%>
 	</p>
+	<a href="ServletControlador">Volver a la lista</a>
 </body>
 </html>

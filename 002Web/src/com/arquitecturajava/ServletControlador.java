@@ -44,6 +44,13 @@ public class ServletControlador extends HttpServlet {
 			response.sendRedirect("ServletControlador");
 			
 			
+		}else if (request.getParameter("accion").equals("detalle")) {
+
+			Libro libro = servicio.buscarUno(request.getParameter("isbn"));
+			request.setAttribute("libro", libro);
+			despachador = request.getRequestDispatcher("detalle.jsp");
+			despachador.forward(request, response);
+			
 		} else if (request.getParameter("accion").equals("insertar")) {
 
 			String isbn = request.getParameter("isbn");
