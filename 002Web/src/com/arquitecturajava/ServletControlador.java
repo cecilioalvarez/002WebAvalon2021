@@ -75,11 +75,12 @@ public class ServletControlador extends HttpServlet {
 
 			Libro libro = new Libro(isbn, titulo, autor);
 			servicio.actualizar(libro);
-
+			System.out.println("entro por actualizar");
 			response.sendRedirect("ServletControlador");
 
 		}else if (request.getParameter("accion").equals("formularioeditar")) {
 
+			System.out.println("entro por formularioeditar");
 			String isbn = request.getParameter("isbn");
 			Libro libro = servicio.buscarUno(isbn);
 			request.setAttribute("libro", libro);

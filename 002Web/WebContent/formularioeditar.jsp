@@ -12,7 +12,7 @@ Libro libro=(Libro)request.getAttribute("libro");
 <title>Insert title here</title>
 </head>
 <body>
-<form action="ServletActualizar" method="POST">
+<form action="ServletControlador" method="POST">
 <p>
 Isbn:<input type="text" name="isbn" value="<%=libro.getIsbn()%>"/>
 </p>
@@ -22,6 +22,7 @@ Titulo:<input type="text" name="titulo" value="<%=libro.getTitulo()%>"/>
 <p>
 Autor:<input type="text" name="autor" value="<%=libro.getAutor()%>"/>
 </p>
+<input type="hidden" name="accion" value="actualizar"/>
 <input type="submit" value="actualizar"/>
 </form>
 
