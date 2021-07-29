@@ -73,13 +73,13 @@ public class ServletControlador extends HttpServlet {
 
 			response.sendRedirect("ServletControlador");
 
-		}else if (request.getParameter("accion").equals("iractualizar")) {
+		}else if (request.getParameter("accion").equals("formularioeditar")) {
 
 			String isbn = request.getParameter("isbn");
 			Libro libro = servicio.buscarUno("isbn");
 			request.setAttribute("libro", libro);
 			
-			despachador = request.getRequestDispatcher("formularioeditar.html");
+			despachador = request.getRequestDispatcher("formularioeditar.jsp");
 			despachador.forward(request, response);
 
 		} else {
