@@ -2,9 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List" %>
 <%@page import="com.arquitecturajavaJSP.negocio.Libro" %>
-<%@page import="com.arquitecturajavaJSP.servicios.LibroService" %>
-<%@page import="com.arquitecturajavaJSP.servicios.standard.LibroServiceStandard" %>
-<%@page import="com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC" %>
 
 <%
 Libro libro = (Libro) request.getAttribute("milibro");
