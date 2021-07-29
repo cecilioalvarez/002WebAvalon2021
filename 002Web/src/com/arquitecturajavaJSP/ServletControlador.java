@@ -85,7 +85,15 @@ public class ServletControlador extends HttpServlet {
 			response.sendRedirect("ServletControlador");
 			
 		}else if(request.getParameter("accion").equals("formularioModificar")){
+			
+			String isbn = request.getParameter("isbn");
+			
+			Libro libro = servicio.buscarLibro(isbn);
+			
+			//Despachamos a una vista donde despachador puede adjuntar objetos
 			despachador = request.getRequestDispatcher("formularioEditarJSP.jsp");
+			//lista de objetos libros que quiero enviar a la vista desde el controlador
+			request.setAttribute("milibro",libro);
 			//Reenvía a la vista
 			despachador.forward(request, response);
 		}else {
