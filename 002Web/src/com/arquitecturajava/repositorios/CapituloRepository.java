@@ -7,4 +7,6 @@ import com.arquitecturajava.negocio.Capitulo;
 public interface CapituloRepository {
 
 	public List<Capitulo> buscarTodos(); 
+	public void borrar(Capitulo capitulo);
+	public void insertar(Capitulo capitulo);
 }

@@ -19,6 +19,7 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 			<tr>
 				<th>titulo</th>
 				<th>paginas</th>
+				<th>borrar</th>
 				
 			</tr>
 		</thead>
@@ -30,6 +31,9 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 
 				<td><%=capitulo.getTitulo()%></td>
 				<td><%=capitulo.getPaginas()%></td>
+				<td><a
+					href="ServletControladorCapitulos?accion=borrar&titulo=<%=capitulo.getTitulo()%>">borrar</a></td>
+			
 		
 			</tr>
 			<%
@@ -37,6 +41,6 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 			%>
 		</tbody>
 	</table>
-	<a href="ServletControlador?accion=formularioInsertar">Nuevo capitulo</a>
+	<a href="ServletControladorCapitulos?accion=formularioinsertar">Nuevo capitulo</a>
 </body>
 </html>

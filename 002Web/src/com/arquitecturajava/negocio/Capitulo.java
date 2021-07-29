@@ -24,6 +24,12 @@ public class Capitulo {
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
 	}
+	
+	
+	public Capitulo(String titulo) {
+		super();
+		this.titulo = titulo;
+	}
 	public Capitulo(String titulo, int paginas,Libro libro) {
 		super();
 		this.titulo = titulo;
