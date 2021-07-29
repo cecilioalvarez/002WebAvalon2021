@@ -30,7 +30,9 @@ public class BookRepositoryJDBC implements BookRepository {
                     Author author = new Author(resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
                     searchedBook = new Book(resultSet.getString(1), resultSet.getString(2), author);
                 }
-                searchedBook.addChapter(new Chapter(resultSet.getString(7), resultSet.getInt(8), book));
+                if (resultSet.getString("pk_title") != null) {
+                    searchedBook.addChapter(new Chapter(resultSet.getString("pk_title"), resultSet.getInt("pages"), book));
+                }
             }
         } catch (SQLException sql_ex) {
             System.err.println("Error al lanzar la consulta de selección: " + sql_ex.getMessage());
@@ -56,7 +58,9 @@ public class BookRepositoryJDBC implements BookRepository {
                 } else {
                     book = BOOKS.get(BOOKS.size() - 1);
                 }
-                book.addChapter(new Chapter(resultSet.getString("pk_title"), resultSet.getInt("pages"), book));
+                if (resultSet.getString("pk_title") != null) {
+                    book.addChapter(new Chapter(resultSet.getString("pk_title"), resultSet.getInt("pages"), book));
+                }
             }
         } catch (SQLException sql_ex) {
             System.err.println("Error al lanzar la consulta de selección: " + sql_ex.getMessage());
@@ -150,7 +154,7 @@ public class BookRepositoryJDBC implements BookRepository {
     }
 
     @Override
-    public int delete(Author fk_author) {
+    public int deleteBooks(Author fk_author) {
         final String QUERY = "DELETE FROM book WHERE fk_author = ?";
         try (Connection conn = DbConnectionSingleton.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {

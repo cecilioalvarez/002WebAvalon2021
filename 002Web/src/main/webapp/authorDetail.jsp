@@ -18,6 +18,7 @@
         <title>Detalles de autor</title>
     </head>
     <body>
+        <h2>DATOS DEL AUTOR</h2>
         <table>
             <thead>
                 <tr>
@@ -28,9 +29,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><%=author.getPk_id().toUpperCase() %></td>
-                    <td><%=author.getName() %></td>
-                    <td><%=author.getAge() %></td>
+                    <td class="tinyCell"><%=author.getPk_id().toUpperCase() %></td>
+                    <td class="standardCell"><%=author.getName() %></td>
+                    <td class="tinyCell"><%=author.getAge() %></td>
                 </tr>
             </tbody>
         </table>

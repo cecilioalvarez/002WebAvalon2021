@@ -16,7 +16,7 @@ public interface BookRepository {
     
     int delete(Book book);
     
-    int delete(Author fk_author);
+    int deleteBooks(Author fk_author);
     
     int update(Book book);
     

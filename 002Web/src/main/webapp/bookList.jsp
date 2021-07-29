@@ -23,6 +23,7 @@
         <title>Formulario: Lista de libros</title>
     </head>
     <body>
+        <h2>DATOS DE LOS LIBROS</h2>
         <table>
             <thead>
                 <tr>
@@ -45,6 +46,7 @@
                             <td>
                                 <a href='LibraryServiceController?action=editBook&isbn=<%=book.getPk_isbn() %>'>Editar</a>
                                 <a href='LibraryServiceController?action=deleteBook&isbn=<%=book.getPk_isbn() %>'>Borrar</a>
+                                <a href='LibraryServiceController?action=showBookChapters&isbn=<%=book.getPk_isbn() %>'>Ver capítulos</a>
                             </td>
                         </tr>
                 <%} %>

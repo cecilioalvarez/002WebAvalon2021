@@ -4,9 +4,16 @@ body {
     font-family: “Trebuchet MS”, Arial;
 }
 
+h2 {
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    color: #83aec0;
+}
+
 table {
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: center;
     color: darkgrey;
     border-collapse:collapse;
@@ -29,6 +36,22 @@ table th {
     border-bottom-style: solid;
     border-bottom-color: #558FA6;
     text-transform: uppercase;
+}
+
+td.greatCell {
+    width: 70%;
+}
+
+td.tinyCell {
+    width: 20%;
+}
+
+td.standardCell {
+    width: 60%;
+}
+
+td.veryTinyCell {
+    width: 10%;
 }
 
 form {
@@ -58,4 +81,8 @@ form input[type='submit'] {
 body>div {
     margin-top: 20px;
     text-align: center;
+}
+
+.links {
+    color: #558FA6;
 }

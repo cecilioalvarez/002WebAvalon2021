@@ -27,7 +27,7 @@
         <title>Formulario: Edición de libro</title>
     </head>
     <body>
-        <form id="editBook" name="editBook" method="GET" action="LibraryServiceController">
+        <form id="editBook" name="editBook" method="POST" action="LibraryServiceController">
             <fieldset>
                 <legend>Datos del libro</legend>
                 <div>
@@ -54,7 +54,7 @@
             <input type="hidden" id="action" name="action" value="updateBook">
             <input type="submit" id="send" name="send" value="Actualizar"/>
         </form>
-        <div>
+        <div class="links">
             <a href="LibraryServiceController">Volver al listado</a>  
         </div>
     </body>

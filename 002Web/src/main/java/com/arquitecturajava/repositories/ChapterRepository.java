@@ -1,5 +1,6 @@
 package com.arquitecturajava.repositories;
 
+import com.arquitecturajava.business.Book;
 import com.arquitecturajava.business.Chapter;
 import java.util.List;
 
@@ -9,13 +10,13 @@ public interface ChapterRepository {
     
     List<Chapter> select();
     
-    List<Chapter> select(String fk_book);
+    List<Chapter> select(Book book);
     
     int insert(Chapter chapter);
     
     int delete(Chapter chapter);
     
-    int delete(String fk_isbn);
+    int delete(Book book);
     
     int update(Chapter chapter);
     
@@ -23,5 +24,5 @@ public interface ChapterRepository {
     
     int updatePages(Chapter chapter, int pages);
     
-    int updateBook(Chapter chapter, String fk_isbn);
+    int updateBook(Chapter chapter, Book book);
 }

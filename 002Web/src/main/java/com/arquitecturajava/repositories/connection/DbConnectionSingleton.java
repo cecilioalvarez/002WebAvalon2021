@@ -11,9 +11,9 @@ public class DbConnectionSingleton {
 
     private static void createConnection() throws SQLException {
         DbConnectionSingleton.conn = DriverManager.getConnection(
-                DB_PROPERTIES.getUrl(), 
-                DB_PROPERTIES.getUser(), 
-                DB_PROPERTIES.getPassword()
+                DbConnectionSingleton.DB_PROPERTIES.getUrl(), 
+                DbConnectionSingleton.DB_PROPERTIES.getUser(), 
+                DbConnectionSingleton.DB_PROPERTIES.getPassword()
                 /*"jdbc:mysql://localhost:3306/avalon", 
                 "avalon", 
                 "avalon"*/

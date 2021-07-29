@@ -8,6 +8,7 @@ import java.util.Properties;
 
 class DatabaseHelper {
 
+    // Esta ruta funciona siempre que se ubique en la carpeta bin del directorio de instalación de Tomcat.
     private static final String DEFAULT_PROPERTIES_FILE_PATH = "databaseProperties\\avalonDb.properties";
     private String url;
     private String user;

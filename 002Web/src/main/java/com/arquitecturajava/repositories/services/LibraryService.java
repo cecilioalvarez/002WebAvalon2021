@@ -2,17 +2,18 @@ package com.arquitecturajava.repositories.services;
 
 import com.arquitecturajava.business.Author;
 import com.arquitecturajava.business.Book;
+import com.arquitecturajava.business.Chapter;
 import java.util.List;
 
 public interface LibraryService {
 
-    int delete(Book book);
+    int deleteBook(Book book);
 
-    int delete(Author fk_author);
+    int deleteBooks(Author fk_author);
 
     int insert(Book book);
 
-    List<Book> select(Author fk_author);
+    List<Book> selectBooks(Author fk_author);
 
     Book selectWithChapters(Book book);
 
@@ -25,4 +26,40 @@ public interface LibraryService {
     int updatePk_isbn(Book book, String pk_isbn);
 
     int updateTitle(Book book, String title);
+    
+    Chapter select(Chapter chapter);
+    
+    List<Chapter> select();
+    
+    List<Chapter> select(Book book);
+    
+    int insert(Chapter chapter);
+    
+    int delete(Chapter chapter);
+    
+    int deleteChapters(Book book);
+    
+    int update(Chapter chapter);
+    
+    int updateTitle(Chapter chapter, String title);
+    
+    int updatePages(Chapter chapter, int pages);
+    
+    int updateBook(Chapter chapter, Book book);
+    
+    Author select(Author author);
+    
+    List<Author> selectAuthors();
+    
+    int insert(Author author);
+    
+    int delete(Author author);
+    
+    int update(Author author);
+    
+    int updatePk_id(Author author, String pk_id);
+    
+    int updateName(Author author, String name);
+    
+    int updateAge(Author author, int age);
 }

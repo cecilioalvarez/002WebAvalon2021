@@ -18,6 +18,11 @@ public class Chapter {
         this.pk_title = title;
         this.pages = pages;
     }
+    
+    public Chapter(String title, Book book) {
+        this.pk_title = title;
+        this.fk_book = book;
+    }
 
     public String getPk_title() {
         return this.pk_title;
