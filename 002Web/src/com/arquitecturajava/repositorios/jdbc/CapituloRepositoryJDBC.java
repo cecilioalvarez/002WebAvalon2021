@@ -28,10 +28,9 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 
 		try (Connection conn = helper.getConexion();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
-
+			sentencia.setString(3, capitulo.getLibro().getIsbn());
 			sentencia.setString(1, capitulo.getTitulo());
 			sentencia.setInt(2, capitulo.getPaginas());
-			sentencia.setString(3,capitulo.getLibro().getIsbn());
 			sentencia.execute();
 
 		} catch (SQLException e) {
