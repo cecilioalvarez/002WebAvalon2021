@@ -9,8 +9,9 @@
 <%@page import="java.util.List" %>
 <%
 
-LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
-List<Libro> listaLibros = repositorio.buscarTodos();
+/*LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
+List<Libro> listaLibros = repositorio.buscarTodos();*/
+List<Libro> listaLibros = (List<Libro>)request.getAttribute("libros");
 
 
 
@@ -36,13 +37,13 @@ List<Libro> listaLibros = repositorio.buscarTodos();
 			<td><%=libro.getIsbn() %></td>
 			<td><%=libro.getTitulo() %></td>
 			<td><%=libro.getAutor() %></td>
-			<td><a href="ServletLibroBorrar?isbn=<%=libro.getIsbn()%>">borrar</a></td>
-			<td><a href="detalle.jsp?isbn=<%=libro.getIsbn()%>">detalle</a></td>
-			<td><a href="formularioEditar.jsp?isbn=<%=libro.getIsbn()%>">editar</a></td>
+			<td><a href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
+			<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
+			<td><a href="ServletControlador?accion=formularioEditar&isbn=<%=libro.getIsbn()%>">editar</a></td>
 			</tr>
 			<%} %>
 		</tbody>
 	</table>
-	<a href="formularioLibro.html">Nuevo libro</a>
+	<a href="ServletControlador?accion=formularioInsertar">Nuevo libro</a>
 </body>
 </html>
