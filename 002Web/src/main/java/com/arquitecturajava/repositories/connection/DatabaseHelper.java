@@ -55,7 +55,6 @@ class DatabaseHelper {
             this.password = prop.getProperty("password");
         } catch (FileNotFoundException fnf_ex) {
             System.err.println("Se ha producido un error al buscar el fichero de propiedades de la BD: " + fnf_ex.getMessage());
-            System.out.println(new File(DatabaseHelper.DEFAULT_PROPERTIES_FILE_PATH).getAbsolutePath());
         } catch (IOException io_ex) {
             System.err.println("Se ha producido un error al leer el fichero de propiedades de la BD: " + io_ex.getMessage());
         }
