@@ -14,7 +14,7 @@ Libro libro=(Libro)request.getAttribute("libro");
 <body>
 <form action="ServletControlador" method="POST">
 <p>
-Isbn:<input type="text" name="isbn" value="<%=libro.getIsbn()%>"/>
+Isbn:<input type="text" name="isbn" value="<%=libro.getIsbn()%>" readonly="readonly"/>
 </p>
 <p>
 Titulo:<input type="text" name="titulo" value="<%=libro.getTitulo()%>"/>

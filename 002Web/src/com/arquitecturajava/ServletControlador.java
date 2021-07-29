@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.negocio.Libro;
+import com.arquitecturajava.repositorios.jdbc.CapituloRepositoryJDBC;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
 import com.arquitecturajava.servicios.LibroService;
 import com.arquitecturajava.servicios.standard.LibroServiceStandard;
@@ -27,7 +28,7 @@ public class ServletControlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		servicio = new LibroServiceStandard(new LibroRepositoryJDBC());
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(),new CapituloRepositoryJDBC());
 		RequestDispatcher despachador = null;
 		
 		if (request.getParameter("accion") == null) {
