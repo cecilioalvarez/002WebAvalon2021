@@ -9,7 +9,7 @@
 <%@page
 	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
 <%
-Libro libro = (Libro)request.getAttribute("libro");
+Libro libro = (Libro) request.getAttribute("libro");
 %>
 <!DOCTYPE html>
 <html>
