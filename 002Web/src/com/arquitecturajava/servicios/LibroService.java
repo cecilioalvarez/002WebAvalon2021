@@ -2,6 +2,7 @@ package com.arquitecturajava.servicios;
 
 import java.util.List;
 
+import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 
 public interface LibroService {
@@ -23,5 +24,7 @@ public interface LibroService {
 	Libro buscarPorAutor(String autor);
 
 	List<Libro> buscarPorIituloAutor(String titulo, String autor);
+	
+	List<Capitulo> buscarTodosLosCapitulos();
 
 }

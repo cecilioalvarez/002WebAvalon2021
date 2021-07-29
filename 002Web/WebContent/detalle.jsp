@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="com.arquitecturajava.negocio.Libro" %>
-<%@page import="com.arquitecturajava.repositorios.LibroRepository" %>
-<%@page import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC" %>
+    <%@page import="com.arquitecturajava.negocio.Libro"%>
+
 <%
-LibroRepository repositorio=new LibroRepositoryJDBC();
-Libro libro=repositorio.buscarUno(request.getParameter("isbn"));
+Libro libro=(Libro)request.getAttribute("libro");
 %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +15,7 @@ Libro libro=repositorio.buscarUno(request.getParameter("isbn"));
 <p>ISBN: <%=libro.getIsbn() %></p>
 <p>Título: <%=libro.getTitulo() %></p>
 <p>Autor: <%=libro.getAutor() %></p>
-<a href="listaLibros.jsp">Volver</a>
+<a href="ServletControlador">Volver</a>
 
 
 </body>

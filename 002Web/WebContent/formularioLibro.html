@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form action="ServletLibro" method="POST">
+	<form action="ServletControlador" method="POST">
 		<p>
 			ISBN:<input type="text" name="isbn" />
 		</p>
@@ -16,9 +16,10 @@
 		<p>
 			Autor:<input type="text" name="autor" />
 		</p>
+		<input type="hidden" name="accion" value="insertar">
 		<p><input type="submit" value="enviar datos">
 	</form>
-	<a href="ServletLibrosLista">listado</a>
+	<a href="ServletControlador">listado</a>
 
 </body>
 </html>
