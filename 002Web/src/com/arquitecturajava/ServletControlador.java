@@ -30,6 +30,8 @@ public class ServletControlador extends HttpServlet {
 			throws ServletException, IOException {
 
 		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(),new CapituloRepositoryJDBC());
+		
+		
 		RequestDispatcher despachador = null;
 		
 		if (request.getParameter("accion") == null) {

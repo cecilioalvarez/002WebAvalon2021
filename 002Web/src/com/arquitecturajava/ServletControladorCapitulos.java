@@ -28,10 +28,12 @@ public class ServletControladorCapitulos extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
 
+		
 		if (request.getParameter("accion") == null) {
 
-			servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
 
 			List<Capitulo> capitulos = servicio.buscarTodosLosCapitulos();
 
@@ -48,7 +50,9 @@ public class ServletControladorCapitulos extends HttpServlet {
 
 		else if (request.getParameter("accion").equals("formularioinsertar")) {
 
-			RequestDispatcher despachador = request.getRequestDispatcher("formulariocapitulo.html");
+			RequestDispatcher despachador = request.getRequestDispatcher("formulariocapitulo.jsp");
+			
+			request.setAttribute("isbn", request.getParameter("isbn"));
 			despachador.forward(request, response);
 
 		}else if (request.getParameter("accion").equals("insertar")) {
