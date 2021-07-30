@@ -218,8 +218,8 @@ public class LibroRepositoryJDBC implements LibroRepository {
 				sentencia.setString(1, libro.getIsbn());
 				ResultSet rs = sentencia.executeQuery();
 			while (rs.next()) {
-
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),null);
+				Libro l= new Libro(rs.getString("libros_isbn"));
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),l);
 				listaCapitulos.add(c);
 			}
 		}catch(

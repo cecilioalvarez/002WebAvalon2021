@@ -5,10 +5,9 @@
 <%@page import="java.util.List"%>
 
 <%
-//Ya no accedo a la base de datos desde el jsp
+// ya no accedo a la base de datos desde el jsp
 List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 %>
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -31,16 +30,19 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 				<td><%=libro.getIsbn()%></td>
 				<td><%=libro.getTitulo()%></td>
 				<td><%=libro.getAutor()%></td>
-				<td><a href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
-				<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
+				<td><a
+					href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
+				<td><a
+					href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
 				<td><a href="ServletControlador?accion=formularioeditar&isbn=<%=libro.getIsbn()%>">editar</a></td>
 				<td><a href="ServletControlador?accion=capituloslibros&isbn=<%=libro.getIsbn()%>">ver capitulos</a></td>
+		
 			</tr>
 			<%
 			}
 			%>
 		</tbody>
 	</table>
-	<a href="ServletControlador?accion=formularioInsertar">nuevo libro</a>
+	<a href="ServletControlador?accion=formularioInsertar">Nuevo libro</a>
 </body>
 </html>

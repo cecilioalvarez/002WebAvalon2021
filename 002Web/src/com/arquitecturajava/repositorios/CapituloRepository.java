@@ -8,13 +8,8 @@ public interface CapituloRepository {
 
 	public void insertar(Capitulo capitulo);
 
-	void actualizar(Capitulo capitulo);
-
 	public void borrar(Capitulo capitulo);
 
 	public List<Capitulo> buscarTodos();
-
-	Capitulo buscarUno(String titulo);
-
 
 }

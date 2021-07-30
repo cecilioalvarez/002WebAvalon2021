@@ -23,37 +23,41 @@ import com.arquitecturajava.servicios.standard.LibroServiceStandard;
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	LibroService servicio;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(),new CapituloRepositoryJDBC());
+		
 		RequestDispatcher despachador = null;
+		
 		if (request.getParameter("accion") == null) {
 
 			List<Libro> listaLibros = servicio.buscarTodos();
 			request.setAttribute("libros", listaLibros);
 			
 			despachador = request.getRequestDispatcher("listalibros.jsp");
-			//reenvida los datos del primer servlet controlador al jsp para que renderize
 			despachador.forward(request, response);
 
-		} else if (request.getParameter("accion").equals("borrar")) {
+		} else if (request.getParameter("accion").equals("detalle")) {
+
+			Libro libro =servicio.buscarUno(request.getParameter("isbn"));
+			request.setAttribute("libro", libro);
+			despachador = request.getRequestDispatcher("detalle.jsp");
+			despachador.forward(request, response);
+			
+			
+		}else if (request.getParameter("accion").equals("borrar")) {
 
 			servicio.borrar(new Libro(request.getParameter("isbn")));
 			response.sendRedirect("ServletControlador");
 			
 			
-		}else if (request.getParameter("accion").equals("detalle")) {
-
-			Libro libro = servicio.buscarUno(request.getParameter("isbn"));
-			request.setAttribute("libro", libro);
-			despachador = request.getRequestDispatcher("detalle.jsp");
-			despachador.forward(request, response);
-			
-		} else if (request.getParameter("accion").equals("insertar")) {
+		}
+		
+		else if (request.getParameter("accion").equals("insertar")) {
 
 			String isbn = request.getParameter("isbn");
 			String titulo = request.getParameter("titulo");
@@ -64,7 +68,8 @@ public class ServletControlador extends HttpServlet {
 
 			response.sendRedirect("ServletControlador");
 
-		}else if (request.getParameter("accion").equals("actualizar")) {
+		}
+		else if (request.getParameter("accion").equals("actualizar")) {
 
 			String isbn = request.getParameter("isbn");
 			String titulo = request.getParameter("titulo");
@@ -76,7 +81,7 @@ public class ServletControlador extends HttpServlet {
 			response.sendRedirect("ServletControlador");
 
 		}else if (request.getParameter("accion").equals("formularioeditar")) {
-		
+
 			System.out.println("entro por formularioeditar");
 			String isbn = request.getParameter("isbn");
 			Libro libro = servicio.buscarUno(isbn);
@@ -84,26 +89,32 @@ public class ServletControlador extends HttpServlet {
 	
 			despachador = request.getRequestDispatcher("formularioeditar.jsp");
 			despachador.forward(request, response);
-
+			
 		}else if (request.getParameter("accion").equals("capituloslibros")) {
-		
+
 			String isbn = request.getParameter("isbn");
 			List<Capitulo> capitulos = servicio.buscarTodosCapitulos(new Libro(isbn));
 			request.setAttribute("capitulos", capitulos);
-	
+			request.setAttribute("isbn", isbn);
 			despachador = request.getRequestDispatcher("listacapitulos.jsp");
 			despachador.forward(request, response);
+		}
+		
+		else {
 
-		} else {
-
-			despachador = request.getRequestDispatcher("FormularioLibro.html");
+			despachador = request.getRequestDispatcher("formularioLibro.html");
 			despachador.forward(request, response);
 		}
 
+		
+
+		
+
 	}
-	
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
