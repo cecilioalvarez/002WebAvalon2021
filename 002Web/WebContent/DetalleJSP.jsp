@@ -24,7 +24,7 @@ Libro libro = (Libro) request.getAttribute("milibro");
 		Autor:<%=libro.getAutor()%>
 	</p>
 	<%if(libro.getListacoCapitulos().size()>0){ %>
-	<a href="ServletControladorCapitulo?accion=formularioInsertar" style="color: green">Agregar Capitulo</a>
+	<a href="ServletControladorCapitulo?accion=formularioInsertar&isbn=<%=libro.getIsbn()%>" style="color: green">Agregar Capitulo</a>
 	<table style="border-collapse: collapse;width: 100%;text-align: center;" border="2px solid black;">
 		<thead>
 		<tr style="background-color: #E1B933;color: white;" >

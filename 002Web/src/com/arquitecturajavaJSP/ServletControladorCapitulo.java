@@ -39,8 +39,8 @@ public class ServletControladorCapitulo extends HttpServlet {
 			
 		}else if (request.getParameter("accion").equals("formularioInsertar")) {
 			despachador = request.getRequestDispatcher("formularioInsertCapitulosJSP.jsp");
-			String isbn = "";
-			isbn=request.getParameter("isbn");
+			String isbn = request.getParameter("isbn");
+			System.out.println(isbn);
 			request.setAttribute("miIsbn",isbn);
 			//Reenvía a la vista
 			despachador.forward(request, response);
