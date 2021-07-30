@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import negocio.Capitulo;
 import negocio.Libro;
-import repositorio.CapituloRepository;
+
 import repositorio.jdbc.helper.CapituloRepositoryJDBC;
 import repositorio.jdbc.helper.LibroRepositoryJDBC;
 import repositorio.servicios.LibroService;
@@ -29,20 +29,26 @@ public class ServletControladorCapitulos extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
 
 		if (request.getParameter("accion") == null) {
-			servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
+			
 			List<Capitulo> capitulos = servicio.buscarTodosLosCapitulos();
 			RequestDispatcher despachador = request.getRequestDispatcher("ListaCapitulosJSP.jsp");
 			request.setAttribute("capitulos", capitulos);
 			despachador.forward(request, response);
 
 		} else if (request.getParameter("accion").equals("borrar")) {
+	
 			servicio.borrarCapitulo(new Capitulo(request.getParameter("titulo")));
-			response.sendRedirect("ServletControladorCapitulos");
+			String isbn= request.getParameter("isbn");
+			response.sendRedirect("ServletControlador?accion=capituloslibros&isbn="+isbn);
 
 		} else if (request.getParameter("accion").equals("formularioinsertar")) {
-			RequestDispatcher despachador = request.getRequestDispatcher("formularioCapitulos.html");
+			RequestDispatcher despachador = request.getRequestDispatcher("formularioCapitulos.jsp");
+			String isbn = request.getParameter("isbn");
+			request.setAttribute("isbn", isbn);
 			despachador.forward(request, response);
 
 		} else if (request.getParameter("accion").equals("insertar")) {
@@ -50,17 +56,15 @@ public class ServletControladorCapitulos extends HttpServlet {
 			Capitulo c = new Capitulo(request.getParameter("titulo"), Integer.parseInt(request.getParameter("paginas")),
 					new Libro(request.getParameter("isbn")));
 			servicio.insertarCapitulo(c);
+			String isbn= request.getParameter("isbn");
 			System.out.println("entro a insertar capitulo");
-			response.sendRedirect("ServletControladorCapitulos");
+			response.sendRedirect("ServletControlador?accion=capituloslibros&isbn="+isbn);
 
 		}
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import negocio.Capitulo;
+import negocio.Libro;
 import repositorio.CapituloRepository;
 
 public class CapituloRepositoryJDBC implements CapituloRepository {
@@ -25,7 +26,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository {
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);) {
 			while (rs.next()) {
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"));
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), new Libro(rs.getString("libros_isbn")));
 				listaCapitulos.add(c);
 			}
 		} catch (SQLException e) {

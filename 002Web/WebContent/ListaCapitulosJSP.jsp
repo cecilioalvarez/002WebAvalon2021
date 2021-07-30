@@ -2,17 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<%@page import="negocio.Capitulo" %>
-<%@page import="repositorio.jdbc.*" %>
-<%@page import="repositorio.servicios.LibroService" %>
-<%@page import="repositorio.servicios.standard.*" %>
-<%@page import="java.util.List" %>
+<%@page import="negocio.Capitulo"%>
+<%@page import="repositorio.jdbc.*"%>
+<%@page import="repositorio.servicios.LibroService"%>
+<%@page import="repositorio.servicios.standard.*"%>
+<%@page import="java.util.List"%>
 <%
-
 /*LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
 List<Libro> listaLibros = repositorio.buscarTodos();*/
-List<Capitulo> listaCapitulos = (List<Capitulo>)request.getAttribute("capitulos");
-
+List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos");
 %>
 <html>
 <head>
@@ -28,18 +26,25 @@ List<Capitulo> listaCapitulos = (List<Capitulo>)request.getAttribute("capitulos"
 			</tr>
 		</thead>
 		<tbody>
-		<%for(Capitulo cap: listaCapitulos)
-			{%>
+			<%
+			for (Capitulo cap : listaCapitulos) {
+			%>
 			<tr>
 
-			<td><%=cap.getTitulo() %></td>
-			<td><%=cap.getPaginas() %></td>
-				<td><a href="ServletControlador?accion=borrar&isbn=<%=cap.getTitulo()%>">borrar</a></td>
+				<td><%=cap.getTitulo()%></td>
+				<td><%=cap.getPaginas()%></td>
+				<td><a
+					href="ServletControladorCapitulos?accion=borrar&titulo=<%=cap.getTitulo()%>
+					&isbn=<%=request.getParameter("isbn")%>">borrar</a></td>
 
 			</tr>
-			<%} %>
+			<%
+			}
+			%>
 		</tbody>
 	</table>
-<a href="ServletControladorCapitulos?accion=formularioinsertar">Nuevo capitulo</a>
+	<a
+		href="ServletControladorCapitulos?accion=formularioinsertar&isbn=<%=request.getParameter("isbn")%>">Nuevo
+		capitulo</a>
 </body>
 </html>

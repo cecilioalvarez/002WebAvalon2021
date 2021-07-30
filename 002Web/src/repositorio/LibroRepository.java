@@ -2,6 +2,7 @@ package repositorio;
 
 import java.util.List;
 
+import negocio.Capitulo;
 import negocio.Libro;
 
 public interface LibroRepository {
@@ -19,6 +20,8 @@ public interface LibroRepository {
 	List<Libro> buscarTituloyAutor(String titulo, String autor);
 
 	Libro buscarUno(String isbn);
+	
+	List<Capitulo> buscarTodosCapitulos(Libro libro);
 	
 
 }
