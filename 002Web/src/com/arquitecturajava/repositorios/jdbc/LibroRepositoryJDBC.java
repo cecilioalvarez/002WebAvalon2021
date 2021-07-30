@@ -13,14 +13,13 @@ import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
 
-
-
 public class LibroRepositoryJDBC implements LibroRepository {
 
 	private static DataBaseHelper helper = new DataBaseHelper();
 	final static String CONSULTA_INSERTAR = "insert into Libro (isbn,titulo,autor) values (?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from Libro where isbn =?";
 	final static String CONSULTA = "select * from Libro";
+	final static String CONSULTA_LIBRO_CAPITULOS = "select * from capitulos where libros_isbn=?";
 	final static String CONSULTA_TODOS_CON_CAPITULOS = "SELECT libro.isbn as isbn, libro.titulo as titulo, libro.autor as autor, capitulos.titulo as tituloCapitulo, capitulos.paginas as paginas from Libro, capitulos where Libro.isbn = capitulos.libros_isbn;";
 	final static String CONSULTA_BUSCAR_UNO = "select * from Libro where isbn=?";
 	final static String CONSULTA_BUSCAR_UNO_TITULO = "select * from Libro where titulo=?";
@@ -186,18 +185,20 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		try (Connection conn = helper.getConexion();
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_TODOS_CON_CAPITULOS);) {
-			
+
 			while (rs.next()) {
 
 				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				//Le decimos que si contiene un libro ya con el mismo isbn, no lo vuelva a repetir el mismo libro dos veces.
-				
-				if(!listaLibros.contains(l)) {
-					//Añadimos libro y capitulo
+				// Le decimos que si contiene un libro ya con el mismo isbn, no lo vuelva a
+				// repetir el mismo libro dos veces.
+
+				if (!listaLibros.contains(l)) {
+					// Añadimos libro y capitulo
 					listaLibros.add(l);
-					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"),l));
-				}else {
-					listaLibros.get(listaLibros.size()-1).addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"),l));
+					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
+				} else {
+					listaLibros.get(listaLibros.size() - 1)
+							.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
 				}
 			}
 		} catch (SQLException e) {
@@ -206,5 +207,28 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		}
 		return listaLibros;
 	}
+
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
+	
+		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
+
+		try (Connection conn = helper.getConexion()){
+				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_LIBRO_CAPITULOS);
+				sentencia.setString(1, libro.getIsbn());
+				ResultSet rs = sentencia.executeQuery();
+			while (rs.next()) {
+
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),null);
+				listaCapitulos.add(c);
+			}
+		}catch(
+
+	SQLException e)
+	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return listaCapitulos;
+}
 
 }

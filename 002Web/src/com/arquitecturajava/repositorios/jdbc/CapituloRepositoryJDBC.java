@@ -80,7 +80,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 				ResultSet rs = sentencia.executeQuery(CONSULTA);) {
 			while (rs.next()) {
 
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),null);
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
 				listaCapitulos.add(c);
 			}
 		} catch (SQLException e) {

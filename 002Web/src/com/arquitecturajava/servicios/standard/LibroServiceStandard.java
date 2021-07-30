@@ -80,5 +80,11 @@ public class LibroServiceStandard implements LibroService {
 		repositorioCapitulo.insertar(capitulo);
 		
 	}
+
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
+		// TODO Auto-generated method stub
+		return repositorio.buscarTodosCapitulos(libro);
+	}
 	
 }

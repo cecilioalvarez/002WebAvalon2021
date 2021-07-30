@@ -37,6 +37,6 @@ List<Capitulo> listaCapitulo = (List<Capitulo>) request.getAttribute("capitulos"
 			%>
 		</tbody>
 	</table>
-	<a href="ServletControladorCapitulo?accion=formularioinsertar">nuevo capitulo</a>
+	<a href="ServletControladorCapitulo?accion=formularioinsertar&isbn=<%=listaCapitulo.get(0).getLibro().getIsbn()%>">nuevo capitulo</a>
 </body>
 </html>

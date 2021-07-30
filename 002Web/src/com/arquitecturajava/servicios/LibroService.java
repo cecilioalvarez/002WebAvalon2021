@@ -26,6 +26,7 @@ public interface LibroService {
 	List<Libro> buscarTodosConCapitulos();
 	
 	List<Capitulo> buscarTodosLosCapitulos();
+	List<Capitulo> buscarTodosCapitulos(Libro libro);
 	
 	void borrarCapitulo(Capitulo capitulo);
 	void insertarCapitulo(Capitulo capitulo);

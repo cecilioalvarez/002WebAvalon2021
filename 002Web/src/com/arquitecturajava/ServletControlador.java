@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.jdbc.CapituloRepositoryJDBC;
 import com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC;
@@ -82,6 +83,15 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("libro", libro);
 	
 			despachador = request.getRequestDispatcher("formularioeditar.jsp");
+			despachador.forward(request, response);
+
+		}else if (request.getParameter("accion").equals("capituloslibros")) {
+		
+			String isbn = request.getParameter("isbn");
+			List<Capitulo> capitulos = servicio.buscarTodosCapitulos(new Libro(isbn));
+			request.setAttribute("capitulos", capitulos);
+	
+			despachador = request.getRequestDispatcher("listacapitulos.jsp");
 			despachador.forward(request, response);
 
 		} else {
