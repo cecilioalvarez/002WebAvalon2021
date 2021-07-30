@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
@@ -40,7 +42,13 @@ public class ServletControlador extends HttpServlet {
 			despachador.forward(request, response);
 			
 		}else if(request.getParameter("accion").equals("borrar")){
-			servicio.removeBook(new Libro(request.getParameter("isbn")));
+			Libro libro = servicio.buscarLibro(request.getParameter("isbn"));
+			//En caso de BD sin configuración CASCADE
+			/*List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
+			for(Capitulo cap: listaCapitulos){
+				servicio.removeChapter(cap);
+			}*/
+			servicio.removeBook(libro);
 			response.sendRedirect("ServletControlador");
 			
 		}else if(request.getParameter("accion").equals("insertar")){
