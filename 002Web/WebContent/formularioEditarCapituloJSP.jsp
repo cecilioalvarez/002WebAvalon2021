@@ -5,9 +5,12 @@
 <%@page import="com.arquitecturajavaJSP.negocio.Libro" %>
 <%@page import="com.arquitecturajavaJSP.negocio.Capitulo"%>
 
-<%
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%-- <%
 Capitulo chapter = (Capitulo) request.getAttribute("miCapitulo");
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,18 +20,18 @@ Capitulo chapter = (Capitulo) request.getAttribute("miCapitulo");
 <body>
 <form action="ServletControladorCapitulo" method="POST">
 	<p>
-		Titulo de Capitulo: <input type="text" disabled="disabled" value="<%=chapter.getTitulo()%>"/>
-		<input type="hidden" name="titulo" value="<%=chapter.getTitulo()%>"/>
+		Titulo de Capitulo: <input type="text" disabled="disabled" value="${miCapitulo.titulo}"/>
+		<input type="hidden" name="titulo" value="${miCapitulo.titulo}"/>
 	</p>
 	<p>
-		Páginas: <input type="number" name="paginas" value="<%=chapter.getPaginas()%>"/>
+		Páginas: <input type="number" name="paginas" value="${miCapitulo.paginas}"/>
 	</p>
 	<p>
-		Libro ISBN: <input type="text" name="isbn" value="<%=chapter.getLibro().getIsbn()%>"/>
+		Libro ISBN: <input type="text" name="isbn" value="${miCapitulo.libro.isbn}"/>
 	</p>
 	<input type="hidden" name="accion" value="modificar"/>
 	<input style="background-color: green;color: white;border-color: green" type="submit" value="Guardar Cambios"/>
 </form>
-<a href="ServletControlador?accion=detalle&isbn=<%=chapter.getLibro().getIsbn()%>" style="color: blue">Volver</a>
+<a href="ServletControlador?accion=detalle&isbn=${miCapitulo.libro.isbn}" style="color: blue">Volver</a>
 </body>
 </html>
