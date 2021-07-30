@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="com.arquitecturajava.negocio.Libro"%>
-<%@page import="java.util.List"%>
 
-<%
-// ya no accedo a la base de datos desde el jsp
-List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -23,24 +20,22 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Libro libro : listaLibros) {
-			%>
-			<tr>
-				<td><%=libro.getIsbn()%></td>
-				<td><%=libro.getTitulo()%></td>
-				<td><%=libro.getAutor()%></td>
-				<td><a
-					href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
-				<td><a
-					href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
-				<td><a href="ServletControlador?accion=formularioeditar&isbn=<%=libro.getIsbn()%>">editar</a></td>
-				<td><a href="ServletControlador?accion=capituloslibros&isbn=<%=libro.getIsbn()%>">ver capitulos</a></td>
-		
-			</tr>
-			<%
-			}
-			%>
+			<c:forEach var="libro" items="${libros}">
+				<tr>
+					<td>${libro.isbn}</td>
+					<td>${libro.titulo}</td>
+					<td>${libro.autor}</td>
+					<td><a
+						href="ServletControlador?accion=borrar&isbn=${libro.isbn}">borrar</a></td>
+					<td><a
+						href="ServletControlador?accion=detalle&isbn=${libro.isbn}">detalle</a></td>
+					<td><a
+						href="ServletControlador?accion=formularioEditar&isbn=${libro.isbn}">editar</a></td>
+					<td><a
+						href="ServletControlador?accion=capituloslibros&isbn=${libro.isbn}">ver
+							capitulos</a></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	<a href="ServletControlador?accion=formularioInsertar">Nuevo libro</a>
