@@ -2,20 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@page import="negocio.Libro" %>
 <%@page import="repositorio.jdbc.*" %>
 <%@page import="repositorio.servicios.LibroService" %>
 <%@page import="repositorio.servicios.standard.*" %>
 <%@page import="java.util.List" %>
-<%
 
-/*LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
-List<Libro> listaLibros = repositorio.buscarTodos();*/
-List<Libro> listaLibros = (List<Libro>)request.getAttribute("libros");
-
-
-
-%>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -31,18 +26,17 @@ List<Libro> listaLibros = (List<Libro>)request.getAttribute("libros");
 			</tr>
 		</thead>
 		<tbody>
-		<%for(Libro libro: listaLibros)
-			{%>
+		<c:forEach var="libro" items="${libros}">
 			<tr>
-			<td><%=libro.getIsbn() %></td>
-			<td><%=libro.getTitulo() %></td>
-			<td><%=libro.getAutor() %></td>
-			<td><a href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
-			<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
-			<td><a href="ServletControlador?accion=formularioEditar&isbn=<%=libro.getIsbn()%>">editar</a></td>
-			<td><a href="ServletControlador?accion=capituloslibros&isbn=<%=libro.getIsbn()%>">ver capitulos</a></td>
+			<td>${libro.isbn}</td>
+			<td>${libro.titulo}</td>
+			<td>${libro.autor}</td>
+			<td><a href="ServletControlador?accion=borrar&isbn=${libro.isbn}">borrar</a></td>
+			<td><a href="ServletControlador?accion=detalle&isbn=${libro.isbn}">detalle</a></td>
+			<td><a href="ServletControlador?accion=formularioEditar&isbn=${libro.isbn}">editar</a></td>
+			<td><a href="ServletControlador?accion=capituloslibros&isbn=${libro.isbn}">ver capitulos</a></td>
 			</tr>
-			<%} %>
+			</c:forEach>
 		</tbody>
 	</table>
 	<a href="ServletControlador?accion=formularioInsertar">Nuevo libro</a>

@@ -2,16 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="negocio.Capitulo"%>
 <%@page import="repositorio.jdbc.*"%>
 <%@page import="repositorio.servicios.LibroService"%>
 <%@page import="repositorio.servicios.standard.*"%>
 <%@page import="java.util.List"%>
-<%
-/*LibroService repositorio = new LibroServiceStandard(new LibroRepositoryJDBC());
-List<Libro> listaLibros = repositorio.buscarTodos();*/
-List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos");
-%>
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -26,25 +24,21 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Capitulo cap : listaCapitulos) {
-			%>
-			<tr>
+			<c:forEach var="cap" items="${capitulos}">
+				<tr>
 
-				<td><%=cap.getTitulo()%></td>
-				<td><%=cap.getPaginas()%></td>
-				<td><a
-					href="ServletControladorCapitulos?accion=borrar&titulo=<%=cap.getTitulo()%>
+					<td>${cap.titulo}</td>
+					<td>${cap.paginas}</td>
+					<td><a
+						href="ServletControladorCapitulos?accion=borrar&titulo=${cap.titulo}
 					&isbn=<%=request.getParameter("isbn")%>">borrar</a></td>
 
-			</tr>
-			<%
-			}
-			%>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	<a
-		href="ServletControladorCapitulos?accion=formularioinsertar&isbn=<%=request.getParameter("isbn")%>">Nuevo
+		href="ServletControladorCapitulos?accion=formularioinsertar&isbn=${isbn}">Nuevo
 		capitulo</a>
 </body>
 </html>

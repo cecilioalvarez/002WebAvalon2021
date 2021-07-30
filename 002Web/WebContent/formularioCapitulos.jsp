@@ -10,7 +10,7 @@
 	<form action="ServletControladorCapitulos" method="POST">
 		<!--  he usado las etiquetas input para diseñar el formulario -->
 		<p>
-		ISBN: <input type="text" name="isbn" value=<%=request.getAttribute("isbn")%> />
+		ISBN: <input type="text" name="isbn" value="${isbn}" readonly="readonly" />
 		</p>
 		<p>
 		titulo: <input type="text" name="titulo" />

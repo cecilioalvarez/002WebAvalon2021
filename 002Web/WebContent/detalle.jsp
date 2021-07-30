@@ -5,10 +5,9 @@
 <%@page import="repositorio.servicios.LibroService"%>
 <%@page import="repositorio.servicios.standard.*"%>
 <%@page import="repositorio.jdbc.helper.LibroRepositoryJDBC"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%
-Libro libro = (Libro) (request.getAttribute("libro"));
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,15 +17,15 @@ Libro libro = (Libro) (request.getAttribute("libro"));
 <body>
 	<p>
 		Isbn:
-		<%=libro.getIsbn()%>
+		${libro.isbn}
 	</p>
 	<p>
 		Titulo:
-		<%=libro.getTitulo()%>
+		${libro.titulo}
 	</p>
 	<p>
 		Autor:
-		<%=libro.getAutor()%>
+		${libro.autor}
 	</p>
 	<a href="ServletControlador">volver</a>
 </body>
