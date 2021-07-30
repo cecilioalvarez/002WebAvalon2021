@@ -35,8 +35,8 @@ public class ServletControlador extends HttpServlet {
 			despachador.forward(request, response);
 
 		} else if (request.getParameter("accion").equals("borrar")) {
-			servicio.borrar(new Libro(request.getParameter("isbn")));
 			
+			servicio.borrar(new Libro(request.getParameter("isbn")));
 			response.sendRedirect("ServletControlador");
 			
 		} else if (request.getParameter("accion").equals("insertar")) {
@@ -45,46 +45,51 @@ public class ServletControlador extends HttpServlet {
 			String titulo = request.getParameter("titulo");
 			String autor = request.getParameter("autor");
 			Libro libro = new Libro(isbn, titulo, autor);
-			
 			servicio.insertar(libro);
-
 			response.sendRedirect("ServletControlador");
+			
 		}else if (request.getParameter("accion").equals("actualizar")) {
 				
 				String isbn = request.getParameter("isbn");
 				String titulo = request.getParameter("titulo");
 				String autor = request.getParameter("autor");
 				Libro libro = new Libro(isbn, titulo, autor);
-				
 				servicio.actualizar(libro);
-
 				response.sendRedirect("ServletControlador");
+				
 		}else if (request.getParameter("accion").equals("formularioeditar")) {
 			
 			Libro l=servicio.buscarUno(request.getParameter("isbn"));
-			
 			request.setAttribute("libro", l);
-			despachador=request.getRequestDispatcher("formularioeditar.jsp");
+			despachador=request.getRequestDispatcher("formularioeditarlibro.jsp");
 			despachador.forward(request, response);
 		
 	
 		}else if (request.getParameter("accion").equals("detalle")) {
+			
 			Libro l=servicio.buscarUno(request.getParameter("isbn"));
 			request.setAttribute("libro", l);
 			despachador=request.getRequestDispatcher("detalle.jsp");
 			despachador.forward(request, response);
+			
 		}else if(request.getParameter("accion").equals("capituloslibros")) {
+			
 			String isbn=request.getParameter("isbn");
 			List<Capitulo> capitulos=servicio.buscarTodosCapitulos(new Libro(isbn));
 			request.setAttribute("capitulos", capitulos);
 			
 			despachador=request.getRequestDispatcher("listaCapitulos.jsp");
 			despachador.forward(request, response);
+		}else if(request.getParameter("accion").equals("editar")){
 			
+			Libro l=servicio.buscarUno(request.getParameter("isbn"));
+			request.setAttribute("libro", l);
+			despachador=request.getRequestDispatcher("formularioeditarlibro.jsp");
+			despachador.forward(request, response);
 			
 		}else {
 			
-			despachador=request.getRequestDispatcher("formularioLibro.html");
+			despachador=request.getRequestDispatcher("formularioLibro.jsp");
 			despachador.forward(request, response);
 		}
 

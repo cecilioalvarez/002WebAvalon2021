@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="com.arquitecturajava.negocio.Libro"%>
-
-<%
-Libro libro=(Libro)request.getAttribute("libro");
-%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+	 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,14 +12,14 @@ Libro libro=(Libro)request.getAttribute("libro");
 <body>
 	<form action="ServletControlador" method="POST">
 		<p>
-			ISBN: <input type="text" name="isbn" value="<%=libro.getIsbn()%>" />
+			ISBN: <input type="text" name="isbn" value="${libro.isbn}" />
 		</p>
 		<p>
 			Título: <input type="text" name="titulo"
-				value="<%=libro.getTitulo()%>" />
+				value="${libro.titulo}" />
 		</p>
 		<p>
-			Autor: <input type="text" name="autor" value="<%=libro.getAutor()%>" />
+			Autor: <input type="text" name="autor" value="${libro.autor}" />
 		</p>
 		<input type="hidden" name="accion" value="actualizar">
 		<input type="submit" value="Guardar">

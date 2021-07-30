@@ -9,7 +9,7 @@
 
 	<form action="ServletControladorCapitulos" method="POST">
 	<p>
-			ISBN:<input type="text" name="isbn" value="<%=request.getParameter("isbn") %>" />
+			ISBN:<input type="text" name="isbn" value="${param.isbn}" />
 		</p>
 		<p>
 			Titulo:<input type="text" name="titulo" />

@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.List"%>
+	 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+	 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 
-<%@page import="com.arquitecturajava.negocio.Libro"%>
-
-<%
-List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,24 +22,20 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Libro libro : listaLibros) {
-			%>
+			<c:forEach var="libro" items="${libros}">
 
 			<tr>
-				<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>"><%=libro.getIsbn()%></a></td>
-				<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>"><%=libro.getTitulo()%></a></td>
-				<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>"><%=libro.getAutor()%></a></td>
+				<td><a href="ServletControlador?accion=detalle&isbn=${libro.isbn}">${libro.isbn}</a></td>
+				<td><a href="ServletControlador?accion=detalle&isbn=${libro.isbn}">${fn:toUpperCase(libro.titulo)}</a></td>
+				<td><a href="ServletControlador?accion=detalle&isbn=${libro.isbn}">${libro.autor}</a></td>
 				<td><a
-					href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">Borrar</a>
+					href="ServletControlador?accion=borrar&isbn=${libro.isbn}">Borrar</a>
 				<a
-					href="ServletControlador?accion=editar&isbn=<%=libro.getIsbn()%>">Editar</a></td>
+					href="ServletControlador?accion=editar&isbn=${libro.isbn}">Editar</a></td>
 				
-				<td><a href="ServletControlador?accion=capituloslibros&isbn=<%=libro.getIsbn()%>">Capitulos</a></td>
+				<td><a href="ServletControlador?accion=capituloslibros&isbn=${libro.isbn}">Capitulos</a></td>
 			</tr>
-			<%
-			}
-			%>
+			</c:forEach>
 		</tbody>
 
 	</table>
