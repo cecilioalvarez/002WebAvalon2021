@@ -5,8 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<form action="Servlet011_Libro" method="POST">
+	<table border='8px solid black'>
+	<form action="ServletControlador" method="POST">
 
 		<p>
 			ISBN: <input type="text" name="isbn" />
@@ -18,8 +18,11 @@
 			autor: <input type="text" name="autor" />
 		</p>
 
+		<input type="hidden" name="accion" value="insertar" />
 		<input type="submit" value="enviar datos" />
 		
+		
 	</form>
+	</table>
 </body>
 </html>

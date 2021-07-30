@@ -3,12 +3,10 @@
 <!DOCTYPE html>
 <%@page import="com.arquitecturajava.negocio.Libro"%>
 <%@page import="java.util.List"%>
-<%@page import="com.arquitecturajava.repositorios.LibroRepository"%>
-<%@page
-	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
+
 <%
-LibroRepository repositorio = new LibroRepositoryJDBC();
-List<Libro> listaLibros = repositorio.buscarTodos();
+// ya no accedo a la base de datos desde el jsp
+List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 %>
 <html>
 <head>
@@ -23,25 +21,25 @@ List<Libro> listaLibros = repositorio.buscarTodos();
 				<th>TITULO</th>
 				<th>AUTOR</th>
 				<th>CAMPO BORRAR</th>
+				<th>CAMPO DETALLE</th>
+				<th>CAMPO EDITAR</th>
+				<th>VER LOS CAPITULOS DEL LIBRO</th>
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Libro libro : listaLibros) {
-			%>
+			<%for (Libro libro : listaLibros) {%>
 			<tr>
 				<td><%=libro.getIsbn()%></td>
 				<td><%=libro.getTitulo()%></td>
 				<td><%=libro.getAutor()%></td>
-				<td><a href="Servlet011_LibroBorrar?isbn=<%=libro.getIsbn()%>">borrar</a></td>
-				<td><a href="detalle.jsp?isbn=<%=libro.getIsbn()%>">detalle</a></td>
-				<td><a href="formularioeditar.jsp?isbn=<%=libro.getIsbn()%>">editar</a></td>
+				<td><a href="ServletControlador?accion=borrar&isbn=<%=libro.getIsbn()%>">borrar</a></td>
+				<td><a href="ServletControlador?accion=detalle&isbn=<%=libro.getIsbn()%>">detalle</a></td>
+				<td><a href="ServletControlador?accion=formularioeditar&isbn=<%=libro.getIsbn()%>">editar</a></td>
+				<td><a href="ServletControlador?accion=capituloslibros&isbn=<%=libro.getIsbn()%>">ver capitulos</a></td>
 			</tr>
-			<%
-			}
-			%>
+			<%}%>
 		</tbody>
 	</table>
-	<a href="011_Formulario_Libro.html">nuevo libro</a>
+	<a href="ServletControlador?accion=fomularioInsertar">INSERTAR NUEVO LIBRO</a>
 </body>
 </html>

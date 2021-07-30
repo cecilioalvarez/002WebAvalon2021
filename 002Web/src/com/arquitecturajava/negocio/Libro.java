@@ -8,22 +8,21 @@ public class Libro {
 	private String isbn;
 	private String titulo;
 	private String autor;
-
+	
 	private List<Capitulo> capitulos= new ArrayList<Capitulo>();
-
+	
 	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}
 	public void setCapitulos(List<Capitulo> capitulos) {
 		this.capitulos = capitulos;
 	}
-	
 	// fortalece la relacion y la simplifica entre 
-		//Libro y capitulo
-		public void addCapitulo(Capitulo c) {
-			this.capitulos.add(c);
-		}
-
+	//Libro y capitulo
+	public void addCapitulo(Capitulo c) {
+		this.capitulos.add(c);
+	}
+	
 	public String getIsbn() {
 		return isbn;
 	}
@@ -75,8 +74,8 @@ public class Libro {
 			return false;
 		return true;
 	}
-
-
-
+	
+	
+	
 	
 }

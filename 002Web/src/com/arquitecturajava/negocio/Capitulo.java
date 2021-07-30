@@ -1,11 +1,10 @@
 package com.arquitecturajava.negocio;
 
 public class Capitulo {
-
 	private String titulo;
 	private int paginas;
 	private Libro libro;
-
+	
 	public Libro getLibro() {
 		return libro;
 	}
@@ -24,7 +23,13 @@ public class Capitulo {
 	public void setPaginas(int paginas) {
 		this.paginas = paginas;
 	}
-	public Capitulo(String titulo, int paginas, Libro libro) {
+
+
+	public Capitulo(String titulo) {
+		super();
+		this.titulo = titulo;
+	}
+	public Capitulo(String titulo, int paginas,Libro libro) {
 		super();
 		this.titulo = titulo;
 		this.paginas = paginas;

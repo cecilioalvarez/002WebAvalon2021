@@ -2,13 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@page import="com.arquitecturajava.negocio.Libro"%>
-<%@page import="com.arquitecturajava.repositorios.LibroRepository"%>
-<%@page
-	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
 <%
-
-LibroRepository repositorio = new LibroRepositoryJDBC();
-Libro libro = repositorio.buscarUno(request.getParameter("isbn"));
+Libro libro=(Libro)request.getAttribute("libro");
 %>
 <html>
 <head>
@@ -16,9 +11,9 @@ Libro libro = repositorio.buscarUno(request.getParameter("isbn"));
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="ServletActualizar" method="post">
+	<form action="ServletControlador" method="post">
 		<p>
-			ISBN:<input type="text" name="isbn" value="<%=libro.getIsbn()%>" />
+			ISBN:<input type="text" name="isbn" value="<%=libro.getIsbn()%>" readonly="readonly"/>
 		</p>
 		<p>
 			TITULO:<input type="text" name="titulo" value="<%=libro.getTitulo()%>" />
@@ -26,6 +21,7 @@ Libro libro = repositorio.buscarUno(request.getParameter("isbn"));
 		<p>
 			AUTOR:<input type="text" name="autor" value="<%=libro.getAutor()%>" />
 		</p>
+		<input type="hidden" name="accion" value="actualizar"/>
 		<input type="submit" value="actualizar"/>
 	</form>
 </body>
