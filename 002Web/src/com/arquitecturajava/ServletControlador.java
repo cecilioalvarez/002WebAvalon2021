@@ -91,13 +91,14 @@ public class ServletControlador extends HttpServlet {
 	
 			despachador = request.getRequestDispatcher("formularioeditar.jsp");
 			despachador.forward(request, response);
+			
 		}else if (request.getParameter("accion").equals("capituloslibros")) {
 
 			
 			String isbn = request.getParameter("isbn");
 			List<Capitulo> capitulos = servicio.buscarTodosCapitulos(new Libro(isbn));
 			request.setAttribute("capitulos", capitulos);
-	
+			request.setAttribute("isbn", isbn);
 			despachador = request.getRequestDispatcher("listacapitulos.jsp");
 			despachador.forward(request, response);
 		}

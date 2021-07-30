@@ -45,7 +45,10 @@ public class ServletControladorCapitulos extends HttpServlet {
 		} else if (request.getParameter("accion").equals("borrar")) {
 
 			servicio.borrarCapitulo(new Capitulo(request.getParameter("titulo")));
-			response.sendRedirect("ServletControladorCapitulos");
+			String isbn= request.getParameter("isbn");
+			response.sendRedirect("ServletControlador?accion=capituloslibros&isbn="+isbn);
+			
+			
 		}
 
 		else if (request.getParameter("accion").equals("formularioinsertar")) {
@@ -53,14 +56,16 @@ public class ServletControladorCapitulos extends HttpServlet {
 			RequestDispatcher despachador = request.getRequestDispatcher("formulariocapitulo.jsp");
 			
 			request.setAttribute("isbn", request.getParameter("isbn"));
+			
 			despachador.forward(request, response);
 
 		}else if (request.getParameter("accion").equals("insertar")) {
 			
 			Capitulo c= new Capitulo(request.getParameter("titulo"),Integer.parseInt(request.getParameter("paginas")),new Libro(request.getParameter("isbn")));
 			servicio.insertarCapitulo(c);
+			String isbn= request.getParameter("isbn");
 			System.out.println("entro a insertar capitulo");
-			response.sendRedirect("ServletControladorCapitulos");
+			response.sendRedirect("ServletControlador?accion=capituloslibros&isbn="+isbn);
 		
 
 		}
