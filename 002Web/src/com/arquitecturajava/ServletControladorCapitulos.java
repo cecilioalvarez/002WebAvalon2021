@@ -38,6 +38,7 @@ public class ServletControladorCapitulos extends HttpServlet {
 			despachador.forward(request, response);
 
 		} else if (request.getParameter("accion").equals("borrar")) {
+			
 			servicio.borrarCapitulo(new Capitulo(request.getParameter("titulo")));
 			String isbn=request.getParameter("isbn");
 			response.sendRedirect("ServletControlador?accion=capituloslibros&isbn="+isbn);
