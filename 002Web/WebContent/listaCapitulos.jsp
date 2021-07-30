@@ -9,15 +9,16 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <title>Lista de capitulos</title>
 </head>
 <body>
 
-<table>
+<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Titulo</th>
-				<th>Páginas</th>
+				<th scope="col">Titulo</th>
+				<th scope="col">Páginas</th>
 				
 			</tr>
 		</thead>
@@ -28,18 +29,21 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 
 			<tr>
 				<td><%=capitulo.getTitulo()%></td>
-				<td><%=capitulo.getPaginas()%></td>
-				
-				
-			</tr>
+				<td><%=capitulo.getPaginas()%></td> 
+				<td><a
+					href="ServletControladorCapitulos?accion=borrar&titulo=<%=capitulo.getTitulo()%>&isbn=<%=request.getParameter("isbn")%>">Borrar</a></td>
+				</tr>
 			<%
 			}
 			%>
 		</tbody>
 
 	</table>
-	<!-- <a href="ServletControladorCapitulos?accion=formularioInsertar">nuevo capitulo</a> -->
-
+	
+	<p><a href="ServletControladorCapitulos?accion=formularioInsertar&isbn=<%=request.getParameter("isbn")%>">nuevo capitulo</a></p>
+	
+	
+	<p><a href="ServletControlador">Listado libros</a></p> 
 
 </body>
 </html>

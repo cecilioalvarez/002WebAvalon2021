@@ -26,5 +26,9 @@ public interface LibroService {
 	List<Libro> buscarPorIituloAutor(String titulo, String autor);
 	
 	List<Capitulo> buscarTodosLosCapitulos();
+	List<Capitulo> buscarTodosCapitulos(Libro libro);
+	
+	void borrarCapitulo(Capitulo capitulo);
+	void insertarCapitulo(Capitulo capitulo);
 
 }

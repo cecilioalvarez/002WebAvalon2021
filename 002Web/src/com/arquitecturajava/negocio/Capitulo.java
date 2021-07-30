@@ -9,6 +9,11 @@ public class Capitulo {
 		super();
 	}
 
+	public Capitulo(String titulo) {
+		super();
+		this.titulo = titulo;
+	}
+
 	public Capitulo(String titulo, Libro libro) {
 		super();
 		this.titulo = titulo;
@@ -20,6 +25,13 @@ public class Capitulo {
 		this.titulo = nombre;
 		this.paginas = paginas;
 
+	}
+
+	public Capitulo(String titulo, int paginas, Libro libro) {
+		super();
+		this.titulo = titulo;
+		this.paginas = paginas;
+		this.libro = libro;
 	}
 
 	public int getPaginas() {

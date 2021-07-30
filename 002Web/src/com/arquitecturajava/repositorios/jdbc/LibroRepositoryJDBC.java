@@ -23,6 +23,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_INSERTAR = "insert into libros (isbn,titulo,autor) values(?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from libros where isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS = "select * from libros";
+	final static String CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO = "select * from capitulos where libros_isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS_CON_CAPITULOS = "select libros.*, capitulos.titulo as tituloCapitulo, capitulos.paginas from libros inner join capitulos on libros.isbn=capitulos.libros_isbn";
 	final static String CONSULTA_BUSCAR_UNO = "select * from libros where isbn=?";
 	final static String CONSULTA_ACTUALIZAR = "update libros set titulo=? , autor=? where isbn=?";
@@ -209,6 +210,29 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		}
 
 		return listaLibros;
+	}
+
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
+		List<Capitulo> listaCapitulos= new ArrayList<Capitulo>();
+
+		try {
+			Connection conn = helper.getConexion();
+			PreparedStatement sentencia=conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO);
+			sentencia.setString(1, libro.getIsbn());
+			ResultSet rs=sentencia.executeQuery();
+			while (rs.next()) {
+				Libro l=new Libro(rs.getString("libros_isbn"));
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),l);
+				listaCapitulos.add(c);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return listaCapitulos;
 	}
 
 }
