@@ -37,6 +37,8 @@ public class ServletControlador extends HttpServlet {
 		if (request.getParameter("accion") == null) {
 
 			List<Libro> listaLibros = servicio.buscarTodos();
+			// es aqui donde se rellena la coleccion delrequest
+			//para la vista
 			request.setAttribute("libros", listaLibros);
 			
 			despachador = request.getRequestDispatcher("listalibros.jsp");

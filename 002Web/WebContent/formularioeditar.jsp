@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@page  import="com.arquitecturajava.negocio.Libro" %>
-<% 
-Libro libro=(Libro)request.getAttribute("libro");
-%>   
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +12,13 @@ Libro libro=(Libro)request.getAttribute("libro");
 <body>
 <form action="ServletControlador" method="POST">
 <p>
-Isbn:<input type="text" name="isbn" value="<%=libro.getIsbn()%>" readonly="readonly"/>
+Isbn:<input type="text" name="isbn" value="${libro.isbn}" readonly="readonly"/>
 </p>
 <p>
-Titulo:<input type="text" name="titulo" value="<%=libro.getTitulo()%>"/>
+Titulo:<input type="text" name="titulo" value="${libro.titulo}"/>
 </p>
 <p>
-Autor:<input type="text" name="autor" value="<%=libro.getAutor()%>"/>
+Autor:<input type="text" name="autor" value="${libro.autor}"/>
 </p>
 <input type="hidden" name="accion" value="actualizar"/>
 <input type="submit" value="actualizar"/>
