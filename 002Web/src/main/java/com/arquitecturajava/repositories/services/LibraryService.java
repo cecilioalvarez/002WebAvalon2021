@@ -39,8 +39,6 @@ public interface LibraryService {
     
     int deleteChapters(Book book);
     
-    int update(Chapter chapter);
-    
     int updateTitle(Chapter chapter, String title);
     
     int updatePages(Chapter chapter, int pages);

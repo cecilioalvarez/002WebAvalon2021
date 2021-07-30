@@ -4,9 +4,9 @@
     Author     : Germán Zunzunegui
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="com.arquitecturajava.business.Book"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Book book = (Book) request.getAttribute("book"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,27 +15,27 @@
         <meta name="author" content="Germán Zunzunegui Rodríguez"/>
         <meta name="description" content="Formulario de creación de capítulos."/>
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <title>Formulario: Creación de capítulo</title>
+        <title>Creación de capítulo</title>
     </head>
     <body>
         <form id="createChapter" name="createChapter" method="POST" action="LibraryServiceController">
             <fieldset>
-                <legend>Datos del nuevo capítulo de «<%=book.getTitle() %>»</legend>
+                <legend>Datos del nuevo capítulo de «${book.title}»</legend>
                 <div>
                     <label for="isbn">Título:</label>
-                    <input type="text" id="isbn" name="title" maxlength="64"/>
+                    <input type="text" id="title" name="title" maxlength="64"/>
                 </div>
                 <div>
                     <label for="pages">Número de páginas:</label>
                     <input type="number" id="pages" name="pages" min="1"/>
                 </div>
             </fieldset>
-            <input type="hidden" id="isbn" name="isbn" value="<%=book.getPk_isbn() %>">
-            <input type="hidden" id="action" name="action" value="createChapter">
+            <input type="hidden" id="isbn" name="isbn" value="${book.pk_isbn}"/>
+            <input type="hidden" id="action" name="action" value="createChapter"/>
             <input type="submit" id="send" name="send" value="Añadir"/>
         </form>
         <div class="links">
-            <a href="LibraryServiceController?action=showBookChapters&isbn=<%=book.getPk_isbn() %>">Volver a la lista</a>  
+            <a href="LibraryServiceController?action=showBookChapters&isbn=${book.pk_isbn}">Volver a la lista</a>  
         </div>
     </body>
 </html>

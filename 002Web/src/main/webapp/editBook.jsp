@@ -4,6 +4,8 @@
     Author     : Germán Zunzunegui
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="com.arquitecturajava.repositories.services.LibraryServiceImplementation"%>
 <%@page import="com.arquitecturajava.repositories.services.LibraryService"%>
 <%@page import="java.util.List"%>
@@ -12,10 +14,7 @@
 <%@page import="com.arquitecturajava.business.Book"%>
 <%@page import="com.arquitecturajava.repositories.BookRepositoryJDBC"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% 
-    Book book = (Book) request.getAttribute("book");
-    List<Author> authors = (List) request.getAttribute("authors");
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,22 +31,22 @@
                 <legend>Datos del libro</legend>
                 <div>
                     <label for="isbn">ISBN:</label>
-                    <input type="text" id="isbn" name="isbn" value="<%=book.getPk_isbn().toUpperCase() %>" readonly/>
+                    <input type="text" id="isbn" name="isbn" value="${fn:toUpperCase(book.pk_isbn)}" readonly/>
                 </div>
                 <div>
                     <label for="title">Título:</label>
-                    <input type="text" id="title" name="title" value="<%=book.getTitle()%>"/>
+                    <input type="text" id="title" name="title" value="${book.title}"/>
                 </div>
                 <div>
                     <label for="author">Autor:</label>
                     <select id="author" name="author">
-                        <% for (Author author : authors) {%>
-                        <option name="author" value="<%=author.getPk_id()%>" 
-                                <% if (author.equals(book.getFk_author())) {%>
+                        <c:forEach var="author" items="${authors}">
+                        <option name="author" value="${author.pk_id}" 
+                                <c:if test="${author == book.fk_author}">
                                 selected="true"
-                            <% } %>
-                        ><%=author.getName()%></option>
-                        <% }%>
+                                </c:if>
+                        >${author.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </fieldset>

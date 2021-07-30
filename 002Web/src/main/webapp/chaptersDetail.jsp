@@ -4,11 +4,12 @@
     Author     : Germán Zunzunegui
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="com.arquitecturajava.business.Book"%>
 <%@page import="com.arquitecturajava.business.Chapter"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Book book = (Book) request.getAttribute("book"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +21,7 @@
         <title>Capítulos del libro</title>
     </head>
     <body>
-        <h2>CAPÍTULOS DE «<%=book.getTitle().toUpperCase() %>»</h2>
+        <h2>CAPÍTULOS DE «${fn:toUpperCase(book.title)}»</h2>
         <table>
             <thead>
                 <tr>
@@ -30,19 +31,19 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (Chapter chapter : book.getChapters()) { %>
+                 <c:forEach var="chapter" items="${book.chapters}">
                 <tr>
-                    <td class="greatCell"><%=chapter.getPk_title() %></td>
-                    <td class="veryTinyCell"><%=chapter.getPages() %></td>
+                    <td class="greatCell">${chapter.pk_title}</td>
+                    <td class="veryTinyCell">${chapter.pages}</td>
                     <td class="tinyCell">
-                        <a href='LibraryServiceController?action=deleteChapter&isbn=<%=book.getPk_isbn() %>&title=<%=chapter.getPk_title() %>'>Borrar</a>
+                        <a href='LibraryServiceController?action=deleteChapter&isbn=${book.pk_isbn}&title=${chapter.pk_title}'>Borrar</a>
                     </td>
                 </tr>
-                <% } %>
+                </c:forEach>
             </tbody>
         </table>
         <div class="links">
-            <a href='LibraryServiceController?action=addBookChapter&isbn=<%=book.getPk_isbn() %>'>Añadir un capítulo</a>
+            <a href='LibraryServiceController?action=addBookChapter&isbn=${book.pk_isbn}'>Añadir un capítulo</a>
             <a href='LibraryServiceController'>Volver a la lista</a>
         </div>
     </body>

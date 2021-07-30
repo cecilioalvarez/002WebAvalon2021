@@ -6,22 +6,17 @@ public class Chapter {
 
     private String pk_title;
     private int pages;
-    private Book fk_book;
+    private Book pk_fk_book;
 
-    public Chapter(String title, int pages, Book fk_book) {
+    public Chapter(String title, int pages, Book book) {
         this.pk_title = title;
         this.pages = pages;
-        this.fk_book = fk_book;
-    }
-    
-    public Chapter(String title, int pages) {
-        this.pk_title = title;
-        this.pages = pages;
+        this.pk_fk_book = book;
     }
     
     public Chapter(String title, Book book) {
         this.pk_title = title;
-        this.fk_book = book;
+        this.pk_fk_book = book;
     }
 
     public String getPk_title() {
@@ -32,15 +27,15 @@ public class Chapter {
         return this.pages;
     }
 
-    public Book getFk_book() {
-        return this.fk_book;
+    public Book getPk_fk_book() {
+        return this.pk_fk_book;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.pk_title);
-        hash = 31 * hash + Objects.hashCode(this.fk_book);
+        hash = 31 * hash + Objects.hashCode(this.pk_fk_book);
         return hash;
     }
 
@@ -59,7 +54,7 @@ public class Chapter {
         if (!Objects.equals(this.pk_title, other.pk_title)) {
             return false;
         }
-        if (!Objects.equals(this.fk_book, other.fk_book)) {
+        if (!Objects.equals(this.pk_fk_book, other.pk_fk_book)) {
             return false;
         }
         return true;
@@ -67,6 +62,6 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return "[" + this.fk_book.getTitle() + "] Capítulo: " + this.pk_title + " [" + this.pages + " pags]";
+        return "[" + this.pk_fk_book.getTitle() + "] Capítulo: " + this.pk_title + " [" + this.pages + " pags]";
     }
 }

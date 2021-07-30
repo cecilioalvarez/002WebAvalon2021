@@ -126,11 +126,6 @@ public class LibraryServiceImplementation implements LibraryService {
     }
 
     @Override
-    public int update(Chapter chapter) {
-        return this.chapterRepository.update(chapter);
-    }
-
-    @Override
     public int updateTitle(Chapter chapter, String title) {
         return this.chapterRepository.updateTitle(chapter, title);
     }

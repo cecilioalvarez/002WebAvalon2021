@@ -4,9 +4,10 @@
     Author     : Germán Zunzunegui
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="com.arquitecturajava.business.Author"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Author author = (Author) request.getAttribute("author"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,9 +30,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="tinyCell"><%=author.getPk_id().toUpperCase() %></td>
-                    <td class="standardCell"><%=author.getName() %></td>
-                    <td class="tinyCell"><%=author.getAge() %></td>
+                    <td class="tinyCell">${fn:toUpperCase(author.pk_id)}</td>
+                    <td class="standardCell">${author.name}</td>
+                    <td class="tinyCell">${author.age}</td>
                 </tr>
             </tbody>
         </table>

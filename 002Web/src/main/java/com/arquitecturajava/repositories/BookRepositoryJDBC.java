@@ -18,7 +18,7 @@ public class BookRepositoryJDBC implements BookRepository {
     public Book selectWithChapters(Book book) {
         final String QUERY = "SELECT * FROM book b "
                 + "JOIN author a ON b.fk_author = a.pk_id "
-                + "LEFT JOIN chapter c ON b.pk_isbn = c.fk_book "
+                + "LEFT JOIN chapter c ON b.pk_isbn = c.pk_fk_book "
                 + "WHERE b.pk_isbn = ?";
         Book searchedBook = null;
         try (Connection conn = DbConnectionSingleton.getConnection();
@@ -44,7 +44,7 @@ public class BookRepositoryJDBC implements BookRepository {
     public List<Book> selectWithChapters() {
         final String QUERY = "SELECT * FROM book b "
                 + "JOIN author a ON b.fk_author = a.pk_id "
-                + "LEFT JOIN chapter c ON b.pk_isbn = c.fk_book";
+                + "LEFT JOIN chapter c ON b.pk_isbn = c.pk_fk_book";
         final List<Book> BOOKS = new ArrayList<>();
         try (Connection conn = DbConnectionSingleton.getConnection();
                 Statement statement = conn.createStatement()) {
@@ -71,7 +71,7 @@ public class BookRepositoryJDBC implements BookRepository {
     public List<Book> select() {
         final String QUERY = "SELECT * FROM book b "
                 + "JOIN author a ON b.fk_author = a.pk_id "
-                + "LEFT JOIN chapter c ON b.pk_isbn = c.fk_book";
+                + "LEFT JOIN chapter c ON b.pk_isbn = c.pk_fk_book";
         final List<Book> BOOKS = new ArrayList<>();
         try (Connection conn = DbConnectionSingleton.getConnection();
                 Statement statement = conn.createStatement()) {
@@ -99,7 +99,7 @@ public class BookRepositoryJDBC implements BookRepository {
     public List<Book> select(Author fk_author) {
         final String QUERY = "SELECT * FROM book b "
                 + "JOIN author a ON b.fk_author = a.pk_id "
-                + "LEFT JOIN chapter c ON b.pk_isbn = c.fk_book"
+                + "LEFT JOIN chapter c ON b.pk_isbn = c.pk_fk_book"
                 + "WHERE a.pk_id = ?";
         final List<Book> BOOKS = new ArrayList<>();
         try (Connection conn = DbConnectionSingleton.getConnection();

@@ -4,6 +4,8 @@
     Author     : Germán Zunzunegui
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page import="com.arquitecturajava.repositories.services.LibraryServiceImplementation"%>
 <%@page import="com.arquitecturajava.repositories.services.LibraryService"%>
 <%@page import="java.util.List"%>
@@ -11,7 +13,6 @@
 <%@page import="com.arquitecturajava.repositories.BookRepository"%>
 <%@page import="com.arquitecturajava.business.Book"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% List<Book> books = (List) request.getAttribute("bookList"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,22 +35,22 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (Book book : books) { %>
-                        <tr>
-                            <td><%= book.getPk_isbn().toUpperCase() %></td>
-                            <td><%= book.getTitle() %></td>
-                            <td>
-                                <a href='LibraryServiceController?action=showAuthorDetail&id=<%=book.getFk_author().getPk_id() %>'>
-                                    <%= book.getFk_author().getName() %>
-                                </a>
-                            </td>
-                            <td>
-                                <a href='LibraryServiceController?action=editBook&isbn=<%=book.getPk_isbn() %>'>Editar</a>
-                                <a href='LibraryServiceController?action=deleteBook&isbn=<%=book.getPk_isbn() %>'>Borrar</a>
-                                <a href='LibraryServiceController?action=showBookChapters&isbn=<%=book.getPk_isbn() %>'>Ver capítulos</a>
-                            </td>
-                        </tr>
-                <%} %>
+                <c:forEach var="book" items="${bookList}">
+                    <tr>
+                        <td>${fn:toUpperCase(book.pk_isbn)}</td>
+                        <td>${book.title}</td>
+                        <td>
+                            <a href='LibraryServiceController?action=showAuthorDetail&id=${book.fk_author.pk_id}'>
+                                ${book.fk_author.name}
+                            </a>
+                        </td>
+                        <td>
+                            <a href='LibraryServiceController?action=editBook&isbn=${book.pk_isbn}'>Editar</a>
+                            <a href='LibraryServiceController?action=deleteBook&isbn=${book.pk_isbn}'>Borrar</a>
+                            <a href='LibraryServiceController?action=showBookChapters&isbn=${book.pk_isbn}'>Ver capítulos</a>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </body>
