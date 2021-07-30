@@ -40,9 +40,9 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 		<tbody>
 		<c:forEach var="libro" items="${libros}">
 			<tr>
-	            	<td><c:out value="${libro.isbn}"/></td>
-	            	<td><c:out value="${fn:toUpperCase(libro.titulo)}"/></td>
-	            	<td><c:out value="${libro.autor}"/></td>
+	            	<td>${libro.isbn}</td>
+	            	<td>${fn:toUpperCase(libro.titulo)}</td>
+	            	<td>${libro.autor}</td>
 	            	<td><a href="ServletControlador?accion=borrar&isbn=<c:out value="${libro.isbn}"/>" style="color: red">Borrar</a></td>
 	            	<td><a href="ServletControlador?accion=detalle&isbn=<c:out value="${libro.isbn}"/>" style="color: purple">Detalle</a></td>
 	            	<td><a href="ServletControlador?accion=formularioModificar&isbn=<c:out value="${libro.isbn}"/>" style="color: blue">Modificar</a></td>
