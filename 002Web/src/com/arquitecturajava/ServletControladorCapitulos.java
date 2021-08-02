@@ -45,6 +45,7 @@ public class ServletControladorCapitulos extends HttpServlet {
 			String isbn=request.getParameter("isbn");
 			response.sendRedirect("ServletControlador?accion=capituloslisbros&isbn="+isbn);
 			
+			
 		}else if (request.getParameter("accion").equals("formularioinsertar")) {
 
 			RequestDispatcher despachador = request.getRequestDispatcher("formulariocapitulo.jsp");
