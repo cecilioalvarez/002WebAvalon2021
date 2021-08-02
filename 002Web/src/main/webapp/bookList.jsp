@@ -4,8 +4,8 @@
     Author     : Germán Zunzunegui
 --%>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="function" %>
 <%@page import="com.arquitecturajava.repositories.services.LibraryServiceImplementation"%>
 <%@page import="com.arquitecturajava.repositories.services.LibraryService"%>
 <%@page import="java.util.List"%>
@@ -35,9 +35,9 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="book" items="${bookList}">
+                <core:forEach var="book" items="${bookList}">
                     <tr>
-                        <td>${fn:toUpperCase(book.pk_isbn)}</td>
+                        <td>${function:toUpperCase(book.pk_isbn)}</td>
                         <td>${book.title}</td>
                         <td>
                             <a href='LibraryServiceController?action=showAuthorDetail&id=${book.fk_author.pk_id}'>
@@ -50,7 +50,7 @@
                             <a href='LibraryServiceController?action=showBookChapters&isbn=${book.pk_isbn}'>Ver capítulos</a>
                         </td>
                     </tr>
-                </c:forEach>
+                </core:forEach>
             </tbody>
         </table>
     </body>

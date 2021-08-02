@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
+        <meta name="description" content="Página de pruebas para ejercicios de JavaScript básicos."/>
+        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <title>Pruebas con JavaScript</title>
+        <script type="text/javascript">
+            function getMessage() {
+                alert("¡Hola desde una función!");
+            }
+            
+            function showElement() {
+                console.log(document.getElementById("general-container"));
+            }
+            
+            function generateElements() {
+                let array = ["Primero", "Segundo", "Tercero", "Cuarto"];
+                for (let i = 0; i < array.length; i++) {
+                    let p = document.createElement("p");
+                    let content = document.createTextNode(array[i]);
+                    p.appendChild(content);
+                    document.getElementById("general-container").appendChild(p);
+                }
+            }
+            
+            function showPerson() {
+                let person = {
+                    pk_id: "00000000t", 
+                    name: "Juan", 
+                    age: 87
+                };
+                console.log(person.pk_id, person.name, person.age);
+            }
+            
+            function createPerson() {
+                let container = document.getElementById("person-container");
+                let person = {
+                    pk_id: document.getElementById("pk_id").value, 
+                    name: document.getElementById("name").value,
+                    age: parseInt(document.getElementById("age").value)
+                };
+                let nifP = document.createElement("p");
+                nifP.appendChild(document.createTextNode(person.pk_id));
+                container.appendChild(nifP);
+                let nameP = document.createElement("p");
+                nameP.appendChild(document.createTextNode(person.name));
+                container.appendChild(nameP);
+                let ageP = document.createElement("p");
+                ageP.appendChild(document.createTextNode(person.age));
+                container.appendChild(ageP);
+            }
+            
+            function sum(number1, number2) {
+                let container = document.getElementById("calculator-container");
+                let result = document.createElement("p");
+                let sum = number1 + number2;
+                result.appendChild(document.createTextNode(sum));
+                container.appendChild(result);
+            }
+            
+            function showProductTable(number) {
+                let container = document.getElementById("product-container");
+                for (let i = 1; i <= 10; i++) {
+                    let p = document.createElement("p");
+                    p.appendChild(document.createTextNode(number + "*" + i + "=" + i * number));
+                    container.appendChild(p);
+                }
+            }
+            
+            function showSelection() {
+                let container = document.getElementById("combo-answer");
+                let selectedValue = document.getElementById("combo").value;
+                let p = document.createElement("p");
+                p.appendChild(document.createTextNode(selectedValue));
+                if (container.childElementCount > 0) {
+                    container.removeChild(container.lastChild);
+                }
+                container.appendChild(p);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="person-container" class="container">
+            <input type="text" id="pk_id" maxlength="9"/>
+            <input type="text" id="name" maxlength="48"/>
+            <input type="number" id="age" min="0" max="120"/>
+            <input type="button" value="Crear persona" onclick="createPerson()"/>
+        </div>
+        <div id="calculator-container" class="container">
+            <input type="number" id="number1" step="0.01" placeholder="Introduce un número"/>
+            <input type="number" id="number2" step="0.01" placeholder="Introduce un número"/>
+            <input type="button" value="Sumar" onclick="sum(parseFloat(document.getElementById('number1').value), 
+                        parseFloat(document.getElementById('number2').value))"/>
+        </div>
+        <div id="product-container" class="container">
+            <input type="number" id="number" placeholder="Introduce un número"/>
+            <input type="button" value="Multiplicar" onclick="showProductTable(parseInt(document.getElementById('number').value))"/>
+        </div>
+        <div id="combo-container">
+            <select id="combo" name="combo" onchange="showSelection()">
+                <option value="1">Bilbao</option>
+                <option value="2">Madrid</option>
+                <option value="3">Santander</option>
+            </select>
+            <p id="combo-answer"></p>
+        </div>
+    </body>
+</html>
