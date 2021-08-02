@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>008</title>
+    <script type="text/javascript">
+        function imprimirArray() {
+            let persona = {
+                nombre: "ale",
+                edad: 20
+            };
+            console.log(persona);
+            console.log(persona.nombre);
+            console.log(persona.edad);
+
+            let p = document.createElement("p");
+            let text = document.createTextNode(persona.nombre);
+            p.appendChild(text);
+            let text2 = document.createTextNode(persona.edad);
+            p.appendChild(text2);
+            cuerpo.appendChild(p);
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="button" value="aceptar" onclick="imprimirArray()">
+
+
+</body>
+
+</html>

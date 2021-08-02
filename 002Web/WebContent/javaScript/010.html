@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>010</title>
+    <script type="text/javascript">
+        function imprimirArray() {
+
+            let persona = {};
+
+            persona.nombre = document.getElementById("nombre").value;
+            persona.edad = document.getElementById("edad").value;
+
+            console.log(persona);
+
+
+            let p = document.createElement("p");
+            let textoNombre = document.createTextNode(persona.nombre);
+            p.appendChild(textoNombre);
+            let textoEdad = document.createTextNode(persona.edad);
+            p.appendChild(document.createElement("br"));
+
+            p.appendChild(textoEdad);
+            let cuerpo = document.getElementById("cuerpo");
+            cuerpo.appendChild(p);
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <p>Nombre: <input type="text" name="nombre" id="nombre" /></p>
+    <p>Edad: <input type="text" name="edad" id="edad" /></p>
+    <input type="button" value="aceptar" onclick="imprimirArray()">
+
+
+</body>
+
+</html>

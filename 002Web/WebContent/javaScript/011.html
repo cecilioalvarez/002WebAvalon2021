@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>011</title>
+    <script type="text/javascript">
+        function sumar() {
+
+            let num1 = parseInt(document.getElementById("num1").value);
+            let num2 = parseInt(document.getElementById("num2").value);
+            let sum = num1 + num2;
+
+            let p = document.createElement("p");
+            let suma = document.createTextNode("La suma es " + parseInt(sum));
+            p.appendChild(suma);
+            let cuerpo = document.getElementById("cuerpo");
+            cuerpo.appendChild(p);
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <p>Numero1: <input type="text" name="num1" id="num1" placeholder="Introduce num1" /></p>
+    <p>Numero2: <input type="text" name="num2" id="num2" placeholder="Introduce num2" /></p>
+    <input type="button" value="aceptar" onclick="sumar()">
+
+
+</body>
+
+</html>

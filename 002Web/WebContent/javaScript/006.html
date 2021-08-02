@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>005</title>
+    <title>006</title>
     <script type="text/javascript">
-        function modificarCuerpo() {
+        function crearParrafo() {
             let cuerpo = document.getElementById("cuerpo");
+            let caja = document.getElementById("caja");
+            console.log(caja.value);
             let p = document.createElement("p");
-            let text = document.createTextNode("hola");
+            let text = document.createTextNode(caja.value);
             p.appendChild(text);
             cuerpo.appendChild(p);
             console.log(cuerpo);
@@ -18,7 +20,8 @@
 </head>
 
 <body id="cuerpo">
-    <input type="button" value="aceptar" onclick="modificarCuerpo()">
+    <input type="text" name="" id="caja">
+    <input type="button" value="aceptar" onclick="crearParrafo()">
 
 
 </body>
