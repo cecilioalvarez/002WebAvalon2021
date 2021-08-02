@@ -8,7 +8,7 @@
 	<form action="ServletControladorCapitulos" method="POST">
 		<p>
 			ISBN: <input type="text" name="isbn"
-				value=<%=request.getAttribute("isbn")%> />
+				value="${isbn}"/>
 		</p>
 		<p>
 			Titulo: <input type="text" name="titulo" />

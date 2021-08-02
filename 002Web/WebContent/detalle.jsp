@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@page import="com.arquitecturajava.negocio.Libro"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<%@page import="com.arquitecturajava.servicios.LibroService"%>
-<%@page
-	import="com.arquitecturajava.servicios.standard.LibroServiceStandard"%>
-<%@page
-	import="com.arquitecturajava.repositorios.jdbc.LibroRepositoryJDBC"%>
-<%
-Libro libro = (Libro) request.getAttribute("libro");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +12,13 @@ Libro libro = (Libro) request.getAttribute("libro");
 </head>
 <body>
 	<p>
-		Isbn:<%=libro.getIsbn()%>
+		Isbn: ${libro.isbn}
 	</p>
 	<p>
-		Titulo:<%=libro.getTitulo()%>
+		Titulo: ${libro.titulo}
 	</p>
 	<p>
-		Autor:<%=libro.getAutor()%>
+		Autor: ${libro.autor}
 	</p>
 	<a href="ServletControlador">Volver a la lista</a>
 </body>

@@ -23,7 +23,7 @@
 			<c:forEach var="libro" items="${libros}">
 				<tr>
 					<td>${libro.isbn}</td>
-					<td>${libro.titulo}</td>
+					<td>${fn:toUpperCase(libro.titulo)}</td>
 					<td>${libro.autor}</td>
 					<td><a
 						href="ServletControlador?accion=borrar&isbn=${libro.isbn}">borrar</a></td>

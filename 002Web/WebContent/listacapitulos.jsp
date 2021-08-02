@@ -2,12 +2,9 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@page import="com.arquitecturajava.negocio.Capitulo"%>
-<%@page import="java.util.List"%>
 
-<%
-// ya no accedo a la base de datos desde el jsp
-List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,25 +17,24 @@ List<Capitulo> listaCapitulos = (List<Capitulo>) request.getAttribute("capitulos
 				<th>titulo</th>
 				<th>paginas</th>
 				<th>borrar</th>
-				
+
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Capitulo capitulo : listaCapitulos) {
-			%>
-			<tr>
+			<c:forEach var="capitulos" items="${capitulos}">
+				<tr>
 
-				<td><%=capitulo.getTitulo()%></td>
-				<td><%=capitulo.getPaginas()%></td>
-				<td><a
-					href="ServletControladorCapitulos?accion=borrar&titulo=<%=capitulo.getTitulo()%>&isbn=<%=request.getParameter("isbn")%>">borrar</a></td>
-			</tr>
-			<%
-			}
-			%>
+					<td>${capitulos.titulo}</td>
+					<td>${capitulos.paginas}</td>
+					<td><a
+                        href="ServletControladorCapitulos?accion=borrar&titulo=${capitulos.titulo}
+                    &isbn=${isbn}">borrar</a></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
-	<a href="ServletControladorCapitulos?accion=formularioinsertar&isbn=<%=request.getParameter("isbn")%>">Nuevo capitulo</a>
+	 <a
+        href="ServletControladorCapitulos?accion=formularioinsertar&isbn=${isbn}">Nuevo
+        capitulo</a>
 </body>
 </html>
