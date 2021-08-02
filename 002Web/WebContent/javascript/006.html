@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function modifyBody() {
+            let cuerpo = document.getElementById("cuerpo");
+            let caja = document.getElementById("caja");
+            console.log(caja.value);
+
+            let parrafo = document.createElement("p");
+            let txt = document.createTextNode(caja.value);
+            parrafo.appendChild(txt);
+            cuerpo.appendChild(parrafo);
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="text" id="caja" />
+    <input type="button" value="Aceptar" onclick="modifyBody()" />
+</body>
+
+</html>

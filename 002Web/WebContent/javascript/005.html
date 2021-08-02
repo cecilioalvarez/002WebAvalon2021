@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function modifyBody() {
+            let cuerpo = document.getElementById("cuerpo");
+            console.log(cuerpo);
+            let parrafo = document.createElement("p");
+            let txt = document.createTextNode("Hola de nodo");
+            parrafo.appendChild(txt);
+            cuerpo.appendChild(parrafo);
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="button" value="Aceptar" onclick="modifyBody()" />
+</body>
+
+</html>
