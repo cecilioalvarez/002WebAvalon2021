@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+      function multiplicar() {
+        let numero = parseInt(document.getElementById("numero").value);
+
+        for (let i = 0; i < 11; i++) {
+          let p = document.createElement("p");
+          let resultado = numero * i;
+          let textresultado = document.createTextNode(
+            numero + " x " + i + " = " + resultado
+          );
+          p.appendChild(textresultado);
+          document.getElementById("cuerpo").appendChild(p);
+        }
+      }
+    </script>
+  </head>
+  <body id="cuerpo">
+    Numero :<input
+      type="number"
+      name="numero"
+      id="numero"
+      placeholder="Introduce numero"
+    />
+    <input type="button" value="aceptar" onclick="multiplicar()" />
+  </body>
+</html>

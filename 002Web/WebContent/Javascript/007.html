@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function imprimirArray(){
+		let cuerpo = document.getElementById("cuerpo");
+		let lista = [1,2,3,4];
+
+		for(let i=0;i<lista.length;i++){
+			console.log(i);
+			let parrafo = document.createElement("p");
+			let texto = document.createTextNode(i+1);
+			parrafo.appendChild(texto);
+			cuerpo.appendChild(parrafo);
+		}
+	}
+	
+</script>
+</head>
+<body id="cuerpo">
+	<input type="text" id="caja">
+	<input type="button" value="aceptar" onclick="imprimirArray()">
+</body>
+</html>

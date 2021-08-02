@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function crearParrafo(){
+		//con esto accedemos a una zona del documento, en este caso al body
+		let cuerpo = document.getElementById("cuerpo");
+		let caja = document.getElementById("caja");
+		console.log(caja.value);
+
+		let parrafo = document.createElement("p");
+		let texto = document.createTextNode(caja.value);
+		parrafo.appendChild(texto);
+		cuerpo.appendChild(parrafo);
+	}
+	
+</script>
+</head>
+<body id="cuerpo">
+	<input type="text" id="caja">
+	<input type="button" value="aceptar" onclick="crearParrafo()">
+</body>
+</html>
