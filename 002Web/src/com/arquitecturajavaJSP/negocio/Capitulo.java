@@ -3,7 +3,7 @@ package com.arquitecturajavaJSP.negocio;
 public class Capitulo {
 
 	private String titulo;
-	private int paginas;
+	private int paginas; 
 	private Libro libro;
 	
 	
