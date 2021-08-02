@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+      function imprimirArray() {
+        
+        let cuerpo= document.getElementById("cuerpo");
+        let lista=[1,2,3,4];
+
+        for (let i=0;i<lista.length;i++) {
+
+            let parrafo= document.createElement("p");
+            let texto= document.createTextNode(i);
+            parrafo.appendChild(texto);
+            cuerpo.appendChild(parrafo);
+            
+        }
+       
+        // que lo que hagais vosotros es generar una lista 
+        // de parrafos en la pagina segun vamos recorriendo
+        // el array es decir por cada numero del array un parrafo nuevo
+        // en el dom
+      }
+    </script>
+  </head>
+  <body id="cuerpo">
+    <input type="text" id="caja" />
+    <input type="button" value="aceptar" onclick="imprimirArray()" />
+  </body>
+</html>
