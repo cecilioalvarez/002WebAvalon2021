@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function imprimirArray() {
+
+            let lista = [1, 2, 3, 4];
+            let cuerpo = document.getElementById("cuerpo");
+
+            for (let index = 0; index < lista.length; index++) {
+                let parrafo = document.createElement("p");
+
+                let txt = document.createTextNode("Parrafo - " + lista[index]);
+
+                parrafo.appendChild(txt);
+                cuerpo.appendChild(parrafo);
+            }
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="text" id="caja" />
+    <input type="button" value="Aceptar" onclick="imprimirArray()" />
+</body>
+
+</html>

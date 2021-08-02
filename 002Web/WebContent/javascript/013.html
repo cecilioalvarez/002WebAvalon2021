@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function seleccionar() {
+            let combo = document.getElementById("combo");
+
+            console.log(combo.value);
+            let p = document.getElementById("miSeleccion");
+
+            let txt = document.createTextNode(combo.value);
+
+            //p.appendChild(txt);
+            p.textContent = combo.value;
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <select id="combo" onchange="seleccionar()">
+        <option>Santander</option>
+        <option>Bilbao</option>
+        <option>Madrid</option>
+    </select>
+    <p id="miSeleccion"></p>
+    <input type="button" value="Aceptar" onclick="seleccionar()" />
+</body>
+
+</html>

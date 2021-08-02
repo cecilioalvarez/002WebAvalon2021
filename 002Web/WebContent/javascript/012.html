@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function imprimirDatos() {
+            let cuerpo = document.getElementById("cuerpo");
+
+            let num1 = document.getElementById("cajaNum1").value;
+            if (num1 != "") {
+
+                for (let index = 0; index < 11; index++) {
+                    let p = document.createElement("p");
+                    let tabla = parseFloat(num1) * index;
+                    let txttabla = document.createTextNode(num1 + " * " + index + " = " + tabla);
+
+                    p.appendChild(txttabla);
+                    cuerpo.appendChild(p);
+
+                }
+
+            }
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="number" id="cajaNum1" placeholder="Numero 1" />
+    <input type="button" value="Aceptar" onclick="imprimirDatos()" />
+</body>
+
+</html>

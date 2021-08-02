@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function imprimirDatos() {
+            let cuerpo = document.getElementById("cuerpo");
+            let persona = {
+                nombre: "Pedro",
+                edad: 20
+            };
+            /*console.log(persona);
+            console.log(persona.nombre);
+            console.log(persona.edad);*/
+
+            let p = document.createElement("p");
+            let txtName = document.createTextNode(persona.nombre);
+            let txtAge = document.createTextNode(persona.edad);
+
+            p.appendChild(txtName);
+            p.append(" - ");
+            p.appendChild(txtAge);
+            cuerpo.appendChild(p);
+
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="text" id="cajaNombre" placeholder="Nombre" />
+    <input type="text" id="cajaEdad" placeholder="Edad" />
+    <input type="button" value="Aceptar" onclick="imprimirDatos()" />
+</body>
+
+</html>

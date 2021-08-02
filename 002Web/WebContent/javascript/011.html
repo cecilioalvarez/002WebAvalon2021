@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function imprimirDatos() {
+            let cuerpo = document.getElementById("cuerpo");
+
+            let num1 = document.getElementById("cajaNum1").value;
+            let num2 = document.getElementById("cajaNum2").value;
+            if (num1 != "" && num2 != "") {
+
+
+                let p = document.createElement("p");
+                let suma = parseFloat(num1) + parseFloat(num2);
+                let txtsuma = document.createTextNode(suma);
+
+                p.append("La suma es: ");
+                p.appendChild(txtsuma);
+                cuerpo.appendChild(p);
+            }
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="number" id="cajaNum1" placeholder="Numero 1" />
+    <input type="number" id="cajaNum2" placeholder="Numero 2" />
+    <input type="button" value="Aceptar" onclick="imprimirDatos()" />
+</body>
+
+</html>

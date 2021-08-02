@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function imprimirArray() {
+            let cuerpo = document.getElementById("cuerpo");
+            let persona = {
+                nombre: "pepe",
+                edad: 20
+            };
+            /*console.log(persona);
+            console.log(persona.nombre);
+            console.log(persona.edad);*/
+            let p = document.createElement("p");
+            let txtName = document.createTextNode(persona.nombre);
+            let txtAge = document.createTextNode(persona.edad);
+
+            p.appendChild(txtName);
+            p.appendChild(document.createElement("br"));
+            p.appendChild(txtAge);
+            cuerpo.appendChild(p);
+
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <input type="text" id="caja" />
+    <input type="button" value="Aceptar" onclick="imprimirArray()" />
+</body>
+
+</html>
