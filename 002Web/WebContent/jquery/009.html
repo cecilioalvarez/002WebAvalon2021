@@ -14,9 +14,11 @@
     ></script>
     <script type="text/javascript">
       $(document).ready(function () {
-
         $("#boton").click(function () {
-
+          
+         let errores =validarCampos(["#nombre","#apellidos"]);
+          console.log(errores);
+          /*
           if ($("#nombre").val() == "") {
             $("#resumen").append("<p>el campo nombre obligatorio</p>");
             $(".error").show();
@@ -27,27 +29,28 @@
             $("#resumen").append("<p>el campo  apellido es obligatorio</p>");
             $(".error").show();
             $("#resumen").show();
-          }
+          }*/
         });
       });
+      // que lo que hace es nos devuelve que campos dan problemas
 
       function validarCampos(campos) {
-
-          let errores=[];
-          for (i=0;i<campos.length;i++) {
-
-              if ($(campos[0]).val()=="") {
-                  errores.push(campos[0]);
-              }
+        let errores = [];
+        for (i = 0; i < campos.length; i++) {
+          if ($(campos[i]).val() == "") {
+            errores.push(campos[i]);
           }
-
+        }
+        return errores;
       }
 
       function mostrarErrores(errores) {
+        for (i = 0; i < errores.length; i++) {
 
 
+
+        }
       }
-
     </script>
   </head>
   <body>
