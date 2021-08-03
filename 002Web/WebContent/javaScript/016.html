@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>016</title>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            let persona1 = {
+                nombre: "pedro",
+                edad: 20
+            };
+            let persona2 = {
+                nombre: "juan",
+                edad: 30
+            };
+            let persona3 = {
+                nombre: "maria",
+                edad: 40
+            };
+            let persona4 = {
+                nombre: "ana",
+                edad: 15
+            };
+
+            let lista = [];
+
+            lista.push(persona1, persona2, persona3, persona4);
+
+            for (let i = 0; i < lista.length; i++) {
+
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let texto1 = document.createTextNode(lista[i].nombre);
+                let texto2 = document.createTextNode(lista[i].edad);
+                td1.appendChild(texto1);
+                td1.appendChild(texto2);
+                tr.appendChild(td1);
+                console.log(tr);
+                let tabla = document.getElementById("mitabla");
+                tabla.appendChild(tr);
+
+            }
+
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <table id="mitabla">
+
+    </table>
+    <input type="button" id="boton" value="aceptar" />
+</body>
+
+</html>
