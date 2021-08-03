@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JQUERY 005</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#boton").click(function() {
+
+                let texto = $("#texto").val()
+                    //Lo inserta antes
+
+                $("#boton").before("<p>" + texto + "</p>");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <p> texto:<input type="text" id="texto" /></p>
+
+    <p><input type="button" value="aceptar" id="boton" /></p>
+</body>
+
+</html>

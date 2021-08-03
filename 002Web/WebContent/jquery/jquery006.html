@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JQUERY 006</title>
+    <style>
+        td {
+            cursor: pointer;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("td").click(function() {
+                alert('Has pulsado');
+                console.log($(this).parent().html());
+                $(this).remove();
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Titulo 1</td>
+            <td>Titulo 2</td>
+            <td>Titulo 3</td>
+            <td>Titulo 4</td>
+        </tr>
+        <tr>
+            <td>Contenido 1</td>
+            <td>Contenido 2</td>
+            <td>Contenido 3</td>
+            <td>Contenido 4</td>
+        </tr>
+    </table>
+</body>
+
+</html>

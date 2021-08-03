@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JQUERY 003</title>
+    <style>
+        #btn1 {
+            color: aqua;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 30px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btn1").click(function() {
+                alert('has pulsado el boton');
+            })
+            $("#btn2").click(function() {
+                alert('has pulsado el boton2');
+            })
+            $("#btn3").click(function() {
+                alert('has pulsado el boton3');
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="aceptar" id="btn1" />
+    <input type="button" value="aceptar" id="btn2" />
+    <input type="button" value="aceptar" id="btn3" />
+
+
+</body>
+
+</html>

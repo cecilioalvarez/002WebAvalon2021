@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JQUERY 007</title>
+    <style>
+        td {
+            cursor: pointer;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".borrar").click(function() {
+                $(this).parent().parent().remove();
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Titulo 1</td>
+            <td><input type="button" class="borrar" value="borrar"></td>
+        </tr>
+        <tr>
+            <td>Titulo 2</td>
+            <td><input type="button" class="borrar" value="borrar"></td>
+        </tr>
+        <tr>
+            <td>Titulo 3</td>
+            <td><input type="button" class="borrar" value="borrar"></td>
+        </tr>
+        <tr>
+            <td>Titulo 4</td>
+            <td><input type="button" class="borrar" value="borrar"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
