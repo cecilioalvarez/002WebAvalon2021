@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            /*Crea Cursor de tipo puntero para que se vea que se pueden usar las celdas*/
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $("td").click(function() {
+                alert("Has Pulsado");
+
+                //el this lo convierte en objeto de jquery y puedo tratarlo
+                $(this).remove();
+
+            });
+
+        })
+    </script>
+
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Hola</td>
+        </tr>
+        <tr>
+            <td>Que</td>
+        </tr>
+        <tr>
+            <td>Tal</td>
+        </tr>
+        <tr>
+            <td>Estás</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

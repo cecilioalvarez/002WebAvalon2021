@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            /*Crea Cursor de tipo puntero para que se vea que se pueden usar las celdas*/
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".borrar").click(function() {
+                //alert("Borrando");
+                console.log($(this).parent().parent().html());
+                $(this).parent().parent().remove();
+
+            });
+
+        })
+    </script>
+
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>Hola</td>
+            <td><input type="button" class="borrar" value="Borrar"></td>
+        </tr>
+        <tr>
+            <td>Que</td>
+            <td><input type="button" class="borrar" value="Borrar"></td>
+        </tr>
+        <tr>
+            <td>Tal</td>
+            <td><input type="button" class="borrar" value="Borrar"></td>
+        </tr>
+        <tr>
+            <td>Estás</td>
+            <td><input type="button" class="borrar" value="Borrar"></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
