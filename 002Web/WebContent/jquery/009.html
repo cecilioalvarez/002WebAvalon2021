@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <style>
+      .error,
+      #resumen {
+        color: red;
+        display: none;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+        $("#boton").click(function () {
+
+          if ($("#nombre").val() == "") {
+            $("#resumen").append("<p>el campo nombre obligatorio</p>");
+            $(".error").show();
+            $("#resumen").show();
+          }
+
+          if ($("#apellidos").val() == "") {
+            $("#resumen").append("<p>el campo  apellido es obligatorio</p>");
+            $(".error").show();
+            $("#resumen").show();
+          }
+        });
+      });
+
+      function validarCampos(campos) {
+
+          let errores=[];
+          for (i=0;i<campos.length;i++) {
+
+              if ($(campos[0]).val()=="") {
+                  errores.push(campos[0]);
+              }
+          }
+
+      }
+
+      function mostrarErrores(errores) {
+
+
+      }
+
+    </script>
+  </head>
+  <body>
+    <form>
+      <p>
+        <label for="nombre">Nombre:</label>
+        <input
+          type="text"
+          name="nombre"
+          id="nombre"
+          placeholder="introduce nombre"
+        />
+        <span class="error">*</span>
+      </p>
+
+      <p>
+        <label for="apellidos">Apellidos:</label>
+        <input
+          type="text"
+          name="apellidos"
+          id="apellidos"
+          placeholder="introduce el apellido"
+        />
+        <span class="error">*</span>
+      </p>
+
+      <p><input type="button" value="nuevo" id="boton" /></p>
+      <div id="resumen"></div>
+    </form>
+    <table id="tabla"></table>
+  </body>
+</html>

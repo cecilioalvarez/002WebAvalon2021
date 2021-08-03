@@ -15,26 +15,24 @@
     ></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $("#boton").click(function() {
-
-           let nombre= $("#nombre").val();
-           let edad= $("#edad").val();
-           
-          $("#tabla").append("<tr><td>"+ nombre+"</td><td>"+edad+"</td></tr>");
-
+        $("#boton").click(function () {
+          let nombre = $("#nombre").val();
+          let edad = $("#edad").val();
+          //una plantilla de javascript es6
+          $("#tabla").append(`<tr>
+                              <td>${nombre}</td>
+                              <td>${edad}</td>
+                              </tr>`);
         });
-
-        
       });
     </script>
   </head>
   <body>
     <form>
-      <p><input type="text" name="nombre" id="nombre"/></p>
-      <p><input type="text" name="edad" id="edad"/></p>
-      <p><input type="button" value="nuevo" id="boton"/></p>
+      <p><input type="text" name="nombre" id="nombre" /></p>
+      <p><input type="text" name="edad" id="edad" /></p>
+      <p><input type="button" value="nuevo" id="boton" /></p>
     </form>
-    <table id="tabla">
-     </table>
+    <table id="tabla"></table>
   </body>
 </html>
