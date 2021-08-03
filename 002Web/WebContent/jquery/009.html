@@ -17,6 +17,7 @@
         $("#boton").click(function () {
           
          let errores =validarCampos(["#nombre","#apellidos"]);
+          mostrarErrores(errores);
           console.log(errores);
           /*
           if ($("#nombre").val() == "") {
@@ -45,9 +46,11 @@
       }
 
       function mostrarErrores(errores) {
+        
+        $(".error").hide();
         for (i = 0; i < errores.length; i++) {
 
-
+              $(errores[i]).next().show();
 
         }
       }
