@@ -8,15 +8,19 @@
     ></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $(".boton").click(function () {
-          alert("has pulsado el boton");
+        $("#boton").click(function () {
+        
+          let texto=$("#texto").val()
+          $("#boton").before("<p>"+texto+"</p>");
         });
       });
     </script>
   </head>
   <body>
-    <input type="button" value="aceptar"  class="boton" />
-    <input type="button" value="aceptar"  class="boton"/>
-    <input type="button" value="aceptar"  class="boton"/>
+   <p> texto:<input type="text" id="texto" /></p>
+
+   <p><input type="button" value="aceptar"  id="boton" /></p>
+   
+  
   </body>
 </html>
