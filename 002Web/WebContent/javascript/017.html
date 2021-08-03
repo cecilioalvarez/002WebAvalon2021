@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        function validar() {
+            let nombre = document.getElementById("nombre");
+            let edad = document.getElementById("edad");
+            let dni = document.getElementById("dni");
+
+            console.log(nombre.value);
+            console.log(edad.value);
+            console.log(dni.value);
+            //Valido campos vacíos
+            if (nombre.value != "" && edad.value != "" && dni.value != "") {
+                alert("El Formulario es válido");
+            }
+            //Valido formato DNI correcto
+            if (/^\d{8}[A-Z]$/.test(dni.value)) {
+                alert("El DNI es válido");
+            }
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <form>
+        <p>Nombre:<input type="text" name="nombre" id="nombre" /></p>
+        <p>Edad:<input type="text" name="edad" id="edad" /></p>
+        <p>DNI:<input type="text" name="dni" id="dni" /></p>
+        <input type="button" value="Enviar" onclick="validar()" style="border-color: burlywood;background-color: burlywood;color:darkmagenta;" />
+    </form>
+
+</body>
+
+</html>

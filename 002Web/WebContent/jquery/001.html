@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        /*propiedad - valor */
+        
+        p {
+            color: blue;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+        }
+        
+        .verde {
+            color: green;
+        }
+        
+        #elegido {
+            color: red;
+        }
+        
+        span {
+            color: indigo;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2em;
+            border: 1px solid black;
+            margin: 20px;
+            padding: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        //$(document).ready - El dolar es jquery, función que recibe document como parámetro
+        //ready tiene un callback y es como window.onload de Jscript
+        $(document).ready(function() {
+            alert("jquery Funciona");
+        })
+    </script>
+
+</head>
+
+<body>
+    <span>Adiós 1</span>
+    <span>Adiós 2</span>
+    <span>Adiós 3</span>
+    <p>Hola</p>
+    <p class="verde">Hola 2</p>
+    <p class="verde">Hola 3</p>
+    <p id="elegido">Hola 4</p>
+
+</body>
+
+</html>

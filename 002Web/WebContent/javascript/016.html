@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JS</title>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            let persona1 = {
+                nombre: "Pedro",
+                edad: 10
+            };
+            let persona2 = {
+                nombre: "Juan",
+                edad: 20
+            };
+            let persona3 = {
+                nombre: "Maria",
+                edad: 30
+            };
+            let persona4 = {
+                nombre: "Ana",
+                edad: 40
+            };
+
+            let lista = [];
+            lista.push(persona1, persona2, persona3, persona4);
+
+            for (let i = 0; i < lista.length; i++) {
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+                let txt1 = document.createTextNode(lista[i].nombre);
+                let txt2 = document.createTextNode(lista[i].edad);
+                td1.appendChild(txt1);
+                td2.appendChild(txt2);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                console.log(tr);
+                let tabla = document.getElementById("tabla");
+                tabla.appendChild(tr);
+            }
+        }
+    </script>
+</head>
+
+<body id="cuerpo">
+    <table id="tabla" style="width: 100%;text-align: center;border-collapse:collapse;" border="1px solid black">
+        <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+        </tr>
+    </table><br>
+    <input type="button" value="Aceptar" />
+</body>
+
+</html>

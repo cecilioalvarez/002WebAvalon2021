@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        /*propiedad - valor */
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        //$(document).ready - El dolar es jquery, función que recibe document como parámetro
+        //ready tiene un callback y es como window.onload de Jscript
+        $(document).ready(function() {
+            //alert("jquery Funciona");
+            $("#btn1").click(function() {
+                alert("Botón 1 Pulsado");
+            });
+            $("#btn2").click(function() {
+                alert("Botón 2 Pulsado");
+            });
+            $("#btn3").click(function() {
+                alert("Botón 3 Pulsado");
+            });
+        })
+    </script>
+
+</head>
+
+<body>
+    <input type="button" id="btn1" value="Aceptar" />
+    <input type="button" id="btn2" value="Aceptar" />
+    <input type="button" id="btn3" value="Aceptar" />
+
+</body>
+
+</html>
