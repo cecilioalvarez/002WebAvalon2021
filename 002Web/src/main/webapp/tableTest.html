@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
+        <meta name="description" content="Página de pruebas para ejercicios de JavaScript básicos."/>
+        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <title>Pruebas con tablas</title>
+        <script type="text/javascript">
+            let people = [
+                {id: "00000000t", name: "Manuel", age: 45}, 
+                {id: "11111111h", name: "Elsa", age: 56}, 
+                {id: "22222222j", name: "Verónica", age: 32}, 
+                {id: "33333333p", name: "Alonso", age: 19},
+                {id: "44444444a", name: "Enrique", age: 33}, 
+                {id: "55555555m", name: "Desiré", age: 21}, 
+                {id: "66666666q", name: "Fernando", age: 26}, 
+                {id: "77777777b", name: "Gabriela", age: 28},
+                {id: "88888888y", name: "Saúl", age: 61}, 
+                {id: "99999999r", name: "Tamara", age: 52}, 
+                {id: "12345678z", name: "Regina", age: 40}
+            ];
+            
+            let loadTableContent = (tableBody) => {
+                for (var index in people) {
+                    let row = document.createElement("tr");
+                    
+                    let idCell = document.createElement("td");
+                    idCell.appendChild(document.createTextNode(people[index].id.toUpperCase()));
+                    row.appendChild(idCell);
+                    
+                    let nameCell = document.createElement("td");
+                    nameCell.appendChild(document.createTextNode(people[index].name));
+                    row.appendChild(nameCell);
+                    
+                    let ageCell = document.createElement("td");
+                    ageCell.appendChild(document.createTextNode(people[index].age));
+                    row.appendChild(ageCell);
+                    
+                    tableBody.appendChild(row);
+                }
+            };
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                loadTableContent(document.getElementById("table-body"));
+            });
+        </script>
+    </head>
+    <body>
+        <div id="table-container">
+            <table>
+                <caption>Tabla de personas</caption>
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

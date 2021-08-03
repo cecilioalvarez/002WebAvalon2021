@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
+        <meta name="description" content="Página de pruebas para ejercicios de jQuery básicos."/>
+        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <title>Pruebas con jQuery</title>
+        <script src="js/libs/jQuery.js"></script>
+        <script type="text/javascript">
+           $(document).ready(() => {
+               loadTable();
+               loadListeners();
+           });
+           
+           let loadListeners = () => {
+               $(".test").click((event) => $("body").append("<p>¡Pulsaste el " + event.target.value + "!</p>"));
+               $("#testButton").click(() => $("body").append("<p>Añadiste el texto: " + $("#test").val() + "</p>"));
+               $("input[type='button']").click(() => $("input:not([type='button'])").val(""));
+               $("#table-body td").click((event) => alert("¡Has pulsado la celda que contiene el texto «" + $(event.target).html() + "»!"));
+               $(".delete").click((event) => $(event.target).parent().parent().remove());
+           };
+           
+           let loadTable = () => {
+               let people = [
+                    {id: "00000000t", name: "Manuel", age: 45}, 
+                    {id: "11111111h", name: "Elsa", age: 56}, 
+                    {id: "22222222j", name: "Verónica", age: 32}, 
+                    {id: "33333333p", name: "Alonso", age: 19},
+                    {id: "44444444a", name: "Enrique", age: 33}, 
+                    {id: "55555555m", name: "Desiré", age: 21}, 
+                    {id: "66666666q", name: "Fernando", age: 26}, 
+                    {id: "77777777b", name: "Gabriela", age: 28},
+                    {id: "88888888y", name: "Saúl", age: 61}, 
+                    {id: "99999999r", name: "Tamara", age: 52}, 
+                    {id: "12345678z", name: "Regina", age: 40}
+                ];
+                
+                for(let person in people) {
+                    let tr = $("<tr>").appendTo($("#table-body"));
+                    $("<td>" + people[person].id + "</td>").appendTo(tr);
+                    $("<td>" + people[person].name + "</td>").appendTo(tr);
+                    $("<td>" + people[person].age + "</td>").appendTo(tr);
+                    $("<input>").attr("type", "button").attr("name", "delete").val("Borrar").addClass("delete")
+                            .appendTo($("<td>")
+                            .appendTo(tr));
+                }
+           };
+        </script>
+        <style>
+            .red {
+                color: red;
+            }
+            
+            .blue {
+                color: blue;
+            }
+            
+            .green {
+                color: green;
+            }
+            
+            span, ol {
+                color: indigo;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            
+            p {
+                font-family: "Times New Roman", Arial, sans-serif;
+                font-weight: bold;
+            }
+            
+            input[type="button"] {
+                font-family: Roboto, Arial, "Times New Roman", sans-serif;
+                font-weight: bold;
+                color: white;
+                background-color: purple;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--<span id="span1" class="red">Adios1</span>
+        <span id="span2" class="blue">Adios2</span>
+        <span id="span3" class="green">Adios3</span>
+        <p id="p1" class="red">Hola1</p>
+        <p id="p2" class="blue">Hola2</p>
+        <p id="p3" class="green">Hola3</p>
+        <ol>
+            <li>El primero.</li>
+            <li>El segundo.</li>
+            <li>El tercero.</li>
+            <li>El cuarto.</li>
+        </ol>
+        <input type="button" class="test" id="button1" name="button2" value="Botón 1"/>
+        <input type="button" class="test" id="button2" name="button2" value="Botón 2"/>
+        <input type="button" class="test" id="button3" name="button3" value="Botón 3"/>
+        <input type="text" id="test" name="test"/>
+        <input type="button" id="testButton" name="testButton" value="Botón texto"/>-->
+        <div id="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>NIF</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

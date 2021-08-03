@@ -1,22 +1,22 @@
 body {
     width: 80%;
     margin: 0 auto;
-    font-family: “Trebuchet MS”, Arial;
+    font-family: Arial, Verdana, sans-serif;
+    color: #0A0A0A;
 }
 
-h2 {
+h1, h2 {
     margin: 0 auto;
     margin-top: 20px;
     text-align: center;
-    color: #83aec0;
+    color: #6E9D07;
 }
 
 table {
     margin: 0 auto;
-    margin-top: 30px;
     text-align: center;
-    color: darkgrey;
-    border-collapse:collapse;
+    color: #0A0A0A;
+    border-collapse: collapse;
     border: none;
 }
 
@@ -25,16 +25,19 @@ table td {
     width: 300px;
 }
 
-table th {
+caption {
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+table th, caption {
     padding: 5px;
     font-size: 16px;
-    background-color: #83aec0;
-    background-image: url(fondo_th.png);
-    background-repeat: repeat-x;
+    background-color: #6E9D07;
     color: #FFFFFF;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #558FA6;
+    border-bottom-color: #ACE03A;
     text-transform: uppercase;
 }
 
@@ -56,9 +59,12 @@ td.veryTinyCell {
 
 form {
     margin: 0 auto;
-    margin-top: 50px;
     text-align: center;
     align-content: space-around;
+}
+
+fieldset {
+    border-color: #6E9D07;
 }
 
 fieldset legend {
@@ -74,15 +80,30 @@ form input, form select {
     text-align: center;
 }
 
-form input[type='submit'] {
+form input[type='submit'], form input[type='button'] {
     margin-top: 20px;
 }
 
-body>div {
-    margin-top: 20px;
+main div {
+    margin-top: 10px;
     text-align: center;
 }
 
 .links {
     color: #558FA6;
+}
+
+input[type="button"] {
+    padding: 3px;
+    font-family: Roboto, Arial, "Times New Roman", sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #6E9D07;
+    border-radius: 5px;
+    border-color: #ACE03A;
+}
+
+.error {
+    text-align: center;
+    color:red;
 }
