@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+       $(document).ready(function(){
+            $("#enviar").click(function(){
+              //$("body").append("<p>hola</p>");
+              let nombre = $("#nombre").val();
+              //$//("tr").append("<td>" + nombre + "</td>");
+              let apellido = $("#apellido").val();
+              //$("tr").append("<td>" + apellido + "</td>" + "<br>");
+              $("#tabla").append(`<tr>
+                                  <td>${nombre}</td>
+                                  <td>${apellido}</td>
+                                  </tr>`);
+            });
+        })
+    </script>
+  </head>
+  <body>
+    <form>
+      <p>Nombre: <input type="text" name="nombre" id="nombre" /></p>
+      <p>Apellido: <input type="apellido" name="apellido" id="apellido" /></p>
+    </form>
+    <p><input type="button" value="enviar" id="enviar"></p>
+    <table id="tabla">
+    </table>
+  </body>
+</html>

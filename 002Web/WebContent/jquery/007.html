@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".borrar").click(function () {
+          //alert("borrando");
+          //Con this seleccionamos el input ya que tiene la clase borrar
+          //Con .parent seleccionamos el padre del input que es td
+          //Con .parent de nuevo selecionamos el padre del td que es el tr
+          //Con remove borramos todo lo seleccionado.
+          $(this).parent().parent().remove();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>hola</td>
+        <td><input type="button" class="borrar" value="borrar" /></td>
+      </tr>
+      <tr>
+        <td>que</td>
+        <td><input type="button" class="borrar" value="borrar" /></td>
+      </tr>
+      <tr>
+        <td>tal</td>
+        <td><input type="button" class="borrar" value="borrar" /></td>
+      </tr>
+      <tr>
+        <td>estas</td>
+        <td><input type="button" class="borrar" value="borrar" /></td>
+      </tr>
+    </table>
+  </body>
+</html>

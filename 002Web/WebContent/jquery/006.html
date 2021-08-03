@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <style>
+      td{
+        border:1px solid black;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("td").click(function(){
+          //alert("has pulsado");
+          //console.log($(this).parent().html());
+          $(this).remove();
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>hola</td>
+      </tr>
+      <tr>
+        <td>que</td>
+      </tr>
+      <tr>
+        <td>tal</td>
+      </tr>
+      <tr>
+        <td>estas</td>
+      </tr>
+    </table>
+  </body>
+</html>
