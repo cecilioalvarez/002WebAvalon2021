@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+      function modificarcuerpo() {
+          
+        let cuerpo = document.getElementById("cuerpo");
+        console.log(cuerpo);
+        let parrafo= document.createElement("p");
+        let texto= document.createTextNode("hola");
+        parrafo.appendChild(texto);
+        cuerpo.appendChild(parrafo);
+
+
+      }
+    </script>
+  </head>
+  <body id="cuerpo">
+    <input type="button" value="aceptar" onclick="modificarcuerpo()" />
+  </body>
+</html>

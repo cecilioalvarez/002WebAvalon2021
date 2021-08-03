@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+      function sumar() {
+       
+        let numero1=parseInt(document.getElementById("numero1").value);
+        let numero2=parseInt(document.getElementById("numero2").value);
+        let suma= numero1+numero2;
+        console.log(suma);
+
+        let p= document.createElement("p");
+        let texto= document.createTextNode(suma);
+        p.appendChild(texto);
+        document.getElementById("cuerpo").appendChild(p);
+        
+
+       
+      }
+    </script>
+  </head>
+  <body id="cuerpo">
+    <p>Numero1: <input type="text" name="numero1" id="numero1"  placeholder="introduce numero1"/></p>
+    <p>Numero2: <input type="text" name="numero2" id="numero2" placeholder="introduce numero2" /></p>
+    <input type="button" value="aceptar" onclick="sumar()" />
+  </body>
+</html>

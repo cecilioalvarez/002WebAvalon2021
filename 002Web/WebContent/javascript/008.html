@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+      function imprimirArray() {
+        
+        let persona={nombre:"pepe",edad:20};
+        /*console.log(persona);
+        console.log(persona.nombre);
+        console.log(persona.edad);
+        */
+
+        let p=document.createElement("p");
+        let textoNombre=document.createTextNode(persona.nombre);
+        p.appendChild(textoNombre);
+        let textoEdad= document.createTextNode(persona.edad);
+        p.appendChild(document.createElement("br"));
+       
+        p.appendChild(textoEdad);
+        let cuerpo= document.getElementById("cuerpo");
+        cuerpo.appendChild(p);
+
+      }
+    </script>
+  </head>
+  <body id="cuerpo">
+    <input type="text" id="caja" />
+    <input type="button" value="aceptar" onclick="imprimirArray()" />
+  </body>
+</html>
