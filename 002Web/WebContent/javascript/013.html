@@ -4,32 +4,33 @@
     <meta charset="UTF-8" />
     <title>Insert title here</title>
     <script type="text/javascript">
-      function seleccionar() {
-      
 
+      window.onload = function () {
+
+        document.getElementById("boton").onclick=seleccionar;
+
+
+      };
+
+      function seleccionar() {
         console.log(document.getElementById("combo").value);
         // selecciono el combo
-        let miseleccion= document.getElementById("miseleccion");
+        let miseleccion = document.getElementById("miseleccion");
         //obtengo el valor del combo
-        let valor=document.getElementById("combo").value;
+        let valor = document.getElementById("combo").value;
         //creo un nodo de texto y se o asigno con el valor
-        miseleccion.appendChild(document.createTextNode(valor));
-
-
-
+        miseleccion.textContent = valor;
       }
     </script>
   </head>
   <body id="cuerpo">
     <select id="combo" onchange="seleccionar()">
-
       <option>santander</option>
       <option>bilbao</option>
       <option>madrid</option>
-
     </select>
     <p id="miseleccion"></p>
 
-    <input type="button" value="aceptar" onclick="seleccionar()" />
+    <input type="button" id="boton" value="aceptar" />
   </body>
 </html>
