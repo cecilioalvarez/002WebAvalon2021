@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script type="text/javascript">
+
+    function validar() {
+
+      let nombre= document.getElementById("nombre");
+      let edad= document.getElementById("edad");
+      let dni= document.getElementById("dni");
+
+      if (nombre.value!="" && edad.value!="" && dni.value!="") {
+            alert("el formulario es valido");
+
+      }
+      //esta es una expresion regular sencilla
+      // que valida un dni a groso modo
+      if (/^\d{8}[A-Z]$/.test(dni.value)) {
+
+        alert("el formato es valido")
+      }
+
+    }
+      
+
+    </script>
+  </head>
+  <body id="cuerpo">
+   <form>
+    <p>dni: <input type="text" name="dni" id="dni"/></p>
+    <p>Nombre: <input type="text" name="nombre" id="nombre"/></p>
+    <p>Edad<input type="text" name="edad" id="edad"/></p>
+    <p><input type="button" value="enviar" onclick="validar()"/>
+
+
+   </form>
+  </body>
+</html>
