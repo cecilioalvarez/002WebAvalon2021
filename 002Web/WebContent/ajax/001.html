@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery-AJAX</title>
+    <style>
+        
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	$("#btn").click(function(){
+        		//La ruta no es dentro de la carpeta ajax
+        		//Función callback se ejecuta tras haber finalizado la petición ajax
+        		$.get("../ServletAjax",function(datos){
+            		//console.log(datos);
+            		$("#mitabla").append(`<tr><td>${datos}</td></tr>`);
+            	});
+        	});
+            
+        });
+    </script>
+
+</head>
+
+<body>
+	<table id="mitabla">
+	</table>
+   <input type="button" id="btn" value="Ajax" />
+
+</body>
+
+</html>
