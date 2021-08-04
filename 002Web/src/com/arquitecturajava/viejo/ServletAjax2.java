@@ -2,6 +2,7 @@ package com.arquitecturajava.viejo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,10 @@ public class ServletAjax2 extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Libro l = new Libro("1a","java","pedro");
+		Libro l2 = new Libro("2a","php","ana");
+		
 		ObjectMapper mapeador = new ObjectMapper();
 		PrintWriter pw = response.getWriter();
-		pw.print(mapeador.writeValueAsString(l));
+		pw.print(mapeador.writeValueAsString(Arrays.asList(l,l2)));
 	}
 }

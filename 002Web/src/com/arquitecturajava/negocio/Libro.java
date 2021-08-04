@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Libro {
 	private String isbn;
 	private String titulo;
 	private String autor;
+	@JsonIgnore
 	private List<Capitulo> capitulos = new ArrayList<Capitulo>();
 	
 	public List<Capitulo> getCapitulos() {

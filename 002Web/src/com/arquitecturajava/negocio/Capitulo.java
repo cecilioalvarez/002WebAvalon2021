@@ -2,9 +2,12 @@ package com.arquitecturajava.negocio;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Capitulo {
 	private String titulo;
 	private int paginas;
+	@JsonIgnore
 	private Libro libro;
 	
 	public Libro getLibro() {
