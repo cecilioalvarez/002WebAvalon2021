@@ -17,23 +17,13 @@
         $("#boton").click(function () {
           
          let errores =validarCampos(["#nombre","#apellidos"]);
+         mostrarErrores(errores);
+         mostrarErroresResumen(errores);
           console.log(errores);
-          /*
-          if ($("#nombre").val() == "") {
-            $("#resumen").append("<p>el campo nombre obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }
-
-          if ($("#apellidos").val() == "") {
-            $("#resumen").append("<p>el campo  apellido es obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }*/
+         
         });
       });
-      // que lo que hace es nos devuelve que campos dan problemas
-
+      
       function validarCampos(campos) {
         let errores = [];
         for (i = 0; i < campos.length; i++) {
@@ -45,10 +35,16 @@
       }
 
       function mostrarErrores(errores) {
+        $(".error").hide();
         for (i = 0; i < errores.length; i++) {
+              $(errores[i]).next().show();
+        }
+      }
 
-
-
+      function mostrarErroresResumen(errores){
+        $("#resumen").hide();
+        for (let i = 0; i < errores.length; i++) {
+          $("#resumen").append("<p>"+$(errores[i]).data('error')+"</p>");
         }
       }
     </script>
@@ -62,6 +58,7 @@
           name="nombre"
           id="nombre"
           placeholder="introduce nombre"
+          data-error="el nombre es obligatorio"
         />
         <span class="error">*</span>
       </p>
@@ -73,6 +70,7 @@
           name="apellidos"
           id="apellidos"
           placeholder="introduce el apellido"
+          data-error="el apellido es obligatorio"
         />
         <span class="error">*</span>
       </p>
