@@ -1,0 +1,36 @@
+<html>
+<head>
+<style></style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//Cuando clicamos el  boton
+		$("#boton").click(function() {
+			//Desde el servlet2, cojemos los datos
+			$.get("../ServletAjax2", function(datos) {
+				console.log(datos);
+				//Parseamos los datos que vienen del json y los convertimos en string
+				let libros = JSON.parse(datos);
+				console.log(libros);
+				//Recorremos los libros que tenemos dentro del array y los metemos en una tabla
+				for(let i=0;i<libros.length;i++){
+					let libro = libros[i];
+					$("#mitabla").append(`<tr><td>${libro.isbn}</td><td>${libro.titulo}</td><td>${libro.autor}</td></tr>`);
+				}
+			})
+		})
+
+	});
+</script>
+</head>
+<body>
+<table id="mitabla">
+
+</table>
+	<p>
+		<input type="button" value="ajax" id="boton" />
+	</p>
+</body>
+</html>
