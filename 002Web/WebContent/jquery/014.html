@@ -57,9 +57,12 @@
 
             let lista = [];
             lista.push(alumno, alumno2, alumno3, alumno4);
+            //Sería mejor dividir en funciones distintas
             $("body").append(`<table id='tabla'><tr><th>Nombre</th><th>Nota</th></tr></table>`);
             let tabla = $("#tabla");
             for (let index = 0; index < lista.length; index++) {
+                //Haciendo uso de operador ternario
+                //let clase = lista[index].nota >= 5?"aprobado":"suspenso";
                 let clase = "";
                 if (lista[index].nota >= 5) {
                     clase = "aprobado"

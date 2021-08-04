@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        table {
+            text-align: center;
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#btn").click(function() {
+                let filas = $("#filas").val();
+                let columnas = $("#columnas").val();
+                $("body").append(`<table id='tabla'></table>`);
+                let tabla = $("#tabla");
+                for (let i = 0; i <= filas; i++) {
+                    tabla.append(`<tr>`);
+                    for (let j = 0; j <= columnas; j++) {
+                        tabla.append(`<td>Fila: ${i+1}-Columna: ${j+1}</td>`);
+
+                    }
+                    tabla.append(`</tr>`);
+                }
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <form>
+        <p>Numero Filas: <input type="text" name="filas" id="filas" placeholder="Filas" /></p>
+        <p>Numero Columnas: <input type="text" name="columnas" id="columnas" placeholder="Columnas" /></p>
+        <P><input type="button" id="btn" value="Generar Tabla" /></P>
+    </form>
+
+</body>
+
+</html>
