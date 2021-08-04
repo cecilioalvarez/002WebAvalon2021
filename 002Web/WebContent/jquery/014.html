@@ -11,17 +11,25 @@
         $("#boton").click(function () {
           $filas = $("#filas").val();
           $columnas = $("#columnas").val();
+          let fragment = new DocumentFragment();
 
-          let tabla = "<table>";
+          //let tabla = "<table>";
           for (let i = 0; i < filas; i++) {
-            tabla+=generarFila(i, columnas);
+            //tabla+=generarFila(i, columnas);
+            fragment+=`<tr>`;
+            for(let j =0;j<columnas;j++){
+            	fragment+=`<td>`;
+            	fragment+=`$(j)`;
+            	fragment+=`</td>`;
+            }
+            fragment+=`</tr>`;
           }
-          tabla += "</table>";
-          $("body").append(tabla);
+          //tabla += "</table>";
+          $("#tabla").append(fragment);
         });
       });
 
-      function generarFila(columnas) {
+      /*function generarFila(fila, columnas) {
         let texto = "<tr>";
 
         for (let i=0; i < columnas; i++) {
@@ -30,7 +38,7 @@
 
         texto += "</tr>";
         return texto;
-      }
+      }*/
     </script>
   </head>
   <body>
@@ -39,5 +47,6 @@
       <p>Columnas: <input type="text" name="columnas" id="columnas" /></p>
     </form>
     <p><input type="button" value="generar" id="boton" /></p>
+    <table id="tabla"></table>
   </body>
 </html>
