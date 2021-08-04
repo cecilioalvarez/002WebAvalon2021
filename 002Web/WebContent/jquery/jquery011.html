@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <title>JQUERY 011</title>
+    <style>
+        .error,
+        #resumen {
+            color: red;
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#boton").click(function() {
+
+                let errores = validarCampos($("#nombre"), $("#apellidos"));
+
+                mostrarErrores(errores);
+                mostrarErroresResumen(errores);
+            });
+        });
+        // recibe un conjunto de nodos de jQuery y devuelve los erroneos
+
+        function validarCampos(...$campos) {
+            let $camposConErrores = [];
+            for (i = 0; i < $campos.length; i++) {
+                if ($campos[i].val() == "") {
+                    $camposConErrores.push($campos[i]);
+                }
+            }
+            return $camposConErrores;
+        }
+
+
+
+        function mostrarErrores($camposConErrores) {
+            $(".error").hide();
+            for (i = 0; i < $camposConErrores.length; i++) {
+                //objeto
+                $camposConErrores[i].next().show();
+            }
+        }
+
+        function mostrarErroresResumen($camposConErrores) {
+
+            $("#resumen").empty().show();
+            for (i = 0; i < $camposConErrores.length; i++) {
+
+                $("#resumen").append("<p>" + $($camposConErrores[i]).data("error") + "</p>");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" placeholder="introduce nombre" data-error="el nombre es obligatorio" />
+            <span class="error">*</span>
+        </p>
+
+        <p>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" name="apellidos" id="apellidos" placeholder="introduce el apellido" data-error="el apellido es obligatorio" />
+            <span class="error">*</span>
+        </p>
+
+        <p><input type="button" value="nuevo" id="boton" /></p>
+        <div id="resumen"></div>
+    </form>
+    <table id="tabla"></table>
+</body>
+
+</html>

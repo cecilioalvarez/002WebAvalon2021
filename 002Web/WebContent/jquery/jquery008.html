@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>JQUERY 008s</title>
+    <title>JQUERY 008</title>
     <style>
         td {
             cursor: pointer;
@@ -17,9 +17,13 @@
             $("#btn").click(function() {
                 let nombre = $("#nombre").val();
                 let edad = $("#edad").val();
-                $("#tabla").append("<tr><td>" + nombre + "</td><td>" + edad + "</td></tr>");
-            })
-        });
+                //una plantilla de javascript es6
+                $("#tabla").append(`<tr>
+                              <td>${nombre}</td>
+                              <td>${edad}</td>
+                              </tr>`);
+            });
+        })
     </script>
 </head>
 

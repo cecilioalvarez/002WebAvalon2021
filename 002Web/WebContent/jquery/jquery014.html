@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>JQUERY 014</title>
+    <style>
+        .aprobado {
+            color: green
+        }
+        
+        .suspenso {
+            color: red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            let alumno1 = {
+                nombre: "pedro",
+                nota: 7
+            }
+            let alumno2 = {
+                nombre: "juan",
+                nota: 2
+            }
+            let alumno3 = {
+                nombre: "maria",
+                nota: 9
+            }
+            let alumno4 = {
+                nombre: "gema",
+                nota: 4
+            }
+            let lista = [];
+            lista.push(alumno1, alumno2, alumno3, alumno4);
+            $("body").append(generarTabla(lista));
+
+        });
+
+        function generarTabla(alumnos) {
+            let tabla = "<table>";
+            for (let i = 0; i < alumnos.length; i++) {
+                tabla += generarFila(alumnos[i]);
+            }
+            tabla += "</table>"
+            return tabla;
+        }
+
+
+        function generarFila(alumno) {
+            let formato = alumno.nota >= 5 ? "aprobado" : "suspenso";
+            return `<tr class='${formato}'><td>${alumno.nombre}</td><td>${alumno.nota}</td></tr>`;
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <table id="mitabla">
+
+    </table>
+</body>
+
+</html>
