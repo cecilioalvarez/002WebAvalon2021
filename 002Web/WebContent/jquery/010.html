@@ -15,22 +15,11 @@
     <script type="text/javascript">
       $(document).ready(function () {
         $("#boton").click(function () {
+
           let errores = validarCampos(["#nombre", "#apellidos"]);
+
           mostrarErrores(errores);
           mostrarErroresResumen(errores);
-          console.log(errores);
-          /*
-          if ($("#nombre").val() == "") {
-            $("#resumen").append("<p>el campo nombre obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }
-
-          if ($("#apellidos").val() == "") {
-            $("#resumen").append("<p>el campo  apellido es obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }*/
         });
       });
       // que lo que hace es nos devuelve que campos dan problemas
@@ -54,6 +43,7 @@
       }
 
       function mostrarErroresResumen(errores) {
+
         $("#resumen").empty().show();
         for (i = 0; i < errores.length; i++) {
 

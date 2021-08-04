@@ -15,49 +15,41 @@
     <script type="text/javascript">
       $(document).ready(function () {
         $("#boton").click(function () {
-          let errores = validarCampos(["#nombre", "#apellidos"]);
+
+          let errores = validarCampos($("#nombre"),$("#apellidos"));
+
           mostrarErrores(errores);
           mostrarErroresResumen(errores);
-          console.log(errores);
-          /*
-          if ($("#nombre").val() == "") {
-            $("#resumen").append("<p>el campo nombre obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }
-
-          if ($("#apellidos").val() == "") {
-            $("#resumen").append("<p>el campo  apellido es obligatorio</p>");
-            $(".error").show();
-            $("#resumen").show();
-          }*/
         });
       });
-      // que lo que hace es nos devuelve que campos dan problemas
+      // recibe un conjunto de nodos de jQuery y devuelve los erroneos
 
-      function validarCampos(campos) {
-        let errores = [];
-        for (i = 0; i < campos.length; i++) {
-          if ($(campos[i]).val() == "") {
-            errores.push(campos[i]);
+      function validarCampos(...$campos) {
+        let $camposConErrores = [];
+        for (i = 0; i < $campos.length; i++) {
+          if ($campos[i].val() == "") {
+            $camposConErrores.push($campos[i]);
           }
         }
-        return errores;
+        return $camposConErrores;
       }
 
-      function mostrarErrores(errores) {
+
+
+      function mostrarErrores($camposConErrores) {
         $(".error").hide();
-        for (i = 0; i < errores.length; i++) {
+        for (i = 0; i < $camposConErrores.length; i++) {
           //objeto
-          $(errores[i]).next().show();
+          $camposConErrores[i].next().show();
         }
       }
 
-      function mostrarErroresResumen(errores) {
-        $("#resumen").empty().show();
-        for (i = 0; i < errores.length; i++) {
+      function mostrarErroresResumen($camposConErrores) {
 
-         $("#resumen").append("<p>"+$(errores[i]).data("error")+"</p>");
+        $("#resumen").empty().show();
+        for (i = 0; i < $camposConErrores.length; i++) {
+
+         $("#resumen").append("<p>"+$($camposConErrores[i]).data("error")+"</p>");
         }
       }
     </script>
