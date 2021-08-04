@@ -26,8 +26,11 @@ public class ServletAjax2 extends HttpServlet {
 		Libro l= new Libro("1a","java","pedro");
 		Libro l2= new Libro("2a","java","pedro");
 		
+		
 		ObjectMapper mapeador= new ObjectMapper();
 		PrintWriter pw=response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		pw.print(mapeador.writeValueAsString(Arrays.asList(l,l2)));
 		
 		

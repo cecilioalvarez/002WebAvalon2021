@@ -19,11 +19,11 @@
 
 			$.get("../ServletAjax2", function(datos) {
 
-				let libros=JSON.parse(datos);
 				
-				for (let i=0;i<libros.length;i++) {
+				
+				for (let i=0;i<datos.length;i++) {
 					
-					let libro= libros[i];
+					let libro= datos[i];
 					console.log(libro);
 					$("#mitabla").append(`<tr><td>${libro.isbn}</td><td>${libro.titulo}</td><td>${libro.autor}</td></tr>`);
 				}
