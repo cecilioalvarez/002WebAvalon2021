@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <style>
+      .aprobado{
+        color:green;
+      }
+      .suspenso{
+        color:red;
+      }
+
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+          
+        let alumno1={nombre:"Pedro", nota:7}
+        let alumno2={nombre:"Juan", nota:5}
+        let alumno3={nombre:"Ruben", nota:9}
+        let alumno4={nombre:"Jorge", nota:4}
+        let lista = []
+        lista.push(alumno1, alumno2, alumno3, alumno4);
+        console.log(generarTabla(lista));
+        $("#mitabla").append(generarTabla(lista));
+
+        
+      });
+
+      function generarTabla(alumnos){
+        let filas="";
+        
+        for(let i=0;i<alumnos.length;i++){
+          filas+=generarFila(alumnos[i]);
+        }
+        return filas;
+      }
+
+      function generarFila(alumno ){
+        //Si la nota del alumno es 5 o superior saldra la clase aprobado sino la clase suspenso
+        let formato=(alumno.nota>=5?"aprobado":"suspenso");
+        //Lo mismo que la linea anterior pero en mas lineas.
+        /*if(alumno.nota>=5){
+          formato="aprobado";
+        }else{
+          formato="suspenso";
+        }*/
+        return `<tr><td class='${formato}'>${alumno.nombre}</td><td>${alumno.nota}</td></tr>`;
+        
+      }
+    </script>
+  </head>
+  <body>
+   <table id="mitabla">
+
+   </table>
+  </body>
+</html>
