@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <style>
+      td{border: 1px solid #000;padding: 20px}
+      .suspenso{
+          background-color: red;
+      }
+      .aprobado{
+          background-color: green;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+          let alumno1={nombre:"pedro",nota:7};
+          let alumno2={nombre:"juan",nota:2};
+          let alumno3={nombre:"maria",nota:9};
+          let alumno4={nombre:"ana",nota:4};
+          let alumno5={nombre:"andres",nota:5};
+          let lista=[];
+          lista.push(alumno1,alumno2,alumno3,alumno4,alumno5);
+          let fragment=new DocumentFragment();
+          fragment='<thead><tr><td>Nombre</td><td>Nota</td></tr></thead>';
+          for (let i = 0; i < lista.length; i++) {
+              if(lista[i].nota<5){
+                  fragment+='<tr class="suspenso">';
+              }else{
+                fragment+='<tr class="aprobado">';
+              }
+              fragment+=`<td>${lista[i].nombre}</td><td>${lista[i].nota}</td></tr>`;
+          }
+          $('#tabla').append(fragment);
+      
+      });
+    </script>
+  </head>
+  <body>
+    <table id="tabla"></table>
+  </body>
+</html>
