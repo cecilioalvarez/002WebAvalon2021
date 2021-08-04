@@ -4,7 +4,6 @@
       .error,
       #resumen {
         color: red;
-        display: none;
       }
     </style>
     <script
@@ -46,10 +45,9 @@
 
       function mostrarErroresResumen($camposConErrores) {
 
-        $("#resumen").empty().show();
+        $("#resumen").empty();
         for (i = 0; i < $camposConErrores.length; i++) {
-
-         $("#resumen").append("<p>"+$($camposConErrores[i]).data("error")+"</p>");
+         $("#resumen").append(`<p>${$camposConErrores[i].data("error")}</p>`);
         }
       }
     </script>
