@@ -1,0 +1,43 @@
+<html>
+<head>
+<style>
+.aprobado {
+	color: green;
+}
+
+.suspenso {
+	color: red;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#boton").click(function() {
+
+			$.get("../ServletAjax", function(datos) {
+
+				
+				let lista=datos.split(",");
+				for (let i=0;i<lista.length;i++) {
+					
+					$("#mitabla").append(`<tr><td>${lista[i]}</td></tr>`);
+				}
+				
+				
+
+			})
+
+		})
+
+	});
+</script>
+</head>
+<body>
+	<table id="mitabla">
+	</table>
+	<input type="button" value="ajax" id="boton" />
+</body>
+</html>
