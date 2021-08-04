@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <title>Fundamentos JQuery</title>
     <style>
-        .error,
-        #resumen {
+        .error {
             color: red;
             display: none;
+        }
+        
+        #resumen {
+            color: red;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
@@ -18,22 +21,9 @@
         $(document).ready(function() {
 
             $("#btn").click(function() {
-                /*let name = $("#nombre").val();
-                if (name == "") {
-                    //alert("El campo es obligatorio");
-                    $("#resumen").append("<p>El Campo nombre es obligatorio</p>");
-                    $(".error,#resumen").show();
-                    //$("#resumen").show();
-                }
-
-                if ($("#apellidos").val() == "") {
-                    //alert("El campo es obligatorio");
-                    $("#resumen").append("<p>El Campo apellidos es obligatorio</p>");
-                    $(".error,#resumen").show();
-                }*/
 
                 //almaceno campos con error en validacion
-                let errores = validarCampos(["#nombre", "#apellidos"]);
+                let errores = validarCampos($("#nombre"), $("#apellidos"));
                 console.log(errores);
                 //Muestro campos con error
                 mostrarErrores(errores);
@@ -42,34 +32,34 @@
             });
         });
 
-        function validarCampos(campos) {
-            let errores = [];
-            for (let index = 0; index < campos.length; index++) {
-                if ($(campos[index]).val() == "") {
-                    errores.push(campos[index]);
+        //Recibe conjunto de nodos de JQuery y devuelve los erróneos
+        function validarCampos(...$campos) {
+            let $camposConErrores = [];
+            for (let index = 0; index < $campos.length; index++) {
+                if ($campos[index].val() == "") {
+                    $camposConErrores.push($campos[index]);
                 }
             }
-            return errores;
+            return $camposConErrores;
         }
 
-        function mostrarErrores(errores) {
+
+        function mostrarErrores($camposConErrores) {
             //Limpio errores
             $(".error").hide();
-            for (let index = 0; index < errores.length; index++) {
+            for (let index = 0; index < $camposConErrores.length; index++) {
                 //Busco el span de error para mostrarlo
-                $(errores[index]).next().show();
+                $camposConErrores[index].next().show();
 
             }
         }
 
-        function mostrarErroresRsumen(errores) {
+        function mostrarErroresRsumen($camposConErrores) {
             //Limpio resumen y lo pongo en mostrar
-            $("#resumen").empty().show();
-            for (let index = 0; index < errores.length; index++) {
-                //Busco el div resumen y añado data-error para mostrarlo
-                //$("#resumen") Objeto de JQuery de resumen
-                //$(errores[index]) es objeto del campo input, obtengo el data-error del input
-                $("#resumen").append("<p>" + $(errores[index]).data("error") + "</p>");
+            $("#resumen").empty();
+            for (let index = 0; index < $camposConErrores.length; index++) {
+
+                $("#resumen").append(`<p>${$camposConErrores[index].data("error")}</p>`);
 
             }
         }

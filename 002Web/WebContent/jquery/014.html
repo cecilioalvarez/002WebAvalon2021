@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos JQuery</title>
+    <style>
+        table,
+        tr,
+        td {
+            text-align: center;
+            width: 40%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        .suspenso {
+            color: red;
+        }
+        
+        .aprobado {
+            color: green;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            let alumno = {
+                nombre: "Pedro",
+                nota: 7
+            };
+            let alumno2 = {
+                nombre: "Juan",
+                nota: 2
+            };
+            let alumno3 = {
+                nombre: "Maria",
+                nota: 9
+            };
+            let alumno4 = {
+                nombre: "Gema",
+                nota: 4
+            };
+
+            let lista = [];
+            lista.push(alumno, alumno2, alumno3, alumno4);
+            $("body").append(`<table id='tabla'><tr><th>Nombre</th><th>Nota</th></tr></table>`);
+            let tabla = $("#tabla");
+            for (let index = 0; index < lista.length; index++) {
+                let clase = "";
+                if (lista[index].nota >= 5) {
+                    clase = "aprobado"
+                } else {
+                    clase = "suspenso"
+                }
+                tabla.append(`<tr class=${clase}><td>${lista[index].nombre}</td><td>${lista[index].nota}</td></tr>`);
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+
+
+</body>
+
+</html>
