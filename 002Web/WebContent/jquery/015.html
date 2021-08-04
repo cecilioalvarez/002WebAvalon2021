@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <style>
+      .aprobado {
+        color: green;
+      }
+      .suspenso {
+        color: red;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#boton").click(function () {
+
+          filas = $("#filas").val();
+          columnas=$("#columnas").val();
+          
+          let tabla = "<table>";
+          for (let i = 0; i < filas; i++) {
+
+            tabla += generarFila(i, columnas);
+          }
+
+          tabla += "</table>";
+          console.log(tabla);
+          $("body").append(tabla);
+        });
+      });
+
+      function generarFila(fila, columnas) {
+        let texto = "<tr>";
+
+        for (let i=0; i < columnas; i++) {
+          texto += `<td>${fila},${i}</td>`;
+        }
+        texto += "</tr>";
+        return texto;
+      }
+    </script>
+  </head>
+  <body>
+    Filas: <input type="text" id="filas" name="filas" /> Columnas:
+    <input type="text" id="columnas" name="columnas" />
+    <input type="button" value="generar" id="boton" />
+  </body>
+</html>

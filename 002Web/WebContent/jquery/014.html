@@ -24,24 +24,23 @@
         let alumno4={nombre:"gema",nota:4}
         let lista=[];
         lista.push(alumno1,alumno2,alumno3,alumno4);
-        $("#mitabla").append(generarTabla(lista));
+        $("body").append(generarTabla(lista));
        
       });
 
       function generarTabla(alumnos) {
-            let filas="";
-
+            let tabla="<table>";
             for (let i=0;i<alumnos.length;i++) {
-
-                  filas+=generarFila(alumnos[i]);
+                  tabla+=generarFila(alumnos[i]);
             }
-            return filas;
+            tabla+="</table>"
+            return tabla;
       }
 
 
       function generarFila(alumno) {
           let formato=alumno.nota>=5?"aprobado":"suspenso";
-          return `<tr><td class='${formato}'>${alumno.nombre}</td><td  class='${formato}'>${alumno.nota}</td></tr>`;
+          return `<tr class='${formato}'><td>${alumno.nombre}</td><td>${alumno.nota}</td></tr>`;
          
         }
 
