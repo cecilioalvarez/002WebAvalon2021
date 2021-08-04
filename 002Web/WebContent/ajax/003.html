@@ -17,10 +17,10 @@
         		//Función callback se ejecuta tras haber finalizado la petición ajax
         		$.get("../ServletAjax2",function(datos){
             		//console.log(datos);
-            		let libros = JSON.parse(datos);
-            		for (let i = 0; i < libros.length; i++) {
-            			let libro = libros[i];
-            			console.log(libro);
+            		
+            		for (let i = 0; i < datos.length; i++) {
+            			let libro = datos[i];
+            			//console.log(libro);
             			$("#mitabla").append(`<tr><td>${libro.isbn}</td><td>${libro.titulo}</td><td>${libro.autor}</td></tr>`);
 					}
             		
@@ -34,6 +34,7 @@
 
 <body>
 	<table id="mitabla" style="border: 1px solid black;text-align: center;width: 50%">
+		<tr style="background-color: gray;color: white"><th>ISBN</th><th>Titulo</th><th>Autor</th></tr>
 	</table>
    <input type="button" id="btn" value="Ajax" />
 
