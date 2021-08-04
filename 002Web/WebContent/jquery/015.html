@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <style>
+      td{border: 1px solid #000;padding: 20px}
+      .suspenso{
+         color: red;
+      }
+      .aprobado{
+          color: green;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+        $('#boton').click(function (){
+            
+            filas=$('#filas').val();
+            columnas=$('#columnas').val();
+            let fragment=new DocumentFragment();
+
+
+            for (let i = 0; i < filas; i++) {
+                fragment+=`<tr>`;
+                    for (let j = 0; j < columnas ;j++) {
+                        fragment+=`<td>`;
+                            fragment+=`${j}`;
+                            fragment+=`</td>`;
+                     }
+                fragment+=`</tr>`;     
+            }
+            $('#tabla').append(fragment);
+                   
+                });
+      });
+    </script>
+  </head>
+  <body>
+    <input type="text" name="filas" id="filas">
+    <input type="text" name="columnas" id="columnas">
+    <input type="button" value="generar" id="boton">
+    <table id="tabla"></table>
+  </body>
+</html>

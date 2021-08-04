@@ -3,10 +3,10 @@
     <style>
       td{border: 1px solid #000;padding: 20px}
       .suspenso{
-          background-color: red;
+         color: red;
       }
       .aprobado{
-          background-color: green;
+          color: green;
       }
     </style>
     <script
@@ -25,14 +25,17 @@
           lista.push(alumno1,alumno2,alumno3,alumno4,alumno5);
           let fragment=new DocumentFragment();
           fragment='<thead><tr><td>Nombre</td><td>Nota</td></tr></thead>';
-          for (let i = 0; i < lista.length; i++) {
-              if(lista[i].nota<5){
-                  fragment+='<tr class="suspenso">';
-              }else{
-                fragment+='<tr class="aprobado">';
-              }
-              fragment+=`<td>${lista[i].nombre}</td><td>${lista[i].nota}</td></tr>`;
-          }
+        //   for (let i = 0; i < lista.length; i++) {
+        //       let formato=lista[i].nota<5 ? "aprobado" : "suspenso";
+        //       fragment+=`<tr class='${formato}'><td>${lista[i].nombre}</td><td>${lista[i].nota}</td></tr>`;
+        //   }
+        //   $('#tabla').append(fragment);
+         
+          lista.forEach(lista => {
+            let formato=lista.nota<5 ? "aprobado" : "suspenso";
+            fragment+=`<tr class='${formato}'><td>${lista.nombre}</td><td>${lista.nota}</td></tr>`;
+              
+          });
           $('#tabla').append(fragment);
       
       });

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <style>
+      .error,
+      #resumen {
+        color: red;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".lenguajes").change(function () {
+          $("#parrafo").empty().append($(this).val());
+        });
+
+        $("#informatico").change(function () {
+          if ($(this).is(":checked")) {
+            $("#parrafo2").append("eres informatico");
+          }
+        });
+
+        $("#experiencia").change(function () {
+          if ($(this).is(":checked")) {
+            $("#parrafo2").append("tienes experiencia");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <input type="radio" name="lenguaje" class="lenguajes" value="java" />java
+      <input type="radio" name="lenguaje" class="lenguajes" value="c#" />c#
+      <input type="radio" name="lenguaje" class="lenguajes" value="php" />php
+      <input type="checkbox" name="informatico" id="informatico" />informatico
+      <input type="checkbox" name="experiencia" id="experiencia" />experiencia
+    </form>
+    <p id="parrafo"></p>
+    <p id="parrafo2"></p>
+  </body>
+</html>
