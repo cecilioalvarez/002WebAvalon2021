@@ -7,55 +7,7 @@
         <meta name="description" content="Ejercicio en el que se añaden elementos a una tabla."/>
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/libs/jQuery.js"></script>
-        <script type="text/javascript">
-            let addListeners = () => {
-                $("#addPerson").click(() => {
-                    let anyError = false;
-                    $(".error").html("").prop("hidden", true);
-                    
-                    if (!validateName($("#name").val())) {
-                        anyError = true;
-                        $(".error").html((anyError ? $(".error").html() +  "<br/>" : "") + "El campo «Nombre» no puede estar vacío y debe tener una longitud mínima de 3 caracteres.").prop("hidden", false);
-                    }
-                    
-                    if (!validateAge($("#age").val())) {
-                        anyError = true;
-                        $(".error").html((anyError ? $(".error").html() +  "<br/>" : "") + "El campo «Edad» no puede estar vacío ni ser inferior a 18 o superior a 110.").prop("hidden", false);
-                    }
-                    
-                    if (!anyError) {
-                        $("#table-container").prop("hidden", false);
-                        let tr = $("<tr>").appendTo($("#table-body"));
-                        $("<td>").html($("#name").val()).appendTo(tr);
-                        $("<td>").html($("#age").val()).appendTo(tr);
-                        $("<input>").attr("type", "button").attr("name", "delete").val("Borrar").addClass("delete")
-                                .click((event) => {
-                                    $(event.target).parent().parent().remove();
-                                    if ($("#table-body").children().length === 0) {
-                                        $("#table-container").prop("hidden", true);
-                                    }
-                                })
-                                .appendTo($("<td>")
-                                .appendTo(tr));
-                    }
-                });
-                $("input[type='button']").click(() => $("input:not([type='button'])").val(""));
-                $("#resetTable").click(()=> {
-                    $("#table-body").children().remove();
-                    $("#table-container").prop("hidden", true);
-                });
-            };
-            
-            let validateName = (name) => {
-                return name.length >= 3;
-            };
-            
-            let validateAge = (age) => {
-                return age >= 18 && age <= 110;
-            };
-            
-            $(document).ready(addListeners);
-        </script>
+        <script type="text/javascript" src="js/tableExercise.js"></script>
         <title>Ejercicio de añadir a una tabla</title>
     </head>
     <body>
@@ -69,18 +21,20 @@
                         <legend>Datos de la persona</legend>
                         <div>
                             <label for="name">Nombre:</label>
-                            <input type="text" id="name" maxlength="48" placeholder="Ejemplo: Bernardo"/>
+                            <input type="text" id="name" maxlength="48" placeholder="Ejemplo: Bernardo" 
+                                   data-error="El campo «Nombre» no puede estar vacío y debe tener una longitud mínima de 3 caracteres."/>
                         </div>
                         <div>
                             <label for="age">Edad:</label>
-                            <input type="number" id="age" min="18" max="110" placeholder="18"/>
+                            <input type="number" id="age" min="18" max="110" placeholder="18" 
+                                   data-error="El campo «Edad» no puede estar vacío ni ser inferior a 18 o superior a 110."/>
                         </div>
                     </fieldset>
                     <input type="button" id="addPerson" name="addPerson" value="Añadir a la tabla"/>
                 </form>
             </div>
             <div>
-                <span class="error"></span>
+                <span id="error"></span>
             </div>
             <div id="table-container" hidden>
                 <table>

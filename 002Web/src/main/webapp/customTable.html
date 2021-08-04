@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
+        <meta name="description" content="Ejercicio de creación de una tabla dinámicamente."/>
+        <script src="js/libs/jQuery.js" type="text/javascript"></script>
+        <script src="js/customTable.js" type="text/javascript"></script>
+        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <title>Creación de tabla dinámica</title>
+    </head>
+    <body>
+        <header>
+            <h1>Ejercicios con HTML, CSS y jQuery</h1>
+        </header>
+        <main>
+            <div>
+                <form>
+                    <fieldset>
+                        <legend>¿De qué tamaño deseas crear tu tabla?</legend>
+                        <div>
+                            <label for="rows">Filas:</label>
+                            <input type="number" id="rows" name="rows" min="1" value="2"/>
+                        </div>
+                        <div>
+                            <label for="columns">Columnas:</label>
+                            <input type="number" id="columns" name="columns" min="1" value="2"/>
+                        </div>
+                    </fieldset>
+                    <div>
+                        <input type="button" id="create-table" name="create-table" value="Generar tabla"/>
+                        <input type="button" id="clean-table" name="clean-table" value="Limpiar tabla" hidden/>
+                    </div>
+                </form>
+            </div>
+            <div id="table-container"></div>
+        </main>
+    </body>
+</html>

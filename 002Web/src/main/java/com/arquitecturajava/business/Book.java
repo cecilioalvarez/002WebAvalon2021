@@ -1,5 +1,6 @@
 package com.arquitecturajava.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ public class Book {
     private String pk_isbn;
     private String title;
     private Author fk_author;
+    @JsonIgnore
     private List<Chapter> chapters = new ArrayList<Chapter>();
 
     public Book(String pk_isbn) {

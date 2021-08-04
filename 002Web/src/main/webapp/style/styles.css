@@ -1,27 +1,39 @@
+:root {
+    --main-fg-color: #0A0A0A;
+    --main-bg-color: #5B787B;
+    --header-fg-color: #5B787B;
+    --table-border-color: #9EB4C6;
+    --table-header-bg-color: #5B787B;
+    --table-header-border-color: #9EB4C6;
+    --links-color: #558FA6;
+    --passed-color: green;
+    --failed-color: red;
+}
+
 body {
     width: 80%;
     margin: 0 auto;
     font-family: Arial, Verdana, sans-serif;
-    color: #0A0A0A;
+    color: var(--main-fg-color);
 }
 
 h1, h2 {
     margin: 0 auto;
     margin-top: 20px;
     text-align: center;
-    color: #6E9D07;
+    color: var(--header-fg-color);
 }
 
 table {
     margin: 0 auto;
     text-align: center;
-    color: #0A0A0A;
     border-collapse: collapse;
     border: none;
 }
 
 table td {
-    border-bottom: solid thin #83aec0;
+    border-bottom: solid thin var(--table-border-color);
+    font-size: 0.9em;
     width: 300px;
 }
 
@@ -33,11 +45,11 @@ caption {
 table th, caption {
     padding: 5px;
     font-size: 16px;
-    background-color: #6E9D07;
+    background-color: var(--table-header-bg-color);
     color: #FFFFFF;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #ACE03A;
+    border-bottom-color: var(--table-header-border-color);
     text-transform: uppercase;
 }
 
@@ -64,11 +76,13 @@ form {
 }
 
 fieldset {
-    border-color: #6E9D07;
+    border-color: var(--header-fg-color);
 }
 
 fieldset legend {
     text-align: left;
+    font-weight: bold;
+    color: var(--header-fg-color);
 }
 
 form div {
@@ -90,20 +104,28 @@ main div {
 }
 
 .links {
-    color: #558FA6;
+    color: var(--links-color);
 }
 
 input[type="button"] {
-    padding: 3px;
-    font-family: Roboto, Arial, "Times New Roman", sans-serif;
+    padding: 5px;
     font-weight: bold;
+    font-size: 1em;
     color: white;
-    background-color: #6E9D07;
+    background-color: var(--table-header-bg-color);
     border-radius: 5px;
-    border-color: #ACE03A;
+    border-color: var(--table-header-border-color);
 }
 
-.error {
+#error {
     text-align: center;
     color:red;
+}
+
+.passed {
+    color: var(--passed-color);
+}
+
+.failed {
+    color: var(--failed-color);
 }

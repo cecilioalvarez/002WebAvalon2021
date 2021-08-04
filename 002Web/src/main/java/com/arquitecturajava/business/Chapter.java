@@ -1,11 +1,14 @@
 package com.arquitecturajava.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
+
 
 public class Chapter {
 
     private String pk_title;
     private int pages;
+    @JsonIgnore
     private Book pk_fk_book;
 
     public Chapter(String title, int pages, Book book) {
