@@ -10,17 +10,25 @@
       $(document).ready(function () {
           $('#boton').click(function(){
 
-              $.get("../ServletAjax",function(datos){
+              $.get("../ServletAjax3",function(datos){
+                  let listaLibros=JSON.parse(datos);
                   
-                  $('#tabla').append(`<tr><td>${datos}</td></tr>`);
+                  console.log(listaLibros);
+                  for (let i = 0; i < listaLibros.length; i++) {
+                    
+                	let libro=listaLibros[i];
+                    $('#tabla').append(`<tr><td>${libro.isbn}</td><td>${libro.titulo}</td><td>${libro.autor}</td></tr>`);
+                      
+                  }
+                  
                 });
             });
       });
     </script>
   </head>
   <body>
-    <table id="tabla"></table>
-    <input type="button" value="ajax" id="boton">
     
+    <input type="button" value="ajax" id="boton">
+    <table id="tabla"></table>
   </body>
 </html>
