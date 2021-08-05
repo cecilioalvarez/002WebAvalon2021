@@ -8,11 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.LibroRepository;
 import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.repositorios.jdbc.helper.DataBaseHelper;
 
+@Component
 public class Libro_RepositoryJDBC implements LibroRepository {
 	
 	final static String QUERYINSERT = "INSERT INTO libro(isbn, titulo, autor) VALUES(?,?,?)";

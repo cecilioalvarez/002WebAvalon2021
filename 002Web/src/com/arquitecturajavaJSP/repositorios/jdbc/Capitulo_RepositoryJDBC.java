@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.CapituloRepository;
 import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.repositorios.jdbc.helper.DataBaseHelper;
-
+@Component
 public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	
 	final static String QUERYINSERT = "INSERT INTO capitulos (titulo, paginas,libros_isbn) VALUES(?,?,?)";

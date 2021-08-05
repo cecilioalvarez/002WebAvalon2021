@@ -12,9 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.arquitecturajavaJSP.Spring.SpringConfigurador;
 import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.negocio.Libro;
+import com.arquitecturajavaJSP.repositorios.CapituloRepository;
+import com.arquitecturajavaJSP.repositorios.LibroRepository;
 import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
 import com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC;
 import com.arquitecturajavaJSP.servicios.LibroService;
@@ -26,9 +30,18 @@ public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	LibroService servicio;
+	LibroRepository repositorioLibro;
+	CapituloRepository repositorioCapitulo;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		servicio = new LibroServiceStandard(new Libro_RepositoryJDBC(),new Capitulo_RepositoryJDBC());
+		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+		
+		//repositorioLibro=contexto.getBean(Libro_RepositoryJDBC.class);
+		//repositorioCapitulo=contexto.getBean(Capitulo_RepositoryJDBC.class);
+		//servicio = new LibroServiceStandard(repositorioLibro,repositorioCapitulo);
+		//Este es método para instanciar el servicio usando Spring
+		servicio = contexto.getBean(LibroServiceStandard.class);
+		
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion")==null) {
 			//Controlador accede a la BD para obtener la lista
