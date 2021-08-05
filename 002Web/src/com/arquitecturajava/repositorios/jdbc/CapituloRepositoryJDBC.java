@@ -1,6 +1,7 @@
 package com.arquitecturajava.repositorios.jdbc;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,11 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.CapituloRepository;
 import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
-
+@Component
 public class CapituloRepositoryJDBC implements CapituloRepository{
 	private static DataBaseHelper helper = new DataBaseHelper();
 	final static String CONSULTA_BUSCAR_TODOS = "select * from capitulos";
