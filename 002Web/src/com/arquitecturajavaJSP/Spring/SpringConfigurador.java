@@ -1,12 +1,42 @@
 package com.arquitecturajavaJSP.Spring;
 
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 @ComponentScan("com.arquitecturajavaJSP.*")
+@PropertySource("classpath:DataBase.properties")
 public class SpringConfigurador {
-
 	
+	@Value("${url}")
+	private String url;
+	@Value("${user}")
+	private String usuario;
+	@Value("${pass}")
+	private String password;
+	
+	//private String driver;
+	
+	
+	//dataSource,registrado en el inyector de dependencias para poder usarlo
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		
+		//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl(url);
+		dataSource.setUsername(usuario);
+		dataSource.setPassword(password);
+
+		return dataSource;
+
+	}
 	
 }

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.arquitecturajavaJSP.Spring.SpringConfigurador;
 import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
@@ -24,7 +27,11 @@ public class ServletControladorCapitulo extends HttpServlet {
      
 	LibroService servicio;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		servicio = new LibroServiceStandard(new Libro_RepositoryJDBC(),new Capitulo_RepositoryJDBC());
+		
+		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+		
+		servicio = contexto.getBean(LibroServiceStandard.class);
+		
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion")==null) {
 			//Controlador accede a la BD para obtener la lista

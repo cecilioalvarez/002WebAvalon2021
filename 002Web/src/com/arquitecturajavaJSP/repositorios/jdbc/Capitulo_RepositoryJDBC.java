@@ -8,14 +8,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.CapituloRepository;
 import com.arquitecturajavaJSP.negocio.Capitulo;
-import com.arquitecturajavaJSP.repositorios.jdbc.helper.DataBaseHelper;
 @Component
 public class Capitulo_RepositoryJDBC implements CapituloRepository {
+	
+	
+	private DataSource datasource;
 	
 	final static String QUERYINSERT = "INSERT INTO capitulos (titulo, paginas,libros_isbn) VALUES(?,?,?)";
 	final static String QUERYDELETE= "DELETE FROM capitulos WHERE titulo=?";
@@ -23,12 +28,17 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	final static String QUERYFINDONE = "SELECT * FROM capitulos WHERE titulo=?";
 	final static String QUERYFINDBYBOOK = "SELECT * FROM capitulos WHERE libros_isbn=?";
 	final static String QUERYUPDATE = "UPDATE capitulos set libros_isbn=?,paginas=? WHERE titulo=?";
-	private static DataBaseHelper helper= new DataBaseHelper();
 	
+	//Spring Inyecta el datasource de Spring por el constructor
+	public Capitulo_RepositoryJDBC(DataSource datasource) {
+		super();
+		this.datasource = datasource;
+	}
+
 	@Override
 	public void addChapter(Capitulo chapter) {
 		
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			conn.setAutoCommit(false);
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYINSERT);){
 				//PreparedStatement
@@ -54,7 +64,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	@Override
 	public void removeChapter(Capitulo chapter) {
 		
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			conn.setAutoCommit(false);
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYDELETE);){
 				//PreparedStatement
@@ -79,7 +89,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	public List<Capitulo>getAllChapters(){
 		
 		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				Statement sentencia = conn.createStatement();) {
 			//Para Resultados de SELECT
 			ResultSet rs = sentencia.executeQuery(QUERYSELECT);
@@ -99,7 +109,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	public List<Capitulo>getAllChaptersByBook(Libro libro){
 		
 		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDBYBOOK);) {
 			
 			sentencia.setString(1, libro.getIsbn());
@@ -122,7 +132,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	@Override
 	public void modifyChapter(Capitulo chapter) {
 		
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			conn.setAutoCommit(false);
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
 				//PreparedStatement
@@ -149,7 +159,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	@Override
 	public Capitulo getOneChapter(Capitulo chapter) {
 		Capitulo miCapitulo =null;
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDONE);) {
 			sentencia.setString(1, chapter.getTitulo());
 			//Para Resultados de SELECT

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.arquitecturajavaJSP.Spring.SpringConfigurador;
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
 import com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC;
@@ -26,9 +29,11 @@ public class ServletAjax2 extends HttpServlet {
 		//Libro libro = new Libro("A1", "Pedro","Java" );
 		//Libro libro2 = new Libro("A3", "Pedrito", "C#");
 		
-		LibroService servicio = new LibroServiceStandard(new Libro_RepositoryJDBC(),new Capitulo_RepositoryJDBC());
-		
-		
+		//LibroService servicio = new LibroServiceStandard(new Libro_RepositoryJDBC(),new Capitulo_RepositoryJDBC());
+		//Ahora se usa DataSource de Spring
+		LibroService servicio;
+		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+		servicio = contexto.getBean(LibroServiceStandard.class);
 		
 		ObjectMapper mapeador = new ObjectMapper();
 		PrintWriter pw = response.getWriter();

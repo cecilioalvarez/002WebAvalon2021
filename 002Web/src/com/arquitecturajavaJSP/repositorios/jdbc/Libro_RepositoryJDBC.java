@@ -8,15 +8,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Component;
 
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.LibroRepository;
 import com.arquitecturajavaJSP.negocio.Capitulo;
-import com.arquitecturajavaJSP.repositorios.jdbc.helper.DataBaseHelper;
 
 @Component
 public class Libro_RepositoryJDBC implements LibroRepository {
+	
+	private DataSource datasource;
 	
 	final static String QUERYINSERT = "INSERT INTO libro(isbn, titulo, autor) VALUES(?,?,?)";
 	final static String QUERYDELETE= "DELETE FROM libro WHERE isbn=?";
@@ -26,13 +29,16 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	final static String QUERYFINDONE = "SELECT * FROM libro WHERE isbn=?";
 	
 	final static String QUERYSELECTWITHCHAPTERS="select libro.isbn as isbn, libro.titulo as titulo, libro.autor as autor, Capitulos.titulo as tituloCapitulo, Capitulos.paginas as paginas from libro,Capitulos where libro.isbn= Capitulos.libros_isbn";
-	private static DataBaseHelper helper= new DataBaseHelper();
 	
-	
+	public Libro_RepositoryJDBC(DataSource datasource) {
+		super();
+		this.datasource = datasource;
+	}
+
 	@Override
 	public void addBook(Libro libro) {
 		
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			conn.setAutoCommit(false);
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYINSERT);){
 				//PreparedStatement
@@ -57,7 +63,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	@Override
 	public void removeBook(Libro libro) {
 		
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			conn.setAutoCommit(false);
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYDELETE);){
 				//PreparedStatement
@@ -83,7 +89,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	public List<Libro>buscarTodosLibros(){
 		
 		List<Libro> listaLibros = new ArrayList<Libro>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				Statement sentencia = conn.createStatement();) {
 			//Para Resultados de SELECT
 			ResultSet rs = sentencia.executeQuery(QUERYSELECT);
@@ -103,7 +109,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	public Libro buscarLibro(String isbn){
 		
 		Libro libro = null;
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDONE);) {
 			sentencia.setString(1, isbn);
 			//Para Resultados de SELECT
@@ -126,7 +132,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	public List<Libro> buscarLibroAutor(String autor){
 		
 		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(queryFindAutor);) {
 			sentencia.setString(1, autor);
 			//Para Resultados de SELECT
@@ -149,7 +155,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	public List<Libro> buscarLibroTitulo(String titulo){
 		
 		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(queryFindTitulo);) {
 			sentencia.setString(1, titulo);
 			//Para Resultados de SELECT
@@ -172,7 +178,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	public List<Libro> buscarLibroAutorTitulo(String autor,String titulo){
 		
 		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(queryFindTitulo);) {
 			
 			sentencia.setString(1, autor);
@@ -224,7 +230,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	@Override
 	public int modifyBook(Libro libro) {
 		final String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
-		try(Connection conn = helper.getConexion();){
+		try(Connection conn = datasource.getConnection();){
 			
 			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
 				//PreparedStatement
@@ -251,7 +257,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	@Override
 	public List<Libro> buscarTodosLibrosConCapitulos() {
 		List<Libro> listaLibros = new ArrayList<Libro>();
-		try(Connection conn = helper.getConexion();
+		try(Connection conn = datasource.getConnection();
 				Statement sentencia = conn.createStatement();) {
 			//Para Resultados de SELECT
 			ResultSet rs = sentencia.executeQuery(QUERYSELECTWITHCHAPTERS);
