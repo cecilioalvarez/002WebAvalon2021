@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
-
+@Component
 public class LibroRepositoryJDBC implements LibroRepository {
 
 	private static DataBaseHelper helper = new DataBaseHelper();

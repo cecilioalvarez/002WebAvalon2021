@@ -2,12 +2,14 @@ package com.arquitecturajava.servicios.standard;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.CapituloRepository;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.servicios.LibroService;
-
+@Service
 public class LibroServiceStandard implements LibroService {
 	private LibroRepository repositorio;
 	private CapituloRepository repositorioCapitulo;
