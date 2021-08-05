@@ -17,7 +17,7 @@ import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
 @Component
 public class LibroRepositoryJDBC implements LibroRepository {
 
-	private static DataBaseHelper helper = new DataBaseHelper();
+	
 
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from Libros  where isbn =?";

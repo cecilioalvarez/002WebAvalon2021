@@ -8,20 +8,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Component;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.CapituloRepository;
-import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
 @Component
 public class CapituloRepositoryJDBC implements CapituloRepository {
 
-	private static DataBaseHelper helper = new DataBaseHelper();
 	
+	private DataSource dataSource;
+	
+	public CapituloRepositoryJDBC(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
+	}
+
+
 	final static String CONSULTA_BUSCAR_TODOS = "select * from Capitulos";
 	final static String CONSULTA_BORRAR = "delete from Capitulos where titulo=?";
 	final static String CONSULTA_INSERTAR = "insert into Capitulos (titulo,paginas,libros_isbn) values (?,?,?)";
+	
+	
 	
 	
 	@Override
@@ -30,7 +40,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository {
 		
 		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = dataSource.getConnection();
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);) {
 			while (rs.next()) {
@@ -51,7 +61,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository {
 	public void borrar(Capitulo capitulo) {
 		
 		
-		try (Connection conn = helper.getConexion();
+		try (Connection conn =dataSource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);) {
 			sentencia.setString(1, capitulo.getTitulo());
 			sentencia.execute();
@@ -65,7 +75,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository {
 	
 	public void insertar(Capitulo capitulo) {
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = dataSource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
 
 			sentencia.setString(3, capitulo.getLibro().getIsbn());
