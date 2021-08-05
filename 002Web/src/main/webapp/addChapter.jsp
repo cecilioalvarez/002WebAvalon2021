@@ -1,7 +1,7 @@
 <%-- 
-    Document   : addChapter
-    Created on : 29-jul-2021, 12:44:17
-    Author     : Germán Zunzunegui
+    Document: addChapter
+    Created on: 29-jul-2021, 12:44:17
+    Author: Germán Zunzunegui
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
@@ -15,27 +15,33 @@
         <meta name="author" content="Germán Zunzunegui Rodríguez"/>
         <meta name="description" content="Formulario de creación de capítulos."/>
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
         <title>Creación de capítulo</title>
     </head>
     <body>
-        <form id="createChapter" name="createChapter" method="POST" action="LibraryServiceController">
-            <fieldset>
-                <legend>Datos del nuevo capítulo de «${book.title}»</legend>
-                <div>
-                    <label for="isbn">Título:</label>
-                    <input type="text" id="title" name="title" maxlength="64"/>
-                </div>
-                <div>
-                    <label for="pages">Número de páginas:</label>
-                    <input type="number" id="pages" name="pages" min="1"/>
-                </div>
-            </fieldset>
-            <input type="hidden" id="isbn" name="isbn" value="${book.pk_isbn}"/>
-            <input type="hidden" id="action" name="action" value="createChapter"/>
-            <input type="submit" id="send" name="send" value="Añadir"/>
-        </form>
-        <div class="links">
-            <a href="LibraryServiceController?action=showBookChapters&isbn=${book.pk_isbn}">Volver a la lista</a>  
-        </div>
+        <header>
+            <h1>Formulario de creación de un nuevo capítulo</h1>
+        </header>
+        <main>
+            <form id="createChapter" name="createChapter" method="POST" action="LibraryServiceController">
+                <fieldset>
+                    <legend>Datos del nuevo capítulo de «${book.title}»</legend>
+                    <div>
+                        <label for="isbn">Título:</label>
+                        <input type="text" id="title" name="title" maxlength="64"/>
+                    </div>
+                    <div>
+                        <label for="pages">Número de páginas:</label>
+                        <input type="number" id="pages" name="pages" min="1"/>
+                    </div>
+                </fieldset>
+                <input type="hidden" id="isbn" name="isbn" value="${book.pk_isbn}"/>
+                <input type="hidden" id="action" name="action" value="createChapter"/>
+                <input type="submit" id="send" name="send" value="Añadir"/>
+            </form>
+            <div class="links">
+                <a href="LibraryServiceController?action=showBookChapters&isbn=${book.pk_isbn}">Volver a la lista</a>  
+            </div>
+        </main>
     </body>
 </html>

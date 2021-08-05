@@ -4,10 +4,9 @@ import com.arquitecturajava.business.Author;
 import com.arquitecturajava.business.Book;
 import com.arquitecturajava.business.Chapter;
 import com.arquitecturajava.repositories.AuthorRepositoryJDBC;
-import com.arquitecturajava.repositories.BookRepositoryJDBC;
-import com.arquitecturajava.repositories.ChapterRepositoryJDBC;
 import com.arquitecturajava.repositories.services.LibraryService;
 import com.arquitecturajava.repositories.services.LibraryServiceImplementation;
+import com.arquitecturajava.spring.SpringConfig;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,15 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @WebServlet(name = "LibraryServiceController", urlPatterns = {"/LibraryServiceController"})
 public class LibraryServiceController extends HttpServlet {
     
-    private final LibraryService LIBRARY_SERVICE = new LibraryServiceImplementation(
-            new BookRepositoryJDBC(), 
-            new ChapterRepositoryJDBC(), 
-            new AuthorRepositoryJDBC()
-    );
+    private final LibraryService LIBRARY_SERVICE = new AnnotationConfigApplicationContext(SpringConfig.class)
+            .getBean(LibraryServiceImplementation.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

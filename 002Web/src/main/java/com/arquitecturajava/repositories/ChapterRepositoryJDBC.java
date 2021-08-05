@@ -3,7 +3,6 @@ package com.arquitecturajava.repositories;
 import com.arquitecturajava.business.Author;
 import com.arquitecturajava.business.Book;
 import com.arquitecturajava.business.Chapter;
-import com.arquitecturajava.repositories.connection.DbConnectionSingleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ChapterRepositoryJDBC implements ChapterRepository {
+    
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     public Chapter select(Chapter chapter) {
@@ -20,7 +26,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
                 + "INNER JOIN book b ON c.pk_fk_book = b.pk_isbn "
                 + "INNER JOIN author a ON b.fk_author = a.pk_id "
                 + "WHERE c.pk_title = ? AND b.pk_isbn = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, chapter.getPk_title());
             preparedStatement.setString(2, chapter.getPk_fk_book().getPk_isbn());
@@ -45,7 +51,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
                 + "INNER JOIN author a ON b.fk_author = a.pk_id "
                 + "WHERE b.pk_isbn = ?";
         final List<Chapter> CHAPTERS = new ArrayList<>();
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, book.getPk_isbn());
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +72,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
                 + "INNER JOIN book b ON c.pk_fk_book = b.pk_isbn "
                 + "INNER JOIN author a ON b.fk_author = a.pk_id";
         final List<Chapter> CHAPTERS = new ArrayList<>();
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(QUERY);
             while (resultSet.next()) {
@@ -83,7 +89,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int insert(Chapter chapter) {
         final String QUERY = "INSERT INTO chapter (pk_title, pages, pk_fk_book) VALUES (?, ?, ?)";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, chapter.getPk_title());
             preparedStatement.setInt(2, chapter.getPages());
@@ -98,7 +104,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int delete(Chapter chapter) {
         final String QUERY = "DELETE FROM chapter WHERE pk_title = ? AND pk_fk_book = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, chapter.getPk_title());
             preparedStatement.setString(2, chapter.getPk_fk_book().getPk_isbn());
@@ -112,7 +118,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int delete(Book book) {
         final String QUERY = "DELETE FROM chapter WHERE pk_fk_book = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, book.getPk_isbn());
             return preparedStatement.executeUpdate();
@@ -125,7 +131,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int updateTitle(Chapter chapter, String title) {
         final String QUERY = "UPDATE chapter SET pk_title = ? WHERE pk_title = ? AND pk_fk_book = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, chapter.getPk_title());
@@ -140,7 +146,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int updatePages(Chapter chapter, int pages) {
         final String QUERY = "UPDATE chapter SET pages = ? WHERE pk_title = ? AND pk_fk_book = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setInt(1, pages);
             preparedStatement.setString(2, chapter.getPk_title());
@@ -155,7 +161,7 @@ public class ChapterRepositoryJDBC implements ChapterRepository {
     @Override
     public int updateBook(Chapter chapter, Book book) {
         final String QUERY = "UPDATE chapter SET pk_fk_book = ? WHERE pk_title = ? AND pk_fk_book = ?";
-        try (Connection conn = DbConnectionSingleton.getConnection();
+        try (Connection conn = this.dataSource.getConnection();
                 PreparedStatement preparedStatement = conn.prepareStatement(QUERY)) {
             preparedStatement.setString(1, book.getPk_isbn());
             preparedStatement.setString(2, chapter.getPk_title());

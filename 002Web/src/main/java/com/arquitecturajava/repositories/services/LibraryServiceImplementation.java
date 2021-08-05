@@ -7,9 +7,11 @@ import com.arquitecturajava.repositories.AuthorRepository;
 import com.arquitecturajava.repositories.BookRepository;
 import com.arquitecturajava.repositories.ChapterRepository;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LibraryServiceImplementation implements LibraryService {
-
+    
     private BookRepository bookRepository;
     private ChapterRepository chapterRepository;
     private AuthorRepository authorRepository;
@@ -19,30 +21,6 @@ public class LibraryServiceImplementation implements LibraryService {
         this.bookRepository = bookRepository;
         this.chapterRepository = chapterRepository;
         this.authorRepository = authorRepository;
-    }
-    
-    public LibraryServiceImplementation(BookRepository repository) {
-        this.bookRepository = repository;
-    }
-    
-    public LibraryServiceImplementation(ChapterRepository repository) {
-        this.chapterRepository = repository;
-    }
-
-    public LibraryServiceImplementation(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
-
-    public void setAuthorRepository(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
-
-    public void setBookRepository(BookRepository repository) {
-        this.bookRepository = repository;
-    }
-
-    public void setChapterRepository(ChapterRepository repository) {
-        this.chapterRepository = repository;
     }
 
     @Override

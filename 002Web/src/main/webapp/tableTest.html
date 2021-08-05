@@ -6,6 +6,7 @@
         <meta name="author" content="Germán Zunzunegui Rodríguez"/>
         <meta name="description" content="Página de pruebas para ejercicios de JavaScript básicos."/>
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
         <title>Pruebas con tablas</title>
         <script type="text/javascript">
             let people = [
@@ -48,19 +49,24 @@
         </script>
     </head>
     <body>
-        <div id="table-container">
-            <table>
-                <caption>Tabla de personas</caption>
-                <thead>
-                    <tr>
-                        <th>DNI</th>
-                        <th>Nombre</th>
-                        <th>Edad</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                </tbody>
-            </table>
-        </div>
+        <header>
+            <h1>Prueba de creación dinámica de tabla</h1>
+        </header>
+        <main>
+            <div id="table-container">
+                <table>
+                    <caption>Tabla de personas</caption>
+                    <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </main>
     </body>
 </html>

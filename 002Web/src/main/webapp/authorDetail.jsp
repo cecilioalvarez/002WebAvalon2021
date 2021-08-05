@@ -1,7 +1,7 @@
 <%-- 
-    Document   : authorDetail
-    Created on : 27-jul-2021, 13:08:34
-    Author     : Germán Zunzunegui
+    Document: authorDetail
+    Created on: 27-jul-2021, 13:08:34
+    Author: Germán Zunzunegui
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -16,28 +16,33 @@
         <meta name="author" content="Germán Zunzunegui Rodríguez"/>
         <meta name="description" content="Formulario de visualización de Autor en la BD."/>
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
         <title>Detalles de autor</title>
     </head>
     <body>
-        <h2>DATOS DEL AUTOR</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>NIF</th>
-                    <th>NOMBRE</th>
-                    <th>EDAD</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="tinyCell">${fn:toUpperCase(author.pk_id)}</td>
-                    <td class="standardCell">${author.name}</td>
-                    <td class="tinyCell">${author.age}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div>
-            <a href='LibraryServiceController'>Volver a la lista</a>
-        </div>
+        <header>
+            <h1>DATOS DEL AUTOR</h1>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NIF</th>
+                        <th>NOMBRE</th>
+                        <th>EDAD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tinyCell">${fn:toUpperCase(author.pk_id)}</td>
+                        <td class="standardCell">${author.name}</td>
+                        <td class="tinyCell">${author.age}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <a href='LibraryServiceController'>Volver a la lista</a>
+            </div>
+        </main>
     </body>
 </html>
