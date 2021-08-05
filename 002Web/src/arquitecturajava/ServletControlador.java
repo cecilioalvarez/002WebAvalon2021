@@ -10,8 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import arquitecturaspring.SpringConfigurador;
 import negocio.Capitulo;
 import negocio.Libro;
+import repositorio.CapituloRepository;
+import repositorio.LibroRepository;
 import repositorio.jdbc.helper.CapituloRepositoryJDBC;
 import repositorio.jdbc.helper.LibroRepositoryJDBC;
 import repositorio.servicios.LibroService;
@@ -24,16 +29,28 @@ import repositorio.servicios.standard.LibroServiceStandard;
 public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LibroService servicio;
+	LibroRepository repositorioLibro;
+	CapituloRepository repositorioCapitulo;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		//INSTANCIA DE LOS OBJETOS IMPORTANTES
+		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+		// servicio = contexto.getBean(LibroServiceStandard.class);
+		//repositorioLibro = contexto.getBean(LibroRepositoryJDBC.class);
+		//repositorioCapitulo = contexto.getBean(CapituloRepositoryJDBC.class);
+		
+		//al instanciar el libroservice, verá que tiene dos dependencias (librorepository y capitulorepository)
+		servicio = contexto.getBean(LibroServiceStandard.class);
+		
 		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
+
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion") == null) {
 
 			List<Libro> listaLibros = servicio.buscarTodos();
-			//aqui se rellena la coleccion del request para la vista
+			// aqui se rellena la coleccion del request para la vista
 			request.setAttribute("libros", listaLibros);
 			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
 			despachador.forward(request, response);
@@ -82,7 +99,7 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("libro", libro);
 			despachador = request.getRequestDispatcher("formularioEditar.jsp");
 			despachador.forward(request, response);
-			
+
 		} else if (request.getParameter("accion").equals("capituloslibros")) {
 
 			String isbn = request.getParameter("isbn");

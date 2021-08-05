@@ -8,10 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import negocio.Capitulo;
 import negocio.Libro;
 import repositorio.CapituloRepository;
 
+@Component
 public class CapituloRepositoryJDBC implements CapituloRepository {
 	private static DataBaseHelper helper = new DataBaseHelper();
 	final static String CONSULTA_BUSCAR_TODOS = "select * from Capitulos";
