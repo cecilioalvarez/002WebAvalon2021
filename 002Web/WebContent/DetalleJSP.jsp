@@ -55,12 +55,14 @@ Libro libro = (Libro) request.getAttribute("milibro");
 			</thead>
 			<tbody>
 			<c:forEach var="chapter" items="${milibro.listacoCapitulos}">
+					<tr>
 						<td><c:out value="${chapter.libro.isbn}"/></td>
 		            	<td><c:out value="${chapter.titulo}"/></td>
 		            	<td>${chapter.paginas}</td>
 		            	<td><a href="ServletControladorCapitulo?accion=borrar&titulo=<c:out value="${chapter.titulo}"/>&isbn=${chapter.libro.isbn}" style="color: red">Borrar</a></td>
 		            	<td><a href="ServletControladorCapitulo?accion=detalle&titulo=${chapter.titulo}&isbn=${chapter.libro.isbn}" style="color: purple">Detalle</a></td>
 		            	<td><a href="ServletControladorCapitulo?accion=formularioModificar&titulo=${chapter.titulo}&isbn=${chapter.libro.isbn}" style="color: blue">Modificar</a></td>
+					</tr>
 			</c:forEach>	
 				<%-- <%for(Capitulo chapter: libro.getListacoCapitulos()){ %>
 		            <tr>
