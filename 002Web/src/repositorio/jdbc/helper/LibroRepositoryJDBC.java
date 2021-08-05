@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Component;
 
 import negocio.Libro;
@@ -16,8 +18,10 @@ import repositorio.LibroRepository;
 @Component
 public class LibroRepositoryJDBC implements LibroRepository {
 
-	private static DataBaseHelper helper = new DataBaseHelper();
 
+
+	private DataSource datasource;
+	
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from Libros  where isbn =?";
 	final static String CONSULTA_BUSCAR_TODOS = "select * from Libros";
@@ -27,9 +31,16 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_ACTUALIZAR = "update Libros set titulo=? , autor=? where isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO = "select * from Capitulos where libros_isbn=?";
 
+	
+	
+	public LibroRepositoryJDBC(DataSource datasource) {
+		super();
+		this.datasource = datasource;
+	}
+
 	public void actualizar(Libro libro) {
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_ACTUALIZAR);) {
 
 			sentencia.setString(1, libro.getTitulo());
@@ -46,7 +57,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	public void insertar(Libro libro) {
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
 
 			sentencia.setString(1, libro.getIsbn());
@@ -63,7 +74,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	public void borrar(Libro libro) {
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);) {
 			sentencia.setString(1, libro.getIsbn());
 			sentencia.execute();
@@ -81,7 +92,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 		List<Libro> listaLibros = new ArrayList<Libro>();
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);) {
 			while (rs.next()) {
@@ -102,7 +113,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 		List<Libro> listaLibros = new ArrayList<Libro>();
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO_AUTOR);) {
 			sentencia.setString(1, titulo);
 			sentencia.setString(2, autor);
@@ -126,7 +137,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 		Libro libro = null;
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_UNO);) {
 			sentencia.setString(1, isbn);
 			ResultSet rs = sentencia.executeQuery();
@@ -148,7 +159,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 		List<Libro> listaLibros = new ArrayList<Libro>();
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				Statement sentencia = conn.createStatement();
 				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS);) {
 			while (rs.next()) {
@@ -177,7 +188,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
 		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
 
-		try (Connection conn = helper.getConexion();
+		try (Connection conn = datasource.getConnection();
 				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO)) {
 
 			sentencia.setString(1, libro.getIsbn());

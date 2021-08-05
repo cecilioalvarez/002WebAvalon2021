@@ -15,10 +15,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import arquitecturaspring.SpringConfigurador;
 import negocio.Capitulo;
 import negocio.Libro;
-import repositorio.CapituloRepository;
-import repositorio.LibroRepository;
-import repositorio.jdbc.helper.CapituloRepositoryJDBC;
-import repositorio.jdbc.helper.LibroRepositoryJDBC;
 import repositorio.servicios.LibroService;
 import repositorio.servicios.standard.LibroServiceStandard;
 
@@ -29,9 +25,6 @@ import repositorio.servicios.standard.LibroServiceStandard;
 public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LibroService servicio;
-	LibroRepository repositorioLibro;
-	CapituloRepository repositorioCapitulo;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -43,8 +36,7 @@ public class ServletControlador extends HttpServlet {
 		
 		//al instanciar el libroservice, verá que tiene dos dependencias (librorepository y capitulorepository)
 		servicio = contexto.getBean(LibroServiceStandard.class);
-		
-		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
+
 
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion") == null) {

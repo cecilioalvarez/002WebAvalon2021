@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import arquitecturaspring.SpringConfigurador;
 import negocio.Capitulo;
 import negocio.Libro;
-
-import repositorio.jdbc.helper.CapituloRepositoryJDBC;
-import repositorio.jdbc.helper.LibroRepositoryJDBC;
 import repositorio.servicios.LibroService;
 import repositorio.servicios.standard.LibroServiceStandard;
 
@@ -29,8 +29,10 @@ public class ServletControladorCapitulos extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		servicio = new LibroServiceStandard(new LibroRepositoryJDBC(), new CapituloRepositoryJDBC());
+		//INSTANCIA DE LOS OBJETOS IMPORTANTES
+		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+		servicio = contexto.getBean(LibroServiceStandard.class);
+
 
 		if (request.getParameter("accion") == null) {
 			
