@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletAjaxPrueba", urlPatterns = {"/ServletAjaxPrueba"})
-public class ServletAjaxPrueba extends HttpServlet {
+@WebServlet(name = "AjaxTestServlet", urlPatterns = {"/AjaxTestServlet"})
+public class AjaxTestServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,6 +23,8 @@ public class ServletAjaxPrueba extends HttpServlet {
             final List<Book> BOOKS = new BookRepositoryJDBC().select();
             ObjectMapper mapper = new ObjectMapper();
             out.println(mapper.writeValueAsString(BOOKS));
+        } catch (IOException io_ex) {
+            System.err.println("Se ha producido un error al acceder al canal de respuesta del servidor: " + io_ex.getMessage());
         }
     }
 

@@ -6,7 +6,7 @@ function addListeners() {
 
 function sendRequest() {
     let settings = {
-        url: "ServletAjaxPrueba",
+        url: "AjaxTestServlet",
         method: "GET",
         dataType: "json",
         async: true,
@@ -18,7 +18,8 @@ function sendRequest() {
 function showResponse(books) {
     $("#response-viewer").empty();
     
-    let $table = $("<table>");
+    let $table = $("<table>")
+            .append($("<caption>").html("Listado de libros"));
     let $thead = $("<thead>")
             .appendTo($table);
     let $tbody = $("<tbody>")
