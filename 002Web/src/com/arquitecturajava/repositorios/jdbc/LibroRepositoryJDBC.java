@@ -22,13 +22,13 @@ import com.arquitecturajava.repositorios.LibroRepository;
 public class LibroRepositoryJDBC implements LibroRepository {
 
 	private DataSource dataSource;
-	@Autowired
+	
 	private JdbcTemplate plantilla;
 	
-	public LibroRepositoryJDBC(DataSource dataSource) {
+	public LibroRepositoryJDBC(DataSource dataSource,JdbcTemplate plantilla) {
 		super();
 		this.dataSource = dataSource;
-	
+		this.plantilla=plantilla;
 	}
 
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
@@ -40,41 +40,28 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from Libros where titulo=? and autor=?";
 	final static String CONSULTA_ACTUALIZAR = "update Libros set titulo=? , autor=? where isbn=?";
 
+	
+	
 	public void actualizar(Libro libro) {
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_ACTUALIZAR);) {
-
-			sentencia.setString(1, libro.getTitulo());
-			sentencia.setString(2, libro.getAutor());
-			sentencia.setString(3, libro.getIsbn());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_ACTUALIZAR,
+				libro.getTitulo(),libro.getAutor(),libro.getIsbn());
 
 	}
 
 	public void insertar(Libro libro) {
 
 			
-			plantilla.update(CONSULTA_INSERTAR,libro.getIsbn(),libro.getTitulo(),libro.getAutor());
+			plantilla.update(CONSULTA_INSERTAR,
+					libro.getIsbn(),libro.getTitulo(),libro.getAutor());
 		
 
 	}
 
 	public void borrar(Libro libro) {
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);) {
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_BORRAR,
+				libro.getIsbn());
 
 	}
 	// porque vamos a buscar todos los libros
