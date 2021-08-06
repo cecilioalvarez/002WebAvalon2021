@@ -41,7 +41,8 @@ public class ServletAjax2 extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		//pw.print(mapeador.writeValueAsString(Arrays.asList(libro,libro2)));
-		pw.print(mapeador.writeValueAsString(servicio.buscarTodosLibros()));
+		//pw.print(mapeador.writeValueAsString(servicio.buscarTodosLibros()));
+		pw.print(mapeador.writeValueAsString(servicio.buscarTodosLibrosConCapitulos()));
 		
 	}
 

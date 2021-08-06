@@ -10,16 +10,23 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.LibroRepository;
+import com.arquitecturajavaJSP.Spring.mappers.LibroCapitulosExtractor;
+import com.arquitecturajavaJSP.Spring.mappers.LibroMapper;
 import com.arquitecturajavaJSP.negocio.Capitulo;
 
-@Component
+@Repository
 public class Libro_RepositoryJDBC implements LibroRepository {
 	
 	private DataSource datasource;
+	
+	private JdbcTemplate plantilla;
 	
 	final static String QUERYINSERT = "INSERT INTO libro(isbn, titulo, autor) VALUES(?,?,?)";
 	final static String QUERYDELETE= "DELETE FROM libro WHERE isbn=?";
@@ -30,253 +37,75 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	
 	final static String QUERYSELECTWITHCHAPTERS="select libro.isbn as isbn, libro.titulo as titulo, libro.autor as autor, Capitulos.titulo as tituloCapitulo, Capitulos.paginas as paginas from libro,Capitulos where libro.isbn= Capitulos.libros_isbn";
 	
-	public Libro_RepositoryJDBC(DataSource datasource) {
+	public Libro_RepositoryJDBC(DataSource datasource,JdbcTemplate plantilla) {
 		super();
 		this.datasource = datasource;
+		this.plantilla = plantilla;
 	}
 
 	@Override
 	public void addBook(Libro libro) {
 		
-		try(Connection conn = datasource.getConnection();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYINSERT);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, libro.getIsbn());
-				prepSentencia.setString(2, libro.getTitulo());
-				prepSentencia.setString(3, libro.getAutor());
-			
-				prepSentencia.execute();
-			}catch (SQLException ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		plantilla.update(QUERYINSERT,libro.getIsbn(),libro.getTitulo(),libro.getAutor());
+		
 	}
 	
 	@Override
 	public void removeBook(Libro libro) {
 		
-		try(Connection conn = datasource.getConnection();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYDELETE);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, libro.getIsbn());
-			
-				prepSentencia.execute();
-			}catch (Exception ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(QUERYDELETE,libro.getIsbn());
+		
 	}
 	
 	
 	@Override
 	public List<Libro>buscarTodosLibros(){
+		//query devuelve 1 lista
+		return plantilla.query(QUERYSELECT, new LibroMapper());
 		
-		List<Libro> listaLibros = new ArrayList<Libro>();
-		try(Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();) {
-			//Para Resultados de SELECT
-			ResultSet rs = sentencia.executeQuery(QUERYSELECT);
-			
-			while (rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				listaLibros.add(l);
-			}
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaLibros;
 	}
 	
 	@Override
 	public Libro buscarLibro(String isbn){
+		//queryForObject devuelve sólo 1
+		return plantilla.queryForObject(QUERYFINDONE, new LibroMapper(),isbn);
 		
-		Libro libro = null;
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDONE);) {
-			sentencia.setString(1, isbn);
-			//Para Resultados de SELECT
-			
-			ResultSet rs = sentencia.executeQuery();
-			if(rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				libro= l;
-			}
-				
-				
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return libro;
 	}
 	
 	@Override
 	public List<Libro> buscarLibroAutor(String autor){
 		
-		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(queryFindAutor);) {
-			sentencia.setString(1, autor);
-			//Para Resultados de SELECT
-			
-			ResultSet rs = sentencia.executeQuery();
-			while(rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				librosAutor.add(l);
-			}
-				
-				
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return librosAutor;
+		return plantilla.query(queryFindAutor, new LibroMapper(),autor);
+		
 	}
 	
 	@Override
 	public List<Libro> buscarLibroTitulo(String titulo){
 		
-		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(queryFindTitulo);) {
-			sentencia.setString(1, titulo);
-			//Para Resultados de SELECT
-			
-			ResultSet rs = sentencia.executeQuery();
-			while(rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				librosAutor.add(l);
-			}
-				
-				
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return librosAutor;
+		return plantilla.query(queryFindTitulo, new LibroMapper(),titulo);
+		
 	}
 	
 	@Override
 	public List<Libro> buscarLibroAutorTitulo(String autor,String titulo){
 		
-		List<Libro> librosAutor = new ArrayList<Libro>();
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(queryFindTitulo);) {
-			
-			sentencia.setString(1, autor);
-			sentencia.setString(2, titulo);
-			//Para Resultados de SELECT
-			
-			ResultSet rs = sentencia.executeQuery();
-			while(rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				librosAutor.add(l);
-			}
-				
-				
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return librosAutor;
-	}
-	
-	/*@Override
-	public void modifyBook(Libro libro) {
+		return plantilla.query(queryFindTitulo, new LibroMapper(),autor,titulo);
 		
-		try(Connection conn = helper.getConexion();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, libro.getAutor());
-				prepSentencia.setString(2, libro.getTitulo());
-				prepSentencia.setString(3, libro.getIsbn());
-			
-				//prepSentencia.execute();
-				prepSentencia.executeUpdate();
-				
-			}catch (Exception ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
+	}
 	
 	@Override
 	public int modifyBook(Libro libro) {
 		final String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
-		try(Connection conn = datasource.getConnection();){
-			
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, libro.getAutor());
-				prepSentencia.setString(2, libro.getTitulo());
-				prepSentencia.setString(3, libro.getIsbn());
-			
-				//prepSentencia.execute();
-				return prepSentencia.executeUpdate();
-				
-			}catch (SQLException ex) {
-				ex.printStackTrace();
-				conn.rollback();
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
+		
+		int modificado = plantilla.update(QUERYUPDATE,libro.getAutor(),libro.getTitulo(),libro.getIsbn());
+		
+		
+		return modificado;
 	}
 
 	@Override
 	public List<Libro> buscarTodosLibrosConCapitulos() {
-		List<Libro> listaLibros = new ArrayList<Libro>();
-		try(Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();) {
-			//Para Resultados de SELECT
-			ResultSet rs = sentencia.executeQuery(QUERYSELECTWITHCHAPTERS);
-			
-			while (rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("autor"), rs.getString("titulo"));
-				if (!listaLibros.contains(l)) {
-					listaLibros.add(l);
-					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas"),l));
-				}else {
-					listaLibros.get(listaLibros.size()-1).addCapitulo(new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas"),l));
-				}
-				
-			}
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaLibros;
+		return plantilla.query(QUERYSELECTWITHCHAPTERS, new LibroCapitulosExtractor());
 	}
 
 	

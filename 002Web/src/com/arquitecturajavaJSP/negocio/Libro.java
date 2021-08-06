@@ -11,7 +11,7 @@ public class Libro {
 	private String isbn;
 	private String autor;
 	private String titulo;
-	@JsonIgnore
+	
 	private List<Capitulo> listacoCapitulos= new ArrayList<Capitulo>();
 	
 	public Libro(String isbn) {

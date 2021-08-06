@@ -30,16 +30,10 @@ public class ServletControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	LibroService servicio;
-	LibroRepository repositorioLibro;
-	CapituloRepository repositorioCapitulo;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
 		
-		//repositorioLibro=contexto.getBean(Libro_RepositoryJDBC.class);
-		//repositorioCapitulo=contexto.getBean(Capitulo_RepositoryJDBC.class);
-		//servicio = new LibroServiceStandard(repositorioLibro,repositorioCapitulo);
-		//Este es método para instanciar el servicio usando Spring
 		servicio = contexto.getBean(LibroServiceStandard.class);
 		
 		RequestDispatcher despachador = null;
@@ -88,15 +82,18 @@ public class ServletControlador extends HttpServlet {
 			despachador.forward(request, response);
 		}else if(request.getParameter("accion").equals("detalle")){
 			String isbn = request.getParameter("isbn");
-			
+			//Opcion de 2 consultas
 			Libro libro = servicio.buscarLibro(isbn);
 			List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
 			libro.setListacoCapitulos(listaCapitulos);
+			
+			//Opción más compleja pero una sóla consulta
+			//
 			//Despachamos a una vista donde despachador puede adjuntar objetos
 			despachador = request.getRequestDispatcher("DetalleJSP.jsp");
-			//lista de objetos libros que quiero enviar a la vista desde el controlador
+			//libro que quiero enviar a la vista desde el controlador
 			request.setAttribute("milibro",libro);
-			request.setAttribute("misCapitulos",listaCapitulos);
+			//request.setAttribute("misCapitulos",listaCapitulos);
 			//Reenvía a la vista
 			despachador.forward(request, response);
 		}else if(request.getParameter("accion").equals("modificar")){
