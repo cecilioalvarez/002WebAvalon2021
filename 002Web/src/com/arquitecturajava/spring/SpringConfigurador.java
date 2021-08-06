@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
@@ -19,21 +20,25 @@ public class SpringConfigurador {
 	private String user;
 	@Value("${password}")
 	private String password;
-	
-	
+
 	// datasource
 	// es un objeto que acabo de instanaciar a nivel de Spring Framework
 	// ahora si que cargo la base de datos desde un dataSource
 	@Bean
 	public DataSource dataSource() {
-		
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		
+
 		dataSource.setUrl(url);
 		dataSource.setUsername(user);
 		dataSource.setPassword(password);
 
 		return dataSource;
 	}
-	
+
+	@Bean
+	public JdbcTemplate plantillaJDBC() {
+		return new JdbcTemplate(dataSource());
+	}
+
 }

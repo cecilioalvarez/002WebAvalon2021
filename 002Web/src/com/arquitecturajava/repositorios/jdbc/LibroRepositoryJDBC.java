@@ -10,19 +10,25 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
-@Component
+@Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
 	private DataSource dataSource;
+	@Autowired
+	private JdbcTemplate plantilla;
 	
 	public LibroRepositoryJDBC(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
+	
 	}
 
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
@@ -53,18 +59,9 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	public void insertar(Libro libro) {
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
-
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.setString(2, libro.getTitulo());
-			sentencia.setString(3, libro.getAutor());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			plantilla.update(CONSULTA_INSERTAR,libro.getIsbn(),libro.getTitulo(),libro.getAutor());
+		
 
 	}
 
