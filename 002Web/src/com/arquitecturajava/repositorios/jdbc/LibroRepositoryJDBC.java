@@ -18,6 +18,8 @@ import org.springframework.stereotype.Repository;
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
+import com.arquitecturajava.spring.mappers.LibroCapitulosExtractor;
+import com.arquitecturajava.spring.mappers.LibroMapper;
 @Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
@@ -70,105 +72,40 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	public List<Libro> buscarTodos() {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try (Connection conn =dataSource.getConnection();
-				Statement sentencia = conn.createStatement();
-				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);) {
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				listaLibros.add(l);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+		
+		return plantilla.query(CONSULTA_BUSCAR_TODOS,new LibroMapper());
+	
 
 	}
 
 	public List<Libro> buscarTituloyAutor(String titulo, String autor) {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO_AUTOR);) {
-			sentencia.setString(1, titulo);
-			sentencia.setString(2, autor);
-
-			ResultSet rs = sentencia.executeQuery();
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				listaLibros.add(l);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR,new LibroMapper(),titulo,autor);
+		
 		}
-
-		return listaLibros;
-
-	}
 
 	public Libro buscarUno(String isbn) {
 
-		Libro libro = null;
-
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_UNO);) {
-			sentencia.setString(1, isbn);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-
-			libro = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return libro;
+		
+		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO,new LibroMapper(),isbn);
+		
+		
+		
 
 	}
 
 	@Override
 	public List<Libro> buscarTodosConCapitulos() {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
+		
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS,new LibroCapitulosExtractor());
+		
+		
+		
+		
 
-		try (Connection conn = dataSource.getConnection();
-				Statement sentencia = conn.createStatement();
-				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS);) {
-			// jdbc los registros que vienen de jdbc son tabulares
-			// es decir es una tabla de la base de datos
-			// o es un array o una matriz
-			// deseamos convertirlo en un grafo
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-
-				if (!listaLibros.contains(l)) {
-
-					listaLibros.add(l);
-					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
-				} else {
-					// el libro ya esta en la lista
-					// traeme el ultimo item de la lista
-					// que es el libro y añade el capitulo
-					listaLibros.get(listaLibros.size() - 1)
-							.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
-				}
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+	
 
 	}
 

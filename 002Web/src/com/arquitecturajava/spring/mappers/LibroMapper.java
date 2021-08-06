@@ -13,6 +13,7 @@ public class LibroMapper implements RowMapper<Libro>{
 
 	@Override
 	public Libro mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
 		// TODO Auto-generated method stub
 		return new Libro(rs.getString("isbn"),rs.getString("titulo"),rs.getString("autor"));
 	}
