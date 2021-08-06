@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
@@ -37,5 +38,10 @@ public class SpringConfigurador {
 
 		return dataSource;
 
+	}
+	
+	@Bean
+	public JdbcTemplate plantillaJDBC() {
+		return new JdbcTemplate(dataSource());
 	}
 }

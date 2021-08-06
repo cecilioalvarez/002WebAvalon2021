@@ -10,18 +10,21 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import arquitecturasring.mappers.LibroCapitulosExtractor;
+import arquitecturasring.mappers.LibroMapper;
 import negocio.Libro;
 import negocio.Capitulo;
 import repositorio.LibroRepository;
-@Component
+
+@Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
-
-
 	private DataSource datasource;
-	
+	private JdbcTemplate plantilla;
+
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from Libros  where isbn =?";
 	final static String CONSULTA_BUSCAR_TODOS = "select * from Libros";
@@ -31,158 +34,50 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_ACTUALIZAR = "update Libros set titulo=? , autor=? where isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO = "select * from Capitulos where libros_isbn=?";
 
-	
-	
-	public LibroRepositoryJDBC(DataSource datasource) {
+	public LibroRepositoryJDBC(DataSource datasource, JdbcTemplate plantilla) {
 		super();
 		this.datasource = datasource;
+		this.plantilla = plantilla;
 	}
 
 	public void actualizar(Libro libro) {
 
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_ACTUALIZAR);) {
-
-			sentencia.setString(1, libro.getTitulo());
-			sentencia.setString(2, libro.getAutor());
-			sentencia.setString(3, libro.getIsbn());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		plantilla.update(CONSULTA_ACTUALIZAR, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 	}
 
 	public void insertar(Libro libro) {
 
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
-
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.setString(2, libro.getTitulo());
-			sentencia.setString(3, libro.getAutor());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
 
 	}
 
 	public void borrar(Libro libro) {
 
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);) {
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_BORRAR, libro.getIsbn());
 
 	}
-	// porque vamos a buscar todos los libros
-	// no tiene mucho sentido instanciar un libro
-	// para luego más adelante buscar todos
 
 	public List<Libro> buscarTodos() {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try (Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();
-				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);) {
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				listaLibros.add(l);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+		return plantilla.query(CONSULTA_BUSCAR_TODOS, new LibroMapper());
 
 	}
 
 	public List<Libro> buscarTituloyAutor(String titulo, String autor) {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO_AUTOR);) {
-			sentencia.setString(1, titulo);
-			sentencia.setString(2, autor);
-
-			ResultSet rs = sentencia.executeQuery();
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				listaLibros.add(l);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR, new LibroMapper(), titulo, autor);
 
 	}
 
 	public Libro buscarUno(String isbn) {
-
-		Libro libro = null;
-
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_UNO);) {
-			sentencia.setString(1, isbn);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-
-			libro = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return libro;
+		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO, new LibroMapper(), isbn);
 
 	}
 
 	@Override
-	public List<Libro> buscarTodosConCapitulos() {
-
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try (Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();
-				ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS);) {
-			while (rs.next()) {
-
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-
-				if (!listaLibros.contains(l)) {
-					listaLibros.add(l);
-					l.addCap(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas")));
-				} else {
-					listaLibros.get(listaLibros.size() - 1)
-							.addCap(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas")));
-				}
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
-
-	}
+	 public List<Libro> buscarTodosConCapitulos() {
+        return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS, new LibroCapitulosExtractor());
+    }
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
