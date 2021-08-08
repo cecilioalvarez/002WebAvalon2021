@@ -88,7 +88,7 @@ public class ServletControlador extends HttpServlet {
 			libro.setListacoCapitulos(listaCapitulos);
 			
 			//Opción más compleja pero una sóla consulta
-			//
+			
 			//Despachamos a una vista donde despachador puede adjuntar objetos
 			despachador = request.getRequestDispatcher("DetalleJSP.jsp");
 			//libro que quiero enviar a la vista desde el controlador
