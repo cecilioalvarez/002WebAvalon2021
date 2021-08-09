@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import arquitecturasring.mappers.CapituloMapper;
 import arquitecturasring.mappers.LibroCapitulosExtractor;
 import arquitecturasring.mappers.LibroMapper;
 import negocio.Libro;
@@ -22,7 +23,6 @@ import repositorio.LibroRepository;
 @Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
-	private DataSource datasource;
 	private JdbcTemplate plantilla;
 
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
@@ -34,9 +34,8 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_ACTUALIZAR = "update Libros set titulo=? , autor=? where isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO = "select * from Capitulos where libros_isbn=?";
 
-	public LibroRepositoryJDBC(DataSource datasource, JdbcTemplate plantilla) {
+	public LibroRepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.datasource = datasource;
 		this.plantilla = plantilla;
 	}
 
@@ -81,25 +80,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO)) {
-
-			sentencia.setString(1, libro.getIsbn());
-
-			ResultSet rs = sentencia.executeQuery();
-			while (rs.next()) {
-				Libro l = new Libro(rs.getString("libros_isbn"));
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l);
-				listaCapitulos.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaCapitulos;
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO,new CapituloMapper(), libro.getIsbn());
 
 	}
 }

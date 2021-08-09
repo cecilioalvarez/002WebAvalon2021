@@ -23,8 +23,6 @@ public class SpringConfigurador {
 	@Value("${password}")
 	private String password;
 
-	private String driver;
-
 	//Objeto que se acaba de instanciar a nivel de Spring Framework
 	//cargo la base de datos desde un dataSource
 	@Bean

@@ -30,9 +30,6 @@ public class ServletControlador extends HttpServlet {
 
 		//INSTANCIA DE LOS OBJETOS IMPORTANTES
 		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
-		// servicio = contexto.getBean(LibroServiceStandard.class);
-		//repositorioLibro = contexto.getBean(LibroRepositoryJDBC.class);
-		//repositorioCapitulo = contexto.getBean(CapituloRepositoryJDBC.class);
 		
 		//al instanciar el libroservice, verá que tiene dos dependencias (librorepository y capitulorepository)
 		servicio = contexto.getBean(LibroServiceStandard.class);

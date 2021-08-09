@@ -29,6 +29,7 @@
 		</p>
 		<input type="hidden" name="accion" value="actualizar"/>
 		<input type="submit" value="actualizar" />
+		<a href="ServletControlador">volver</a>
 	</form>
 </body>
 </html>

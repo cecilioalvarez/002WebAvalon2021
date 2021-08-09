@@ -41,5 +41,6 @@
 	<a
 		href="ServletControladorCapitulos?accion=formularioinsertar&isbn=${isbn}">Nuevo
 		capitulo</a>
+		<a href="ServletControlador">volver</a>
 </body>
 </html>
