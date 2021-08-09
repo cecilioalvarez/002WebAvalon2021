@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajavaJSP.Spring.mappers.CapituloMapper;
 import com.arquitecturajavaJSP.Spring.mappers.LibroCapitulosExtractor;
@@ -35,6 +36,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 		this.plantilla = plantilla;
 	}
 
+	@Transactional
 	@Override
 	public void addBook(Libro libro) {
 		
@@ -42,11 +44,23 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 		
 	}
 	
+	@Transactional
 	@Override
 	public void removeBook(Libro libro) {
 		
 		plantilla.update(QUERYDELETE,libro.getIsbn());
 		
+	}
+	
+	@Transactional
+	@Override
+	public int modifyBook(Libro libro) {
+		final String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
+		
+		int modificado = plantilla.update(QUERYUPDATE,libro.getAutor(),libro.getTitulo(),libro.getIsbn());
+		
+		
+		return modificado;
 	}
 	
 	
@@ -85,15 +99,7 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 		
 	}
 	
-	@Override
-	public int modifyBook(Libro libro) {
-		final String QUERYUPDATE = "UPDATE libro set autor=?,titulo=? WHERE isbn=?";
-		
-		int modificado = plantilla.update(QUERYUPDATE,libro.getAutor(),libro.getTitulo(),libro.getIsbn());
-		
-		
-		return modificado;
-	}
+	
 
 	@Override
 	public List<Libro> buscarTodosLibrosConCapitulos() {

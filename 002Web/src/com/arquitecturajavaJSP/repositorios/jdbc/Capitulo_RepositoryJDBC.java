@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajavaJSP.Spring.mappers.CapituloMapper;
 import com.arquitecturajavaJSP.negocio.Capitulo;
@@ -30,6 +31,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 		this.plantilla = plantilla;
 	}
 
+	@Transactional
 	@Override
 	public void addChapter(Capitulo chapter) {
 		
@@ -37,10 +39,19 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 		
 	}
 	
+	@Transactional
 	@Override
 	public void removeChapter(Capitulo chapter) {
 		
 		plantilla.update(QUERYDELETE,chapter.getTitulo());
+		
+	}
+	
+	@Transactional
+	@Override
+	public void modifyChapter(Capitulo chapter) {
+		
+		plantilla.update(QUERYDELETE,chapter.getLibro().getIsbn(),chapter.getPaginas(),chapter.getTitulo());
 		
 	}
 	
@@ -56,12 +67,6 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	}
 	
 	
-	@Override
-	public void modifyChapter(Capitulo chapter) {
-		
-		plantilla.update(QUERYDELETE,chapter.getLibro().getIsbn(),chapter.getPaginas(),chapter.getTitulo());
-		
-	}
 
 	@Override
 	public Capitulo getOneChapter(Capitulo chapter) {

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- ServletHola es la url del servlet -->
+	<form action="ServletControlador" method="POST">
+		<p>
+		<label for="isbn1">ISBN: </label>
+		<input name="isbn1"/>
+		</p>
+		<p>
+		<label for="titulo1">Titulo: </label>
+		<input name="titulo1"/>
+		</p>
+		<p>
+		<label for="autor1">Autor: </label>
+		<input name="autor1"/>
+		</p>
+		<hr/>
+		<p>
+		<label for="isbn2">ISBN: </label>
+		<input name="isbn2"/>
+		</p>
+		<p>
+		<label for="titulo2">Titulo: </label>
+		<input name="titulo2"/>
+		</p>
+		<p>
+		<label for="autor2">Autor: </label>
+		<input name="autor2"/>
+		</p>
+		<p>
+		<input type="hidden" name="accion" value="insertar2"/>
+		<input type="submit" value="Enviar Datos"/>
+		</p>
+	</form>
+</body>
+</html>

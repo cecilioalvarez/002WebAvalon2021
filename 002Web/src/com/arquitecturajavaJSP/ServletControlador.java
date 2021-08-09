@@ -34,7 +34,7 @@ public class ServletControlador extends HttpServlet {
 		
 		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
 		
-		servicio = contexto.getBean(LibroServiceStandard.class);
+		servicio = contexto.getBean(LibroService.class);
 		
 		RequestDispatcher despachador = null;
 		if (request.getParameter("accion")==null) {
@@ -105,8 +105,8 @@ public class ServletControlador extends HttpServlet {
 			Libro libro = new Libro(request.getParameter("isbn")
 							, request.getParameter("autor")
 							,request.getParameter("titulo"));
-			System.out.println(libro);
-			System.out.println(servicio.modifyBook(libro));
+			//System.out.println(libro);
+			//System.out.println(servicio.modifyBook(libro));
 			
 			response.sendRedirect("ServletControlador");
 			
@@ -122,6 +122,26 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("milibro",libro);
 			//Reenvía a la vista
 			despachador.forward(request, response);
+		}else if (request.getParameter("accion").equals("formularioInsertarVarios")) {
+			despachador = request.getRequestDispatcher("formularioLibrosJSP.html");
+			//Reenvía a la vista
+			despachador.forward(request, response);
+		}else if(request.getParameter("accion").equals("insertar2")){
+			String isbn1 = request.getParameter("isbn1");
+			String titulo1 = request.getParameter("titulo1");
+			String autor1 = request.getParameter("autor1");
+			
+			String isbn2 = request.getParameter("isbn2");
+			String titulo2 = request.getParameter("titulo2");
+			String autor2 = request.getParameter("autor2");
+			
+			Libro libro1 = new Libro(isbn1, autor1, titulo1);
+			Libro libro2 = new Libro(isbn2, autor2, titulo2);
+			
+			servicio.addMultipleBooks(libro1,libro2);
+			
+			response.sendRedirect("ServletControlador");
+			
 		}else {
 			//Controlador accede a la BD para obtener la lista
 			List<Libro> listalibros = servicio.buscarTodosLibros();

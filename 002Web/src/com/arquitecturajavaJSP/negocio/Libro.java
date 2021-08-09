@@ -1,13 +1,12 @@
 package com.arquitecturajavaJSP.negocio;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Libro implements Serializable{
+public class Libro{
 
 	private String isbn;
 	private String autor;

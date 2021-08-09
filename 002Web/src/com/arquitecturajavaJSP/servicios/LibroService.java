@@ -8,6 +8,8 @@ import com.arquitecturajavaJSP.negocio.Libro;
 public interface LibroService {
 
 	void addBook(Libro libro);
+	
+	void addMultipleBooks(Libro ...libros);
 
 	void removeBook(Libro libro);
 
