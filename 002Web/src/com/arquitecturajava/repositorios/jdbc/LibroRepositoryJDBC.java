@@ -106,9 +106,9 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
-
+		plantilla.query
 		
-		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO,new CapituloMapper());
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO,new CapituloMapper(),libro.getIsbn());
 		
 
 
