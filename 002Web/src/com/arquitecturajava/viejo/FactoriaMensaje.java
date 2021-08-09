@@ -4,6 +4,6 @@ public class FactoriaMensaje {
 
 	public static Mensaje getMensaje() {
 		
-		return new MensajeStandard();
+		return new MensajeProxy(new MensajeStandard());
 	}
 }
