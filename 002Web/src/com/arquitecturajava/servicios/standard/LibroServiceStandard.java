@@ -3,6 +3,7 @@ package com.arquitecturajava.servicios.standard;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
@@ -22,14 +23,16 @@ public class LibroServiceStandard implements LibroService  {
 		this.repositorioCapitulo = repositorioCapitulo;
 	}
 
+	@Transactional
 	public void actualizar(Libro libro) {
 		repositorio.actualizar(libro);
 	}
 
+	@Transactional
 	public void insertar(Libro libro) {
 		repositorio.insertar(libro);
 	}
-
+	@Transactional
 	public void borrar(Libro libro) {
 		repositorio.borrar(libro);
 	}
