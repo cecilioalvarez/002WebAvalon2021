@@ -1,18 +1,8 @@
 package com.arquitecturajava.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.arquitecturajava.negocio.Capitulo;
@@ -21,17 +11,16 @@ import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.spring.mappers.CapituloMapper;
 import com.arquitecturajava.spring.mappers.LibroCapitulosExtractor;
 import com.arquitecturajava.spring.mappers.LibroMapper;
+
 @Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
-	private DataSource dataSource;
-	
 	private JdbcTemplate plantilla;
-	
-	public LibroRepositoryJDBC(DataSource dataSource,JdbcTemplate plantilla) {
+
+	public LibroRepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.dataSource = dataSource;
-		this.plantilla=plantilla;
+
+		this.plantilla = plantilla;
 	}
 
 	final static String CONSULTA_INSERTAR = "insert into Libros (isbn,titulo,autor) values (?,?,?)";
@@ -43,28 +32,21 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from Libros where titulo=? and autor=?";
 	final static String CONSULTA_ACTUALIZAR = "update Libros set titulo=? , autor=? where isbn=?";
 
-	
-	
 	public void actualizar(Libro libro) {
 
-		plantilla.update(CONSULTA_ACTUALIZAR,
-				libro.getTitulo(),libro.getAutor(),libro.getIsbn());
+		plantilla.update(CONSULTA_ACTUALIZAR, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 
 	}
 
 	public void insertar(Libro libro) {
 
-			
-			plantilla.update(CONSULTA_INSERTAR,
-					libro.getIsbn(),libro.getTitulo(),libro.getAutor());
-		
+		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
 
 	}
 
 	public void borrar(Libro libro) {
 
-		plantilla.update(CONSULTA_BORRAR,
-				libro.getIsbn());
+		plantilla.update(CONSULTA_BORRAR, libro.getIsbn());
 
 	}
 	// porque vamos a buscar todos los libros
@@ -73,44 +55,33 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	public List<Libro> buscarTodos() {
 
-		
-		return plantilla.query(CONSULTA_BUSCAR_TODOS,new LibroMapper());
-	
+		return plantilla.query(CONSULTA_BUSCAR_TODOS, new LibroMapper());
 
 	}
 
 	public List<Libro> buscarTituloyAutor(String titulo, String autor) {
 
-		
-		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR,new LibroMapper(),titulo,autor);
-		
-		}
+		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR, new LibroMapper(), titulo, autor);
+
+	}
 
 	public Libro buscarUno(String isbn) {
 
-		
-		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO,new LibroMapper(),isbn);
-		
-		
-		
+		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO, new LibroMapper(), isbn);
 
 	}
 
 	@Override
 	public List<Libro> buscarTodosConCapitulos() {
 
-		
-		return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS,new LibroCapitulosExtractor());
-		
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS, new LibroCapitulosExtractor());
+
 	}
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
-		plantilla.query
-		
-		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO,new CapituloMapper(),libro.getIsbn());
-		
 
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO, new CapituloMapper(), libro.getIsbn());
 
 	}
 

@@ -1,11 +1,6 @@
 package com.arquitecturajava.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,11 +12,11 @@ import com.arquitecturajava.spring.mappers.CapituloMapper;
 public class CapituloRepositoryJDBC implements CapituloRepository {
 
 	private JdbcTemplate plantilla;
-	private DataSource dataSource;
 	
-	public CapituloRepositoryJDBC(DataSource dataSource,JdbcTemplate plantilla) {
+	
+	public CapituloRepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.dataSource = dataSource;
+		
 		this.plantilla=plantilla;
 	}
 
