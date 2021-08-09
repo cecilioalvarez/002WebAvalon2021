@@ -77,6 +77,16 @@ public class LibroServiceStandard implements LibroService  {
 		
 		return repositorio.buscarTodosCapitulos(libro);
 	}
+
+	@Override
+	@Transactional
+	public void insertarVariosLibros(Libro... libros) {
+		
+		for (Libro l : libros) {
+			repositorio.insertar(l);
+		}
+		
+	}
 	
 	
 }

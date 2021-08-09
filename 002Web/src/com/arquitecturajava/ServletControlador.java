@@ -46,7 +46,7 @@ public class ServletControlador extends HttpServlet {
 		// esto es como yo a una clase le inyecto otras dependencias
 		// lo estoy haciendo a mano
 		
-		servicio = contexto.getBean(LibroServiceStandard.class);
+		servicio = contexto.getBean(LibroService.class);
 		
 		
 		RequestDispatcher despachador = null;
@@ -90,6 +90,27 @@ public class ServletControlador extends HttpServlet {
 			response.sendRedirect("ServletControlador");
 
 		}
+		
+		else if (request.getParameter("accion").equals("insertar2")) {
+
+			String isbn1 = request.getParameter("isbn1");
+			String titulo1 = request.getParameter("titulo1");
+			String autor1 = request.getParameter("autor1");
+			
+			
+			String isbn2 = request.getParameter("isbn2");
+			String titulo2 = request.getParameter("titulo2");
+			String autor2 = request.getParameter("autor2");
+
+			Libro libro1 = new Libro(isbn1, titulo1, autor1);
+			Libro libro2= new Libro(isbn2, titulo2, autor2);
+			
+			servicio.insertarVariosLibros(libro1,libro2);
+
+			response.sendRedirect("ServletControlador");
+
+		}
+		
 		else if (request.getParameter("accion").equals("actualizar")) {
 
 			String isbn = request.getParameter("isbn");
@@ -119,6 +140,12 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("capitulos", capitulos);
 			request.setAttribute("isbn", isbn);
 			despachador = request.getRequestDispatcher("listacapitulos.jsp");
+			despachador.forward(request, response);
+			
+		}else if (request.getParameter("accion").equals("formularioInsertarVarios")) {
+
+			System.out.println("insertarvarios");
+			despachador = request.getRequestDispatcher("formularioLibros.html");
 			despachador.forward(request, response);
 		}
 		

@@ -26,5 +26,6 @@ public interface LibroService {
 	
 	void borrarCapitulo(Capitulo capitulo);
 	void insertarCapitulo(Capitulo capitulo);
+	void insertarVariosLibros(Libro ...libros );
 
 }
