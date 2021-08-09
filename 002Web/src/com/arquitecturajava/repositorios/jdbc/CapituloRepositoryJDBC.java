@@ -1,7 +1,6 @@
 package com.arquitecturajava.repositorios.jdbc;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,25 +8,37 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Component;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.CapituloRepository;
-import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
+
 @Component
 public class CapituloRepositoryJDBC implements CapituloRepository{
-	private static DataBaseHelper helper = new DataBaseHelper();
+	
+	
+	private DataSource dataSource;
+	
 	final static String CONSULTA_BUSCAR_TODOS = "select * from capitulos";
 	final static String CONSULTA_BORRAR = "delete from capitulos where titulo=?";
 	final static String CONSULTA_INSERTAR = "insert into Capitulos (titulo,paginas, libros_isbn) values (?,?,?)";
+
+	
+	public CapituloRepositoryJDBC(DataSource dataSource) {
+		super();
+		this.dataSource = dataSource;
+	}
+
 
 	@Override
 	public List<Capitulo> buscarTodos() {
 		List<Capitulo> listaCapitulos= new ArrayList<Capitulo>();
 
 		try {
-			Connection conn = helper.getConexion();
+			Connection conn = dataSource.getConnection();
 			Statement sentencia = conn.createStatement();
 			ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);
 			while (rs.next()) {
@@ -47,7 +58,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 	public void insertar(Capitulo capitulo) {
 
 		try {
-			Connection conn = helper.getConexion();
+			Connection conn = dataSource.getConnection();
 			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);
 			sentencia.setString(3, capitulo.getLibro().getIsbn());
 			sentencia.setString(1, capitulo.getTitulo());
@@ -63,7 +74,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 	@Override
 	public void borrar(Capitulo capitulo) {
 		try {
-			Connection conn = helper.getConexion();
+			Connection conn = dataSource.getConnection();
 			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);
 			sentencia.setString(1, capitulo.getTitulo());
 			sentencia.execute();

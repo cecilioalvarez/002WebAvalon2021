@@ -8,21 +8,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
-import com.arquitecturajava.repositorios.jdbc.helper.DataBaseHelper;
+import com.arquitecturajavaspring.mappers.LibroCapitulosExtractor;
+import com.arquitecturajavaspring.mappers.LibroMapper;
 
-
-
-
-@Component
+@Repository
 public class LibroRepositoryJDBC implements LibroRepository {
-	
-	private static DataBaseHelper helper = new DataBaseHelper();
-	
+
+	private DataSource dataSource;
+
+	private JdbcTemplate plantilla;
+
 	final static String CONSULTA_INSERTAR = "insert into libros (isbn,titulo,autor) values(?,?,?)";
 	final static String CONSULTA_BORRAR = "delete from libros where isbn=?";
 	final static String CONSULTA_BUSCAR_TODOS = "select * from libros";
@@ -33,200 +38,77 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_BUSCAR_TITULO = "select * from libros where titulo=?";
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from libros where titulo=? AND autor=?";
 
-	
+	public LibroRepositoryJDBC(DataSource dataSource, JdbcTemplate plantilla) {
+		super();
+		this.dataSource = dataSource;
+		this.plantilla = plantilla;
+
+	}
+
 	public void insertar(Libro libro) {
 
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.setString(2, libro.getTitulo());
-			sentencia.setString(3, libro.getAutor());
-			sentencia.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
+
 	}
 
 	public void borrar(Libro libro) {
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);
-			sentencia.setString(1, libro.getIsbn());
-			sentencia.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		plantilla.update(CONSULTA_BORRAR, libro.getIsbn());
+
+	}
+
+	public void actualizar(Libro libro) {
+
+		plantilla.update(CONSULTA_ACTUALIZAR, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 
 	}
 
 	public List<Libro> buscarTodos() {
 
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try {
-			Connection conn = helper.getConexion();
-			Statement sentencia = conn.createStatement();
-			ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS);
-			while (rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				listaLibros.add(l);
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+		return plantilla.query(CONSULTA_BUSCAR_TODOS, new LibroMapper());
 
 	}
 
 	public Libro buscarUno(String isbn) {
-		Libro l = new Libro();
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_UNO);
-
-			sentencia.setString(1, isbn);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-			l.setIsbn(rs.getString("isbn"));
-			l.setTitulo(rs.getString("titulo"));
-			l.setAutor(rs.getString("autor"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return l;
-	}
-
-	public void actualizar(Libro libro) {
-
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_ACTUALIZAR);
-
-			
-			sentencia.setString(1, libro.getTitulo());
-			sentencia.setString(2, libro.getAutor());
-			sentencia.setString(3, libro.getIsbn());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO, new LibroMapper(),isbn);
 
 	}
 
 	public Libro buscarPorTitulo(String titulo) {
-
-		Libro l = new Libro();
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO);
-
-			sentencia.setString(1, titulo);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-			l.setIsbn(rs.getString("isbn"));
-			l.setTitulo(rs.getString("titulo"));
-			l.setAutor(rs.getString("autor"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return l;
+		
+		return plantilla.queryForObject(CONSULTA_BUSCAR_TITULO, new LibroMapper(),titulo);
+		
 	}
 
 	public Libro buscarPorAutor(String autor) {
-
-		Libro l = new Libro();
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO);
-
-			sentencia.setString(1, autor);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-			l.setIsbn(rs.getString("isbn"));
-			l.setTitulo(rs.getString("titulo"));
-			l.setAutor(rs.getString("autor"));
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return l;
+		
+		return plantilla.queryForObject(CONSULTA_BUSCAR_TITULO, new LibroMapper(),autor);
+		
 	}
-	
-	public List<Libro> buscarPorIituloAutor(String titulo,String autor) {
 
-		List<Libro> lista=new ArrayList<Libro>();
-		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TITULO_AUTOR);
+	public List<Libro> buscarPorIituloAutor(String titulo, String autor) {
 
-			sentencia.setString(1, titulo);
-			sentencia.setString(2, autor);
-			ResultSet rs = sentencia.executeQuery();
-			rs.next();
-			Libro l=new Libro(rs.getString("isbn"),rs.getString("titulo"),rs.getString("autor"));
-			lista.add(l);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR, new LibroMapper(),titulo,autor);
 
-		return lista;
 	}
 
 	@Override
 	public List<Libro> BuscarTodosConCapitulos() {
-		List<Libro> listaLibros = new ArrayList<Libro>();
-
-		try {
-			Connection conn = helper.getConexion();
-			Statement sentencia = conn.createStatement();
-			ResultSet rs = sentencia.executeQuery(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS);
-			while (rs.next()) {
-				Libro l = new Libro(rs.getString("isbn"), rs.getString("titulo"), rs.getString("autor"));
-				if(!listaLibros.contains(l)) {
-					listaLibros.add(l);
-					l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas")));
-				}else {
-					listaLibros.get(listaLibros.size()-1).addCapitulo(new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas")));
-				}
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaLibros;
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS, new LibroCapitulosExtractor());
 	}
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
-		List<Capitulo> listaCapitulos= new ArrayList<Capitulo>();
+		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
 
 		try {
-			Connection conn = helper.getConexion();
-			PreparedStatement sentencia=conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO);
+			Connection conn = dataSource.getConnection();
+			PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO);
 			sentencia.setString(1, libro.getIsbn());
-			ResultSet rs=sentencia.executeQuery();
+			ResultSet rs = sentencia.executeQuery();
 			while (rs.next()) {
-				Libro l=new Libro(rs.getString("libros_isbn"));
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),l);
+				Libro l = new Libro(rs.getString("libros_isbn"));
+				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l);
 				listaCapitulos.add(c);
 
 			}
