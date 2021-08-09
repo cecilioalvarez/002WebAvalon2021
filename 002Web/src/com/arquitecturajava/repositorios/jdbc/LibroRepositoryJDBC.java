@@ -17,14 +17,16 @@ import org.springframework.stereotype.Repository;
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
+import com.arquitecturajava.spring.mappers.CapituloMapper;
 import com.arquitecturajava.spring.mappers.LibroCapitulosMapper;
 import com.arquitecturajava.spring.mappers.LibroMapper;
+
 @Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
 	private DataSource datasource;
 	private JdbcTemplate plantilla;
-	
+
 	public LibroRepositoryJDBC(DataSource datasource, JdbcTemplate plantilla) {
 		super();
 		this.datasource = datasource;
@@ -45,13 +47,13 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	@Override
 	public void insertar(Libro libro) {
 
-			plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(),libro.getTitulo(),libro.getAutor());
+		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
 	}
 
 	@Override
 	public void actualizar(Libro libro) {
 
-		plantilla.update(ACTUALIZA_DATO, libro.getTitulo(),libro.getAutor(),libro.getIsbn());
+		plantilla.update(ACTUALIZA_DATO, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 
 	}
 
@@ -65,20 +67,20 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	@Override
 	public List<Libro> buscarTodos() {
 
-			return	plantilla.query(CONSULTA, new LibroMapper()); 
+		return plantilla.query(CONSULTA, new LibroMapper());
 	}
 
 	@Override
 	public Libro buscarUno(String isbn) {
-		
-		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO, new LibroMapper(),isbn);
+
+		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO, new LibroMapper(), isbn);
 	}
 
 	@Override
 	public Libro buscarUnoPorTitulo(String titulo) {
 
 		return plantilla.queryForObject(CONSULTA_BUSCAR_UNO_TITULO, new LibroMapper(), titulo);
-		
+
 	}
 
 	@Override
@@ -90,7 +92,7 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	@Override
 	public List<Libro> buscarTodosTituloAutor(String titulo, String autor) {
 
-		return	plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR, new LibroMapper(),titulo,autor); 
+		return plantilla.query(CONSULTA_BUSCAR_TITULO_AUTOR, new LibroMapper(), titulo, autor);
 	}
 
 	@Override
@@ -100,25 +102,8 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
-	
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
 
-		try (Connection conn = datasource.getConnection()){
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_LIBRO_CAPITULOS);
-				sentencia.setString(1, libro.getIsbn());
-				ResultSet rs = sentencia.executeQuery();
-			while (rs.next()) {
-				Libro l= new Libro(rs.getString("libros_isbn"));
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),l);
-				listaCapitulos.add(c);
-			}
-		}catch(
-
-	SQLException e)
-	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}return listaCapitulos;
-}
+		return plantilla.query(CONSULTA_LIBRO_CAPITULOS, new CapituloMapper());
+	}
 
 }
