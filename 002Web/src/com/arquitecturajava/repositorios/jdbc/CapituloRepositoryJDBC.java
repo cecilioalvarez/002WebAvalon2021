@@ -1,27 +1,25 @@
 package com.arquitecturajava.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.arquitecturajava.negocio.Capitulo;
-import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.CapituloRepository;
-@Component
+import com.arquitecturajava.spring.mappers.CapituloMapper;
+@Repository
 public class CapituloRepositoryJDBC implements CapituloRepository{
 	private DataSource datasource;
+	private JdbcTemplate plantilla;
 	
-	public CapituloRepositoryJDBC(DataSource datasource) {
+	public CapituloRepositoryJDBC(DataSource datasource, JdbcTemplate plantilla) {
 		super();
 		this.datasource = datasource;
+		this.plantilla = plantilla;
 	}
 
 	final static String CONSULTA_INSERTAR = "insert into Capitulos (titulo,paginas,libros_isbn) values (?,?,?)";
@@ -34,49 +32,20 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 	@Override
 	public void insertar(Capitulo capitulo) {
 
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_INSERTAR);) {
-			sentencia.setString(3, capitulo.getLibro().getIsbn());
-			sentencia.setString(1, capitulo.getTitulo());
-			sentencia.setInt(2, capitulo.getPaginas());
-			sentencia.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_INSERTAR, capitulo.getTitulo(),capitulo.getPaginas(),capitulo.getLibro().getIsbn());
+		
 	}
 	
 
 	@Override
 	public void borrar(Capitulo capitulo) {
 
-		try (Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BORRAR);) {
-			sentencia.setString(1, capitulo.getTitulo());
-			sentencia.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		plantilla.update(CONSULTA_BORRAR, capitulo.getTitulo());
 	}
 
 	@Override
 	public List<Capitulo> buscarTodos() {
 
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-
-		try (Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();
-				ResultSet rs = sentencia.executeQuery(CONSULTA);) {
-			while (rs.next()) {
-
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
-				listaCapitulos.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaCapitulos;
+		return plantilla.query(CONSULTA,new CapituloMapper());
 	}
 }

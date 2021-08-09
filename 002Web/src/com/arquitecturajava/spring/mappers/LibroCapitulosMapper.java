@@ -13,11 +13,11 @@ public class LibroCapitulosMapper implements RowMapper<Libro>{
 	@Override
 	public Libro mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Libro libro = new Libro(rs.getString("isbn"), rs.getString("titulo"),rs.getString("autor"));
-		Capitulo c = new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas"), libro);
+		Capitulo c = new Capitulo(rs.getString("titulo"),rs.getInt("paginas"), libro);
 		libro.addCapitulo(c);
 		rs.next();
 		while(rs.getString("isbn").equals(libro.getIsbn())) {
-			Capitulo c1 = new Capitulo(rs.getString("tituloCapitulo"),rs.getInt("paginas"), libro);
+			Capitulo c1 = new Capitulo(rs.getString("titulo"),rs.getInt("paginas"), libro);
 			libro.addCapitulo(c1);
 			rs.next();
 		}

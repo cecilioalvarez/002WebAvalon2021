@@ -24,10 +24,10 @@ public class LibroCapitulosExtractor implements ResultSetExtractor<List<Libro>>{
 			if (!listaLibros.contains(l)) {
 
 				listaLibros.add(l);
-				l.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
+				l.addCapitulo(new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l));
 			} else {
 				listaLibros.get(listaLibros.size() - 1)
-						.addCapitulo(new Capitulo(rs.getString("tituloCapitulo"), rs.getInt("paginas"), l));
+						.addCapitulo(new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l));
 			}
 
 			

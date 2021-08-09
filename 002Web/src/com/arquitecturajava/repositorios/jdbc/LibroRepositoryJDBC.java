@@ -1,16 +1,7 @@
 package com.arquitecturajava.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,18 +9,16 @@ import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
 import com.arquitecturajava.spring.mappers.CapituloMapper;
-import com.arquitecturajava.spring.mappers.LibroCapitulosMapper;
+import com.arquitecturajava.spring.mappers.LibroCapitulosExtractor;
 import com.arquitecturajava.spring.mappers.LibroMapper;
 
 @Repository
 public class LibroRepositoryJDBC implements LibroRepository {
 
-	private DataSource datasource;
 	private JdbcTemplate plantilla;
 
-	public LibroRepositoryJDBC(DataSource datasource, JdbcTemplate plantilla) {
+	public LibroRepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.datasource = datasource;
 		this.plantilla = plantilla;
 	}
 
@@ -97,13 +86,13 @@ public class LibroRepositoryJDBC implements LibroRepository {
 
 	@Override
 	public List<Libro> buscarTodosConCapitulos() {
-		return plantilla.query(CONSULTA_TODOS_CON_CAPITULOS, new LibroCapitulosMapper());
+		return plantilla.query(CONSULTA_TODOS_CON_CAPITULOS, new LibroCapitulosExtractor());
 	}
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
 
-		return plantilla.query(CONSULTA_LIBRO_CAPITULOS, new CapituloMapper());
+		return plantilla.query(CONSULTA_LIBRO_CAPITULOS, new CapituloMapper(), libro.getIsbn());
 	}
 
 }
