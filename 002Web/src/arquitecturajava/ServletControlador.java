@@ -32,7 +32,7 @@ public class ServletControlador extends HttpServlet {
 		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
 		
 		//al instanciar el libroservice, verá que tiene dos dependencias (librorepository y capitulorepository)
-		servicio = contexto.getBean(LibroServiceStandard.class);
+		servicio = contexto.getBean(LibroService.class);
 
 
 		RequestDispatcher despachador = null;
@@ -70,6 +70,24 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("libros", listaLibros);
 			response.sendRedirect("ServletControlador");
 
+		}else if (request.getParameter("accion").equals("insertar2")) {
+
+			String isbn = request.getParameter("isbn1");
+			String titulo = request.getParameter("titulo1");
+			String autor = request.getParameter("autor1");
+			String isbn2 = request.getParameter("isbn2");
+			String titulo2 = request.getParameter("titulo2");
+			String autor2 = request.getParameter("autor2");
+
+
+			Libro libro = new Libro(isbn, titulo, autor);
+			Libro libro2 = new Libro(isbn2, titulo2, autor2);
+			servicio.insertarVariosLibros(libro, libro2);
+
+			//List<Libro> listaLibros = servicio.buscarTodos();
+			//request.setAttribute("libros", listaLibros);
+			response.sendRedirect("ServletControlador");
+
 		} else if (request.getParameter("accion").equals("actualizar")) {
 
 			String isbn = request.getParameter("isbn");
@@ -97,7 +115,13 @@ public class ServletControlador extends HttpServlet {
 			request.setAttribute("isbn", isbn);
 			despachador = request.getRequestDispatcher("ListaCapitulosJSP.jsp");
 			despachador.forward(request, response);
-		} else {
+			
+		}else if (request.getParameter("accion").equals("formularioInsertarVarios")) {
+
+			despachador = request.getRequestDispatcher("formularioLibros.html");
+			despachador.forward(request, response);
+			
+		}  else {
 
 			despachador = request.getRequestDispatcher("formularioLibro.html");
 			despachador.forward(request, response);

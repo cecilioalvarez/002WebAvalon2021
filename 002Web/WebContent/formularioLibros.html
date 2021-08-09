@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formulario libros</title>
+</head>
+<body>
+<!-- la etiqueta form para delimitar el formulario -->
+<!--  url del servlet de hola  -->
+	<form action="ServletControlador" method="POST">
+		<!--  he usado las etiquetas input para diseñar el formulario -->
+		<p>
+		ISBN1: <input type="text" name="isbn1" />
+		</p>
+		<p>
+		titulo1: <input type="text" name="titulo1" />
+		</p>
+		<p>
+		autor1: <input type="text" name="autor1" />
+		</p>
+				<p>
+		ISBN2: <input type="text" name="isbn2" />
+		</p>
+		<p>
+		titulo2: <input type="text" name="titulo2" />
+		</p>
+		<p>
+		autor2: <input type="text" name="autor2" />
+		</p>
+		 <input type="hidden" name="accion" value="insertar2"/>
+		<input type="submit" value="enviar datos"/>
+	</form>
+</body>
+</html>

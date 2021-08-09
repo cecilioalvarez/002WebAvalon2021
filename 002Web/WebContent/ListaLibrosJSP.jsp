@@ -40,5 +40,6 @@
 		</tbody>
 	</table>
 	<a href="ServletControlador?accion=formularioInsertar">Nuevo libro</a>
+	<a href="ServletControlador?accion=formularioInsertarVarios">Nuevos libros</a>
 </body>
 </html>

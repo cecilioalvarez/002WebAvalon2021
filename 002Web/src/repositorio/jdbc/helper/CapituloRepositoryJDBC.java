@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import arquitecturasring.mappers.CapituloMapper;
 import negocio.Capitulo;
@@ -33,14 +34,14 @@ public class CapituloRepositoryJDBC implements CapituloRepository {
 		return plantilla.query(CONSULTA_BUSCAR_TODOS, new CapituloMapper());
 	}
 
-	@Override
+	@Transactional
 	public void borrarCapitulo(Capitulo capitulo) {
 
 		plantilla.update(CONSULTA_BORRAR, capitulo.getTitulo());
 
 	}
 
-	@Override
+	@Transactional
 	public void insertarCapitulo(Capitulo capitulo) {
 
 		plantilla.update(CONSULTA_INSERTAR, capitulo.getTitulo(), capitulo.getPaginas(), capitulo.getLibro().getIsbn());

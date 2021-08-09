@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import arquitecturasring.mappers.CapituloMapper;
 import arquitecturasring.mappers.LibroCapitulosExtractor;
@@ -38,18 +39,18 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		super();
 		this.plantilla = plantilla;
 	}
-
+	@Transactional
 	public void actualizar(Libro libro) {
 
 		plantilla.update(CONSULTA_ACTUALIZAR, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 	}
-
+	@Transactional
 	public void insertar(Libro libro) {
 
 		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
 
 	}
-
+	@Transactional
 	public void borrar(Libro libro) {
 
 		plantilla.update(CONSULTA_BORRAR, libro.getIsbn());

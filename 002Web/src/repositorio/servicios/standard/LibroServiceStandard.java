@@ -3,6 +3,7 @@ package repositorio.servicios.standard;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import negocio.Capitulo;
 import negocio.Libro;
@@ -22,17 +23,17 @@ public class LibroServiceStandard implements LibroService {
 		this.repositorioCapitulo = repositorioCapitulo;
 	}
 
-	@Override
+	@Transactional
 	public void actualizar(Libro libro) {
 		repositorio.actualizar(libro);
 	}
 
-	@Override
+	@Transactional
 	public void insertar(Libro libro) {
 		repositorio.insertar(libro);
 	}
 
-	@Override
+	@Transactional
 	public void borrar(Libro libro) {
 		repositorio.borrar(libro);
 	}
@@ -82,5 +83,16 @@ public class LibroServiceStandard implements LibroService {
 		// TODO Auto-generated method stub
 		return repositorio.buscarTodosCapitulos(libro);
 	}
+
+	@Override
+	@Transactional
+	public void insertarVariosLibros(Libro... libros) {
+		for (Libro lib : libros) {
+			repositorio.insertar(lib);
+		}
+		
+	}
+	
+	
 
 }
