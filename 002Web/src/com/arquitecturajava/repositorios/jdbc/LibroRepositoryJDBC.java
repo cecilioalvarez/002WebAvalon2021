@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.repositorios.LibroRepository;
+import com.arquitecturajava.spring.mappers.CapituloMapper;
 import com.arquitecturajava.spring.mappers.LibroCapitulosExtractor;
 import com.arquitecturajava.spring.mappers.LibroMapper;
 @Repository
@@ -101,36 +102,15 @@ public class LibroRepositoryJDBC implements LibroRepository {
 		
 		return plantilla.query(CONSULTA_BUSCAR_TODOS_CON_CAPITULOS,new LibroCapitulosExtractor());
 		
-		
-		
-		
-
-	
-
 	}
 
 	@Override
 	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
 
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
+		
+		return plantilla.query(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO,new CapituloMapper());
+		
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(CONSULTA_BUSCAR_TODOS_CAPITULOS_LIBRO)) {
-
-			sentencia.setString(1, libro.getIsbn());
-
-			ResultSet rs = sentencia.executeQuery();
-			while (rs.next()) {
-				Libro l= new Libro(rs.getString("libros_isbn"));
-				Capitulo c = new Capitulo(rs.getString("titulo"), rs.getInt("paginas"), l);
-				listaCapitulos.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return listaCapitulos;
 
 	}
 
