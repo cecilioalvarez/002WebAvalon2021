@@ -1,6 +1,6 @@
 package com.arquitecturajava.viejo;
 
-public class MensajeStandard implements Mensaje {
+public class GestorMensajeStandard implements GestorMensaje {
 
 	@Override
 	public void enviar(String texto) {

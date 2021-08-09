@@ -1,6 +1,8 @@
 package com.arquitecturajava.viejo;
 
-public interface Mensaje {
+public interface GestorMensaje {
+	
+	//funcionalidad
 	public void enviar(String texto);
 
 }
