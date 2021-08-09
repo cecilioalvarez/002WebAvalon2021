@@ -1,30 +1,22 @@
 package com.arquitecturajavaJSP.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
-import com.arquitecturajavaJSP.negocio.Libro;
-import com.arquitecturajavaJSP.repositorios.LibroRepository;
+import com.arquitecturajavaJSP.Spring.mappers.CapituloMapper;
 import com.arquitecturajavaJSP.Spring.mappers.LibroCapitulosExtractor;
 import com.arquitecturajavaJSP.Spring.mappers.LibroMapper;
 import com.arquitecturajavaJSP.negocio.Capitulo;
+import com.arquitecturajavaJSP.negocio.Libro;
+import com.arquitecturajavaJSP.repositorios.LibroRepository;
 
 @Repository
 public class Libro_RepositoryJDBC implements LibroRepository {
 	
-	private DataSource datasource;
+	//Al usar Plantilla ya no es necesario agregarlo al constructor
+	//private DataSource datasource;
 	
 	private JdbcTemplate plantilla;
 	
@@ -37,9 +29,9 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 	
 	final static String QUERYSELECTWITHCHAPTERS="select libro.isbn as isbn, libro.titulo as titulo, libro.autor as autor, Capitulos.titulo as tituloCapitulo, Capitulos.paginas as paginas from libro,Capitulos where libro.isbn= Capitulos.libros_isbn";
 	
-	public Libro_RepositoryJDBC(DataSource datasource,JdbcTemplate plantilla) {
+	public Libro_RepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.datasource = datasource;
+		//this.datasource = datasource;
 		this.plantilla = plantilla;
 	}
 
@@ -108,6 +100,11 @@ public class Libro_RepositoryJDBC implements LibroRepository {
 		return plantilla.query(QUERYSELECTWITHCHAPTERS, new LibroCapitulosExtractor());
 	}
 
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro) {
+		final String QUERYFINDBYBOOK = "SELECT * FROM capitulos WHERE libros_isbn=?";
+		return plantilla.query(QUERYFINDBYBOOK, new CapituloMapper(),libro.getIsbn());
+	}
 	
 	
 	

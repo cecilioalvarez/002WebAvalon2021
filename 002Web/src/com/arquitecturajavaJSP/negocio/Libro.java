@@ -1,12 +1,13 @@
 package com.arquitecturajavaJSP.negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Libro {
+public class Libro implements Serializable{
 
 	private String isbn;
 	private String autor;
@@ -19,6 +20,10 @@ public class Libro {
 		this.isbn = isbn;
 	}
 	
+	public Libro() {
+		super();
+	}
+
 	public Libro(String isbn, String autor, String titulo) {
 		super();
 		this.isbn = isbn;

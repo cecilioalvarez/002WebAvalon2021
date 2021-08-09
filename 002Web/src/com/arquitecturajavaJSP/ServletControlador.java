@@ -84,7 +84,11 @@ public class ServletControlador extends HttpServlet {
 			String isbn = request.getParameter("isbn");
 			//Opcion de 2 consultas
 			Libro libro = servicio.buscarLibro(isbn);
-			List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
+			//List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
+			//libro.setListacoCapitulos(listaCapitulos);
+			
+			//Usando método de LibroRepository
+			List<Capitulo> listaCapitulos = servicio.buscarTodosCapitulos(libro);
 			libro.setListacoCapitulos(listaCapitulos);
 			
 			//Opción más compleja pero una sóla consulta

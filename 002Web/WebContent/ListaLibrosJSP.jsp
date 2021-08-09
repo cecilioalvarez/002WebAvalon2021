@@ -39,7 +39,7 @@ List<Libro> listaLibros = (List<Libro>) request.getAttribute("libros");
 		</thead>
 		<tbody>
 		<c:forEach var="libro" items="${libros}">
-			<tr>
+				<tr>
 	            	<td>${libro.isbn}</td>
 	            	<td>${fn:toUpperCase(libro.titulo)}</td>
 	            	<td>${libro.autor}</td>

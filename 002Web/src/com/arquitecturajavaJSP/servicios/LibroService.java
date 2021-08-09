@@ -37,4 +37,6 @@ public interface LibroService {
 
 	Capitulo getOneChapter(Capitulo chapter);
 
+	List<Capitulo> buscarTodosCapitulos(Libro libro);
+
 }

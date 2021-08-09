@@ -2,6 +2,7 @@ package com.arquitecturajavaJSP.repositorios;
 
 import java.util.List;
 
+import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.negocio.Libro;
 
 public interface LibroRepository {
@@ -24,5 +25,7 @@ public interface LibroRepository {
 
 	//void modifyBook(Libro libro);
 	int modifyBook(Libro libro);
+	
+	public List<Capitulo> buscarTodosCapitulos(Libro libro);
 
 }

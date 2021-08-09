@@ -60,6 +60,11 @@ public class LibroServiceStandard implements LibroService {
 	public List<Libro> buscarLibroAutorTitulo(String autor, String titulo) {
 		return repositorio.buscarLibroAutorTitulo(autor, titulo);
 	}
+	
+	@Override
+	public List<Capitulo> buscarTodosCapitulos(Libro libro){
+		return repositorio.buscarTodosCapitulos(libro);
+	}
 
 	@Override
 	public int modifyBook(Libro libro) {

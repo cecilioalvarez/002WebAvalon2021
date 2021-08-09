@@ -1,26 +1,20 @@
 package com.arquitecturajavaJSP.repositorios.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.arquitecturajavaJSP.Spring.mappers.CapituloMapper;
+import com.arquitecturajavaJSP.negocio.Capitulo;
 import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.repositorios.CapituloRepository;
-import com.arquitecturajavaJSP.negocio.Capitulo;
 @Component
 public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	
-	
-	private DataSource datasource;
+	//Al usar Plantilla ya no es necesario agregarlo al constructor
+	//private DataSource datasource;
+	private JdbcTemplate plantilla;
 	
 	final static String QUERYINSERT = "INSERT INTO capitulos (titulo, paginas,libros_isbn) VALUES(?,?,?)";
 	final static String QUERYDELETE= "DELETE FROM capitulos WHERE titulo=?";
@@ -30,150 +24,50 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	final static String QUERYUPDATE = "UPDATE capitulos set libros_isbn=?,paginas=? WHERE titulo=?";
 	
 	//Spring Inyecta el datasource de Spring por el constructor
-	public Capitulo_RepositoryJDBC(DataSource datasource) {
+	public Capitulo_RepositoryJDBC(JdbcTemplate plantilla) {
 		super();
-		this.datasource = datasource;
+		//this.datasource = datasource;
+		this.plantilla = plantilla;
 	}
 
 	@Override
 	public void addChapter(Capitulo chapter) {
 		
-		try(Connection conn = datasource.getConnection();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYINSERT);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, chapter.getTitulo());
-				prepSentencia.setInt(2, chapter.getPaginas());
-				prepSentencia.setString(3, chapter.getLibro().getIsbn());
-			
-				prepSentencia.execute();
-			}catch (Exception ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(QUERYINSERT,chapter.getTitulo(),chapter.getPaginas(),chapter.getLibro().getIsbn());
+		
 	}
 	
 	@Override
 	public void removeChapter(Capitulo chapter) {
 		
-		try(Connection conn = datasource.getConnection();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYDELETE);){
-				//PreparedStatement
-			
-				prepSentencia.setString(1, chapter.getTitulo());
-			
-				prepSentencia.execute();
-			}catch (Exception ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(QUERYDELETE,chapter.getTitulo());
+		
 	}
 	
 	@Override
 	public List<Capitulo>getAllChapters(){
 		
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-		try(Connection conn = datasource.getConnection();
-				Statement sentencia = conn.createStatement();) {
-			//Para Resultados de SELECT
-			ResultSet rs = sentencia.executeQuery(QUERYSELECT);
-			
-			while (rs.next()) {
-				Capitulo chapterAux = new Capitulo(rs.getString("titulo"), 
-						rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
-				listaCapitulos.add(chapterAux);
-			}
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaCapitulos;
+		return plantilla.query(QUERYSELECT,new CapituloMapper());
 	}
 	@Override
 	public List<Capitulo>getAllChaptersByBook(Libro libro){
 		
-		List<Capitulo> listaCapitulos = new ArrayList<Capitulo>();
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDBYBOOK);) {
-			
-			sentencia.setString(1, libro.getIsbn());
-			//Para Resultados de SELECT
-			ResultSet rs = sentencia.executeQuery();
-			
-			while (rs.next()) {
-				Capitulo chapterAux = new Capitulo(rs.getString("titulo"), 
-						rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
-				listaCapitulos.add(chapterAux);
-			}
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaCapitulos;
+		return plantilla.query(QUERYFINDBYBOOK, new CapituloMapper(),libro.getIsbn());
 	}
 	
 	
 	@Override
 	public void modifyChapter(Capitulo chapter) {
 		
-		try(Connection conn = datasource.getConnection();){
-			conn.setAutoCommit(false);
-			try(PreparedStatement prepSentencia = conn.prepareStatement(QUERYUPDATE);){
-				//PreparedStatement
-				
-				prepSentencia.setString(1, chapter.getLibro().getIsbn());
-				prepSentencia.setInt(2, chapter.getPaginas());
-				
-				prepSentencia.setString(3, chapter.getTitulo());
-			
-				prepSentencia.executeUpdate();
-			}catch (Exception ex) {
-				ex.printStackTrace();
-				conn.rollback();
-			}
-			
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		plantilla.update(QUERYDELETE,chapter.getLibro().getIsbn(),chapter.getPaginas(),chapter.getTitulo());
+		
 	}
 
 	@Override
 	public Capitulo getOneChapter(Capitulo chapter) {
-		Capitulo miCapitulo =null;
-		try(Connection conn = datasource.getConnection();
-				PreparedStatement sentencia = conn.prepareStatement(QUERYFINDONE);) {
-			sentencia.setString(1, chapter.getTitulo());
-			//Para Resultados de SELECT
-			ResultSet rs = sentencia.executeQuery();
-			
-			rs.next(); 
-			miCapitulo = new Capitulo(rs.getString("titulo"), 
-						rs.getInt("paginas"),new Libro(rs.getString("libros_isbn")));
-				
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return miCapitulo;
+		
+		return plantilla.queryForObject(QUERYFINDBYBOOK, new CapituloMapper(),chapter.getLibro().getIsbn());
+		
 	}
 	
 }

@@ -1,16 +1,20 @@
 package com.arquitecturajavaJSP.negocio;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Capitulo {
+public class Capitulo implements Serializable{
 
 	private String titulo;
 	private int paginas;
-	@JsonIgnore
+	
 	private Libro libro;
 	
 	
-	
+	public Capitulo() {
+		super();
+	}
 	public Capitulo(String titulo, Libro libro) {
 		super();
 		this.titulo = titulo;
