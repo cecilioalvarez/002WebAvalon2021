@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
@@ -33,20 +34,20 @@ public class LibroRepositoryJDBC implements LibroRepository {
 	final static String CONSULTA_BUSCAR_TITULO_AUTOR = "select * from Libro where titulo =? and autor =?";
 	final static String ACTUALIZA_DATO = "update Libro set titulo=?, autor =? where isbn =?";
 
-	@Override
+	@Transactional
 	public void insertar(Libro libro) {
 
 		plantilla.update(CONSULTA_INSERTAR, libro.getIsbn(), libro.getTitulo(), libro.getAutor());
 	}
 
-	@Override
+	@Transactional
 	public void actualizar(Libro libro) {
 
 		plantilla.update(ACTUALIZA_DATO, libro.getTitulo(), libro.getAutor(), libro.getIsbn());
 
 	}
 
-	@Override
+	@Transactional
 	public void borrar(Libro libro) {
 
 		plantilla.update(CONSULTA_BORRAR, libro.getIsbn());

@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.repositorios.CapituloRepository;
@@ -29,7 +30,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 	final static String CONSULTA_BUSCAR_UNO_TITULO = "select * from Capitulos where titulo=?";
 
 
-	@Override
+	@Transactional
 	public void insertar(Capitulo capitulo) {
 
 		plantilla.update(CONSULTA_INSERTAR, capitulo.getTitulo(),capitulo.getPaginas(),capitulo.getLibro().getIsbn());
@@ -37,13 +38,13 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 	}
 	
 
-	@Override
+	@Transactional
 	public void borrar(Capitulo capitulo) {
 
 		plantilla.update(CONSULTA_BORRAR, capitulo.getTitulo());
 	}
 
-	@Override
+	@Transactional
 	public List<Capitulo> buscarTodos() {
 
 		return plantilla.query(CONSULTA,new CapituloMapper());
