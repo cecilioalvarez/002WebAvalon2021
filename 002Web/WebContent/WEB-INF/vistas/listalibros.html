@@ -5,6 +5,6 @@
 <title>Hola spring</title>
 </head>
 <body>
-hola
+  	<p  th:each="libro:${libros}" th:text="${libro.isbn} + ' '+${libro.titulo} + ' ' + ${libro.autor}"></p>
 </body>
 </html>
