@@ -107,6 +107,7 @@ public class ServletControlador extends HttpServlet {
 							,request.getParameter("titulo"));
 			//System.out.println(libro);
 			//System.out.println(servicio.modifyBook(libro));
+			servicio.modifyBook(libro);
 			
 			response.sendRedirect("ServletControlador");
 			

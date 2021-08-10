@@ -51,7 +51,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	@Override
 	public void modifyChapter(Capitulo chapter) {
 		
-		plantilla.update(QUERYDELETE,chapter.getLibro().getIsbn(),chapter.getPaginas(),chapter.getTitulo());
+		plantilla.update(QUERYUPDATE,chapter.getLibro().getIsbn(),chapter.getPaginas(),chapter.getTitulo());
 		
 	}
 	
