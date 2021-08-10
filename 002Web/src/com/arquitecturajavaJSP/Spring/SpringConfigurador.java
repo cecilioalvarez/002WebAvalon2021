@@ -13,11 +13,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
+import org.thymeleaf.spring5.ISpringTemplateEngine;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
@@ -62,10 +64,23 @@ public class SpringConfigurador implements ApplicationContextAware{
 	}
 	
 	@Bean
-	public PlatformTransactionManager txManager() {
-	    return new DataSourceTransactionManager(dataSource());
+	public ViewResolver viewResolver() {
+		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+		resolver.setTemplateEngine(templateEngine());
+		resolver.setCharacterEncoding("UTF-8");
+		return resolver;
 	}
-
+	
+	@Bean
+	public ISpringTemplateEngine templateEngine() {
+		SpringTemplateEngine engine = new SpringTemplateEngine();
+		engine.setEnableSpringELCompiler(true);
+		//Llamo a metodo templateResolver
+		engine.setTemplateResolver(templateResolver());
+		return engine;
+	}
+	
+	
 	// la carpeta donde se van a ubicar los ficheros html
 	private ITemplateResolver templateResolver() {
 		// que resolutor de plantillas uso
@@ -78,7 +93,7 @@ public class SpringConfigurador implements ApplicationContextAware{
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
-		}
+	}
 
 
 }
