@@ -27,139 +27,139 @@ import com.arquitecturajavaJSP.servicios.standard.LibroServiceStandard;
 
 @WebServlet("/ServletControlador")
 public class ServletControlador extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
-	LibroService servicio;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
-		
-		servicio = contexto.getBean(LibroService.class);
-		
-		RequestDispatcher despachador = null;
-		if (request.getParameter("accion")==null) {
-			//Controlador accede a la BD para obtener la lista
-			List<Libro> listalibros = servicio.buscarTodosLibros();
-			
-			//Despachamos a una vista donde despachador puede adjuntar objetos
-			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
-			//lista de objetos libros que quiero enviar a la vista desde el controlador
-			request.setAttribute("libros",listalibros);
-			//Reenvía a la vista
-			despachador.forward(request, response);
-			
-		}else if(request.getParameter("accion").equals("borrar")){
-			Libro libro = servicio.buscarLibro(request.getParameter("isbn"));
-			//En caso de BD sin configuración CASCADE
-			/*List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
-			for(Capitulo cap: listaCapitulos){
-				servicio.removeChapter(cap);
-			}*/
-			servicio.removeBook(libro);
-			response.sendRedirect("ServletControlador");
-			
-		}else if(request.getParameter("accion").equals("insertar")){
-			String isbn = request.getParameter("isbn");
-			String titulo = request.getParameter("titulo");
-			String autor = request.getParameter("autor");
-			
-			Libro libro = new Libro(isbn, autor, titulo);
-			servicio.addBook(libro);
-			
-			//Controlador accede a la BD para obtener la lista
-			List<Libro> listalibros = servicio.buscarTodosLibros();
-			
-			//Despachamos a una vista donde despachador puede adjuntar objetos
-			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
-			//lista de objetos libros que quiero enviar a la vista desde el controlador
-			request.setAttribute("libros",listalibros);
-			//Reenvía a la vista
-			despachador.forward(request, response);
-			
-		}else if (request.getParameter("accion").equals("formularioInsertar")) {
-			despachador = request.getRequestDispatcher("formularioLibroJSP.html");
-			//Reenvía a la vista
-			despachador.forward(request, response);
-		}else if(request.getParameter("accion").equals("detalle")){
-			String isbn = request.getParameter("isbn");
-			//Opcion de 2 consultas
-			Libro libro = servicio.buscarLibro(isbn);
-			//List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
-			//libro.setListacoCapitulos(listaCapitulos);
-			
-			//Usando método de LibroRepository
-			List<Capitulo> listaCapitulos = servicio.buscarTodosCapitulos(libro);
-			libro.setListacoCapitulos(listaCapitulos);
-			
-			//Opción más compleja pero una sóla consulta
-			
-			//Despachamos a una vista donde despachador puede adjuntar objetos
-			despachador = request.getRequestDispatcher("DetalleJSP.jsp");
-			//libro que quiero enviar a la vista desde el controlador
-			request.setAttribute("milibro",libro);
-			//request.setAttribute("misCapitulos",listaCapitulos);
-			//Reenvía a la vista
-			despachador.forward(request, response);
-		}else if(request.getParameter("accion").equals("modificar")){
-			
-			Libro libro = new Libro(request.getParameter("isbn")
-							, request.getParameter("autor")
-							,request.getParameter("titulo"));
-			//System.out.println(libro);
-			//System.out.println(servicio.modifyBook(libro));
-			servicio.modifyBook(libro);
-			
-			response.sendRedirect("ServletControlador");
-			
-		}else if(request.getParameter("accion").equals("formularioModificar")){
-			
-			String isbn = request.getParameter("isbn");
-			
-			Libro libro = servicio.buscarLibro(isbn);
-			
-			//Despachamos a una vista donde despachador puede adjuntar objetos
-			despachador = request.getRequestDispatcher("formularioEditarJSP.jsp");
-			//lista de objetos libros que quiero enviar a la vista desde el controlador
-			request.setAttribute("milibro",libro);
-			//Reenvía a la vista
-			despachador.forward(request, response);
-		}else if (request.getParameter("accion").equals("formularioInsertarVarios")) {
-			despachador = request.getRequestDispatcher("formularioLibrosJSP.html");
-			//Reenvía a la vista
-			despachador.forward(request, response);
-		}else if(request.getParameter("accion").equals("insertar2")){
-			String isbn1 = request.getParameter("isbn1");
-			String titulo1 = request.getParameter("titulo1");
-			String autor1 = request.getParameter("autor1");
-			
-			String isbn2 = request.getParameter("isbn2");
-			String titulo2 = request.getParameter("titulo2");
-			String autor2 = request.getParameter("autor2");
-			
-			Libro libro1 = new Libro(isbn1, autor1, titulo1);
-			Libro libro2 = new Libro(isbn2, autor2, titulo2);
-			
-			servicio.addMultipleBooks(libro1,libro2);
-			
-			response.sendRedirect("ServletControlador");
-			
-		}else {
-			//Controlador accede a la BD para obtener la lista
-			List<Libro> listalibros = servicio.buscarTodosLibros();
-			
-			//Despachamos a una vista donde despachador puede adjuntar objetos
-			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
-			//lista de objetos libros que quiero enviar a la vista desde el controlador
-			request.setAttribute("libros",listalibros);
-			//Reenvía a la vista
-			despachador.forward(request, response);
-		}
-		
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
-	}
+//	private static final long serialVersionUID = 1L;
+//    
+//	LibroService servicio;
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		AnnotationConfigApplicationContext contexto = new AnnotationConfigApplicationContext(SpringConfigurador.class);
+//		
+//		servicio = contexto.getBean(LibroService.class);
+//		
+//		RequestDispatcher despachador = null;
+//		if (request.getParameter("accion")==null) {
+//			//Controlador accede a la BD para obtener la lista
+//			List<Libro> listalibros = servicio.buscarTodosLibros();
+//			
+//			//Despachamos a una vista donde despachador puede adjuntar objetos
+//			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
+//			//lista de objetos libros que quiero enviar a la vista desde el controlador
+//			request.setAttribute("libros",listalibros);
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//			
+//		}else if(request.getParameter("accion").equals("borrar")){
+//			Libro libro = servicio.buscarLibro(request.getParameter("isbn"));
+//			//En caso de BD sin configuración CASCADE
+//			/*List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
+//			for(Capitulo cap: listaCapitulos){
+//				servicio.removeChapter(cap);
+//			}*/
+//			servicio.removeBook(libro);
+//			response.sendRedirect("ServletControlador");
+//			
+//		}else if(request.getParameter("accion").equals("insertar")){
+//			String isbn = request.getParameter("isbn");
+//			String titulo = request.getParameter("titulo");
+//			String autor = request.getParameter("autor");
+//			
+//			Libro libro = new Libro(isbn, autor, titulo);
+//			servicio.addBook(libro);
+//			
+//			//Controlador accede a la BD para obtener la lista
+//			List<Libro> listalibros = servicio.buscarTodosLibros();
+//			
+//			//Despachamos a una vista donde despachador puede adjuntar objetos
+//			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
+//			//lista de objetos libros que quiero enviar a la vista desde el controlador
+//			request.setAttribute("libros",listalibros);
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//			
+//		}else if (request.getParameter("accion").equals("formularioInsertar")) {
+//			despachador = request.getRequestDispatcher("formularioLibroJSP.html");
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//		}else if(request.getParameter("accion").equals("detalle")){
+//			String isbn = request.getParameter("isbn");
+//			//Opcion de 2 consultas
+//			Libro libro = servicio.buscarLibro(isbn);
+//			//List<Capitulo> listaCapitulos = servicio.getAllChaptersByBook(libro);
+//			//libro.setListacoCapitulos(listaCapitulos);
+//			
+//			//Usando método de LibroRepository
+//			List<Capitulo> listaCapitulos = servicio.buscarTodosCapitulos(libro);
+//			libro.setListacoCapitulos(listaCapitulos);
+//			
+//			//Opción más compleja pero una sóla consulta
+//			
+//			//Despachamos a una vista donde despachador puede adjuntar objetos
+//			despachador = request.getRequestDispatcher("DetalleJSP.jsp");
+//			//libro que quiero enviar a la vista desde el controlador
+//			request.setAttribute("milibro",libro);
+//			//request.setAttribute("misCapitulos",listaCapitulos);
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//		}else if(request.getParameter("accion").equals("modificar")){
+//			
+//			Libro libro = new Libro(request.getParameter("isbn")
+//							, request.getParameter("autor")
+//							,request.getParameter("titulo"));
+//			//System.out.println(libro);
+//			//System.out.println(servicio.modifyBook(libro));
+//			servicio.modifyBook(libro);
+//			
+//			response.sendRedirect("ServletControlador");
+//			
+//		}else if(request.getParameter("accion").equals("formularioModificar")){
+//			
+//			String isbn = request.getParameter("isbn");
+//			
+//			Libro libro = servicio.buscarLibro(isbn);
+//			
+//			//Despachamos a una vista donde despachador puede adjuntar objetos
+//			despachador = request.getRequestDispatcher("formularioEditarJSP.jsp");
+//			//lista de objetos libros que quiero enviar a la vista desde el controlador
+//			request.setAttribute("milibro",libro);
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//		}else if (request.getParameter("accion").equals("formularioInsertarVarios")) {
+//			despachador = request.getRequestDispatcher("formularioLibrosJSP.html");
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//		}else if(request.getParameter("accion").equals("insertar2")){
+//			String isbn1 = request.getParameter("isbn1");
+//			String titulo1 = request.getParameter("titulo1");
+//			String autor1 = request.getParameter("autor1");
+//			
+//			String isbn2 = request.getParameter("isbn2");
+//			String titulo2 = request.getParameter("titulo2");
+//			String autor2 = request.getParameter("autor2");
+//			
+//			Libro libro1 = new Libro(isbn1, autor1, titulo1);
+//			Libro libro2 = new Libro(isbn2, autor2, titulo2);
+//			
+//			servicio.addMultipleBooks(libro1,libro2);
+//			
+//			response.sendRedirect("ServletControlador");
+//			
+//		}else {
+//			//Controlador accede a la BD para obtener la lista
+//			List<Libro> listalibros = servicio.buscarTodosLibros();
+//			
+//			//Despachamos a una vista donde despachador puede adjuntar objetos
+//			despachador = request.getRequestDispatcher("ListaLibrosJSP.jsp");
+//			//lista de objetos libros que quiero enviar a la vista desde el controlador
+//			request.setAttribute("libros",listalibros);
+//			//Reenvía a la vista
+//			despachador.forward(request, response);
+//		}
+//		
+//		
+//	}
+//
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		doGet(request, response);
+//	}
 }
