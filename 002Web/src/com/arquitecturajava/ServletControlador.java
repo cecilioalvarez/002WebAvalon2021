@@ -32,6 +32,8 @@ public class ServletControlador extends HttpServlet {
 	LibroService servicio;
 	
 	
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
