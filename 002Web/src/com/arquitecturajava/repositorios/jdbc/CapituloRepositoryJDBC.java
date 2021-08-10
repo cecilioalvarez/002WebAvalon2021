@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.repositorios.CapituloRepository;
 import com.arquitecturajavaspring.mappers.CapituloMapper;
 
-@Component
+@Repository
 public class CapituloRepositoryJDBC implements CapituloRepository{
 	
 	
@@ -33,7 +35,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 		return plantilla.query(CONSULTA_BUSCAR_TODOS, new CapituloMapper());
 	}
 
-	
+	@Transactional
 	public void insertar(Capitulo capitulo) {
 
 		plantilla.update(CONSULTA_INSERTAR, capitulo.getTitulo(),capitulo.getPaginas(),capitulo.getLibro().getIsbn());
@@ -41,6 +43,7 @@ public class CapituloRepositoryJDBC implements CapituloRepository{
 
 
 	@Override
+	@Transactional
 	public void borrar(Capitulo capitulo) {
 		plantilla.update(CONSULTA_BORRAR, capitulo.getTitulo());
 		
