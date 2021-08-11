@@ -70,4 +70,12 @@ public class LibrosController {
 		//aqui tenia buscar libros un addattribute
 		return  "redirect:listalibros";
 	}
+	
+	@RequestMapping(value="/salvarlibro",method=RequestMethod.POST)
+	public String salvarLibro(Model modelo,Libro libro) {
+		
+		servicio.actualizar(libro);
+		//aqui tenia buscar libros un addattribute
+		return  "redirect:listalibros";
+	}
 }
