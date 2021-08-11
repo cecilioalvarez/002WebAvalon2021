@@ -5,10 +5,15 @@
 <title>Lista libros</title>
 </head>
 <body>
-
-		<p th:each="libro:${libros}"
-			th:text="${libro.isbn} + ' ' + ${libro.titulo} + ' ' + ${libro.autor}"></p>
-
-
+	<table>
+		<tr th:each="libro:${libros}">
+			<td th:text="${libro.isbn}"></td>
+			<td th:text="${libro.titulo}"></td>
+			<td th:text="${libro.autor}"></td>
+			<td><a th:href="@{borrarlibro(isbn=${libro.isbn})}">borrar</a></td>
+			<td><a th:href="@{detallelibro(isbn=${libro.isbn})}">detalle</a></td>
+		</tr>
+	</table>
+	<a href="formulariolibro">Nuevo libro</a>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Detalle</title>
+</head>
+<body>
+
+	<p th:text="'isbn: '+  ${libro.isbn}"></p>
+	<p th:text="'titulo: '+ ${libro.titulo}"></p>
+	<p th:text="'autor: '+ ${libro.autor}"></p>
+	<a href="listaLibros">Volver</a>
+</body>
+</html>

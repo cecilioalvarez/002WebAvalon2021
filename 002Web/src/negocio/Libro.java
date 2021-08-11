@@ -3,7 +3,6 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Libro {
 
 	private String isbn;
@@ -60,6 +59,10 @@ public class Libro {
 	public Libro(String isbn) {
 		super();
 		this.isbn = isbn;
+	}
+
+	public Libro() {
+
 	}
 
 	@Override
