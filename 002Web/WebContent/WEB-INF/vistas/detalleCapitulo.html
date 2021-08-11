@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detalles Capítulo</title>
+</head>
+<body>
+
+	<p th:text="'ISBN: '+${chapter.libro.isbn}"></p>
+	<p th:text="'Título: '+${chapter.titulo}"></p>
+	<p th:text="'Páginas: '+${chapter.paginas}"></p>
+	<a th:href="@{detalle(isbn=${chapter.libro.isbn})}">Volver</a>
+	
+</body>
+</html>

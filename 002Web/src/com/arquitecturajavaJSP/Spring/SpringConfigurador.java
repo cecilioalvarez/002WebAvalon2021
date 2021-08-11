@@ -13,9 +13,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -28,7 +33,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @PropertySource("classpath:DataBase.properties")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-public class SpringConfigurador implements ApplicationContextAware{
+@EnableWebMvc
+public class SpringConfigurador implements ApplicationContextAware,WebMvcConfigurer{
 	
 	@Value("${url}")
 	private String url;
@@ -59,6 +65,13 @@ public class SpringConfigurador implements ApplicationContextAware{
 	}
 	
 	@Bean
+	public PlatformTransactionManager txManager() {
+		
+	    return new DataSourceTransactionManager(dataSource()); 
+	}
+
+	
+	@Bean
 	public JdbcTemplate plantillaJDBC() {
 		return new JdbcTemplate(dataSource());
 	}
@@ -67,7 +80,6 @@ public class SpringConfigurador implements ApplicationContextAware{
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
 		return resolver;
 	}
 	
@@ -89,11 +101,15 @@ public class SpringConfigurador implements ApplicationContextAware{
 		resolver.setApplicationContext(contexto);
 		resolver.setPrefix("/WEB-INF/vistas/");
 		resolver.setSuffix(".html");
-
+		resolver.setCharacterEncoding("UTF-8");
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}
 
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("WEB-INF/resources/");
+	}
 
 }

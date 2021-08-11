@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insertar Capitulo</title>
+</head>
+<body>
+
+	<form action="insertar" method="POST">
+		<p>
+		<label for="isbn">ISBN de Libro: </label>
+		<input type="text" readonly="readonly" th:value="${miIsbn}"/>
+		<input type="hidden" name="isbn" th:value="${miIsbn}"/>
+		</p>
+		<p>
+		<label for="titulo">Titulo de Capitulo: </label>
+		<input name="titulo"/>
+		</p>
+		<p>
+		<label for="paginas">Numero de páginas: </label>
+		<input type="number" name="paginas"/>
+		</p>
+		<p>
+		<input type="submit" value="Insertar"/>
+		</p>
+	</form>
+</body>
+</html>

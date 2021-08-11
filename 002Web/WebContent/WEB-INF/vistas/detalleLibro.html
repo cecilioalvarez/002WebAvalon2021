@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detalle Libro</title>
+</head>
+<body>
+
+	<p th:text="'ISBN: '+${libro.isbn}"></p>
+	<p th:text="'Titulo: '+${libro.titulo}"></p>
+	<p th:text="'ISBN: '+${libro.autor}"></p>
+	<a href="lista">Volver</a>
+	<div th:switch="${libro.getListacoCapitulos.size}">
+		<div th:case="0">
+			<p style="color: orange;">
+				Sin Capítulos Registrados.<a th:href="@{${libro.isbn}+'/capitulos-libro/nuevo'}" style="color: green">Agregar Capitulo</a>
+			</p>
+		</div>
+		<div th:case="*">
+		<a th:href="@{${libro.isbn}+'/capitulos-libro/nuevo'}" style="color: green">Agregar Capitulo</a>
+
+			<table style="border-collapse: collapse;width: 100%;text-align: center;" border="2px solid black;">
+				<thead>
+				<tr style="background-color: #E1B933;color: white;" >
+					<th>Libro</th>
+					<th>Título de Capitulo</th>
+					<th>Páginas</th>
+					<th colspan="3">Acciones</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr th:each="chapter:${libro.getListacoCapitulos}">
+						<td th:text="${chapter.libro.isbn}"></td>
+		            	<td th:text="${chapter.titulo}"></td>
+		            	<td th:text="${chapter.paginas}"></td>
+		            	<td><a th:href="@{borrar(isbn=${chapter.libro.isbn},titulo=${chapter.titulo})}" style="color: red">Borrar</a></td>
+		            	<td><a th:href="@{detallechapter(isbn=${chapter.libro.isbn},titulo=${chapter.titulo})}" style="color: purple">Detalle</a></td>
+		            	<td><a href="ServletControladorCapitulo?accion=formularioModificar&titulo=${chapter.titulo}&isbn=${chapter.libro.isbn}" style="color: blue">Modificar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+			
+	</div>
+</body>
+</html>

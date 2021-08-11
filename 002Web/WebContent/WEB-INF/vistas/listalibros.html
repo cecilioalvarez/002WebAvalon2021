@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista Libros</title>
+<link href="../resources/myStyles.css" rel="stylesheet"/>
+</head>
+<body>
+	<div >
+		<table style="width: 100%;text-align: center;border: 1px solid black;border-collapse: collapse;">
+			<tr style="background-color: #E1B933;color:white;border: 1px solid black;border-collapse: collapse;">
+				<th style="border: 1px solid black;border-collapse: collapse;">
+					ISBN
+				</th>
+				<th style="border: 1px solid black;border-collapse: collapse;">
+					Título
+				</th>
+				<th style="border: 1px solid black;border-collapse: collapse;">
+					Autor
+				</th>
+				<th colspan="3" style="border: 1px solid black;border-collapse: collapse;">
+					Acciones
+				</th>
+			</tr>
+			<tr th:each="libro:${libros}" style="border: 1px solid black;border-collapse: collapse;">
+				<td th:text="${libro.isbn}"></td>
+				<td th:text="${libro.titulo}"></td>
+				<td th:text="${libro.autor}"></td>
+				<td><a th:href="@{borrar(isbn=${libro.isbn})}" style="text-decoration: none;color: red;">Borrar</a></td>
+				<td><a th:href="@{detalle(isbn=${libro.isbn})}" style="text-decoration: none;color: orange;">Detalle</a></td>
+				<td><a th:href="@{editar(isbn=${libro.isbn})}" style="text-decoration: none;color: purple;">Modificar</a></td>
+			</tr>
+			
+		</table>
+		
+	</div>
+	<a href="nuevo">Nuevo Libro</a>
+
+</body>
+</html>

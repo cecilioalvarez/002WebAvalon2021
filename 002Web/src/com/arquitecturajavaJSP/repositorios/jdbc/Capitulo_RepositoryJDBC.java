@@ -71,7 +71,7 @@ public class Capitulo_RepositoryJDBC implements CapituloRepository {
 	@Override
 	public Capitulo getOneChapter(Capitulo chapter) {
 		
-		return plantilla.queryForObject(QUERYFINDBYBOOK, new CapituloMapper(),chapter.getLibro().getIsbn());
+		return plantilla.queryForObject(QUERYFINDONE, new CapituloMapper(),chapter.getTitulo());
 		
 	}
 	

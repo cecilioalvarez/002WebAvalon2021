@@ -1,32 +1,32 @@
-package com.arquitecturajavaJSP;
-
-import java.io.IOException;
-import java.util.List;
-
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.arquitecturajavaJSP.Spring.SpringConfigurador;
-import com.arquitecturajavaJSP.negocio.Capitulo;
-import com.arquitecturajavaJSP.negocio.Libro;
-import com.arquitecturajavaJSP.repositorios.CapituloRepository;
-import com.arquitecturajavaJSP.repositorios.LibroRepository;
-import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
-import com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC;
-import com.arquitecturajavaJSP.servicios.LibroService;
-import com.arquitecturajavaJSP.servicios.standard.LibroServiceStandard;
-
-
-@WebServlet("/ServletControlador")
-public class ServletControlador extends HttpServlet {
+//package com.arquitecturajavaJSP;
+//
+//import java.io.IOException;
+//import java.util.List;
+//
+//import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+//import javax.servlet.RequestDispatcher;
+//import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import org.apache.jasper.tagplugins.jstl.core.ForEach;
+//import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+//
+//import com.arquitecturajavaJSP.Spring.SpringConfigurador;
+//import com.arquitecturajavaJSP.negocio.Capitulo;
+//import com.arquitecturajavaJSP.negocio.Libro;
+//import com.arquitecturajavaJSP.repositorios.CapituloRepository;
+//import com.arquitecturajavaJSP.repositorios.LibroRepository;
+//import com.arquitecturajavaJSP.repositorios.jdbc.Capitulo_RepositoryJDBC;
+//import com.arquitecturajavaJSP.repositorios.jdbc.Libro_RepositoryJDBC;
+//import com.arquitecturajavaJSP.servicios.LibroService;
+//import com.arquitecturajavaJSP.servicios.standard.LibroServiceStandard;
+//
+//
+//@WebServlet("/ServletControlador")
+//public class ServletControlador extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
 //    
 //	LibroService servicio;
@@ -162,4 +162,4 @@ public class ServletControlador extends HttpServlet {
 //		
 //		doGet(request, response);
 //	}
-}
+//}
