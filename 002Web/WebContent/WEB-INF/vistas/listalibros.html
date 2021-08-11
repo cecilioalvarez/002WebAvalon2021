@@ -14,6 +14,7 @@
 			<td th:text="${libro.autor}"></td>
 			<td><a th:href="@{borrarlibro(isbn=${libro.isbn})}">borrar</a>
 			<td><a th:href="@{detallelibro(isbn=${libro.isbn})}">detalle</a>
+			<td><a th:href="@{formularioeditar(isbn=${libro.isbn})}">editar</a>
 		</tr>
 
 

@@ -46,6 +46,16 @@ public class LibrosController {
 		servicio.borrar(new Libro(isbn));
 		return "redirect:listalibros";
 	}
+	@RequestMapping("/formularioeditar")
+	public String formularioEditar(Model modelo,String isbn) {
+		
+		Libro libro= servicio.buscarUno(isbn);
+		// aqui es como cuando pasabamos en el request el setattribute
+		
+		modelo.addAttribute("libro",libro);
+			
+		return "formularioeditar";
+	}
 	
 	@RequestMapping("/formulariolibro")
 	public String formularioLibro(Model modelo) {
