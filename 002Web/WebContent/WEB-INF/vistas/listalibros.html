@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<table>
 
-	<p  th:each="libro:${libros}" th:text="${libro.titulo}"></p>	
+		<tr th:each="libro:${libros}">
+
+			<td th:text="${libro.isbn}"></td>
+			<td th:text="${libro.titulo}"></td>
+			<td th:text="${libro.autor}"></td>
+		</tr>
 
 
+	</table>
 
 </body>
 </html>
