@@ -1,10 +1,13 @@
 package com.arquitecturajava.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.arquitecturajava.negocio.Capitulo;
 import com.arquitecturajava.negocio.Libro;
 import com.arquitecturajava.servicios.LibroService;
 
@@ -26,6 +29,16 @@ public class LibrosController {
 		
 		
 		return "listalibros";
+	}
+	
+	@RequestMapping("/vercapitulos")
+	public String verCapitulos(Model modelo,Libro libro) {
+		
+		System.out.println(libro.getIsbn());
+		List<Capitulo> capitulos= servicio.buscarTodosCapitulos(libro);
+		System.out.println(capitulos.size());
+		modelo.addAttribute("capitulos",capitulos);
+		return "listacapitulos";
 	}
 	
 	@RequestMapping("/detallelibro")

@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Titulo</th>
+				<th>Paginas</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="capitulo:${capitulos}">
+				<td th:text="${capitulo.titulo}"></td>
+				<td th:text="${capitulo.paginas}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="ServletControladorCapitulos?accion=formularioinsertar&isbn=<%=request.getParameter("isbn")%>">Nuevo capitulo</a>
+
+</body>
+</html>

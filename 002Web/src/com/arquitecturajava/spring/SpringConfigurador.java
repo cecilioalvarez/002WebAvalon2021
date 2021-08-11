@@ -17,6 +17,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -29,9 +32,9 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @PropertySource("classpath:database.properties")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-public class SpringConfigurador  implements ApplicationContextAware{
-	
-	
+@EnableWebMvc
+public class SpringConfigurador implements WebMvcConfigurer, ApplicationContextAware {
+
 	@Value("${url}")
 	private String url;
 	@Value("${usuario}")
@@ -39,21 +42,18 @@ public class SpringConfigurador  implements ApplicationContextAware{
 	@Value("${password}")
 	private String password;
 	private ApplicationContext contexto;
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.contexto=applicationContext;
-		
+		this.contexto = applicationContext;
+
 	}
-	
-	
-	
+
 	@Bean
 	public PlatformTransactionManager txManager() {
-		
-	    return new DataSourceTransactionManager(dataSource()); // (2)
+
+		return new DataSourceTransactionManager(dataSource()); // (2)
 	}
-	
 
 	// datasource
 	// es un objeto que acabo de instanaciar a nivel de Spring Framework
@@ -79,10 +79,10 @@ public class SpringConfigurador  implements ApplicationContextAware{
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
+		
 		return resolver;
 	}
-	
+
 	@Bean
 	public ISpringTemplateEngine templateEngine() {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
@@ -90,22 +90,25 @@ public class SpringConfigurador  implements ApplicationContextAware{
 		engine.setTemplateResolver(templateResolver());
 		return engine;
 	}
-	
-	
+
 	// la carpeta donde se van a ubicar los ficheros html
-		private ITemplateResolver templateResolver() {
-			// que resolutor de plantillas uso
-			SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-			//contexto con todos los objetos de spring
-			resolver.setApplicationContext(contexto);
-			resolver.setPrefix("/WEB-INF/vistas/");
-			resolver.setSuffix(".html");
+	private ITemplateResolver templateResolver() {
+		// que resolutor de plantillas uso
+		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		// contexto con todos los objetos de spring
+		resolver.setApplicationContext(contexto);
+		resolver.setPrefix("/WEB-INF/vistas/");
+		resolver.setSuffix(".html");
+		resolver.setCharacterEncoding("UTF-8");
+		resolver.setCacheable(false);
+		resolver.setTemplateMode(TemplateMode.HTML);
+		return resolver;
+	}
 
-			resolver.setCacheable(false);
-			resolver.setTemplateMode(TemplateMode.HTML);
-			return resolver;
-		}
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/recursos/**").addResourceLocations("WEB-INF/recursos/");
+	}
+
 	
-
-
 }
