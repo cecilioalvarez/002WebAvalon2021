@@ -21,7 +21,7 @@
 		</tbody>
 	</table>
 
-	<a href="ServletControladorCapitulos?accion=formularioinsertar&isbn=<%=request.getParameter("isbn")%>">Nuevo capitulo</a>
+	<a th:href="@{${isbn}+'/capitulos/formulariocapitulo'}">Nuevo capitulo</a>
 
 </body>
 </html>

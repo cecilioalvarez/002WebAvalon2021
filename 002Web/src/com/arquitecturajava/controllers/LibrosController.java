@@ -37,6 +37,7 @@ public class LibrosController {
 		System.out.println(libro.getIsbn());
 		List<Capitulo> capitulos= servicio.buscarTodosCapitulos(libro);
 		System.out.println(capitulos.size());
+		modelo.addAttribute("isbn",libro.getIsbn());
 		modelo.addAttribute("capitulos",capitulos);
 		return "listacapitulos";
 	}
