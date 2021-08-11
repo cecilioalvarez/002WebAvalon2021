@@ -30,9 +30,19 @@ public class CapitulosController {
 	
 	@RequestMapping(value="/{isbn}/capitulos-libro/insertar",method=RequestMethod.POST)
 	public String insertar(Model modelo,Capitulo capitulo,String isbn) {
-		System.out.println("llega");
+		
 		capitulo.setLibro(new Libro(isbn));
 		servicio.insertarCapitulo(capitulo);
+		return "redirect: ../../capitulos-libro?isbn="+isbn;
+	}
+	
+	@RequestMapping(value="/{isbn}/capitulos-libro/borrar")
+	public String borrar(Model modelo,String titulo, @PathVariable String isbn) {
+		
+		Capitulo c= new Capitulo();
+		c.setTitulo(titulo);
+		System.out.println(isbn);
+		servicio.borrarCapitulo(c);
 		return "redirect: ../../capitulos-libro?isbn="+isbn;
 	}
 }
