@@ -39,5 +39,8 @@ public class Capitulo {
 		super();
 		this.titulo = titulo;
 	}
+	public Capitulo() {
+		super();
+	}
 	
 }

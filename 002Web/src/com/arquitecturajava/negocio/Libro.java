@@ -43,6 +43,9 @@ public class Libro {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
+	public Libro() {
+		super();
+	}
 	public Libro(String isbn, String titulo, String autor) {
 		super();
 		this.isbn = isbn;

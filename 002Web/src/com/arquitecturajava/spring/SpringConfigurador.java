@@ -17,6 +17,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -30,8 +33,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @PropertySource("classpath:database.properties")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-
-public class SpringConfigurador implements ApplicationContextAware {
+@EnableWebMvc
+public class SpringConfigurador implements WebMvcConfigurer, ApplicationContextAware {
 	@Value("${url}")
 	private String url;
 	@Value("${user}")
@@ -74,7 +77,7 @@ public class SpringConfigurador implements ApplicationContextAware {
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
+		//resolver.setCharacterEncoding("UTF-8");
 		return resolver;
 	}
 	
@@ -96,9 +99,15 @@ public class SpringConfigurador implements ApplicationContextAware {
 		resolver.setApplicationContext(contexto);
 		resolver.setPrefix("/WEB-INF/vistas/");
 		resolver.setSuffix(".html");
-
+		resolver.setCharacterEncoding("UTF-8");
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}
+	
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/recursos/**").addResourceLocations("WEB-INF/recursos/");
+	}
+
 }
