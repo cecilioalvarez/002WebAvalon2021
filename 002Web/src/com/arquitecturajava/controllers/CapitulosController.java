@@ -33,6 +33,6 @@ public class CapitulosController {
 		System.out.println("llega");
 		capitulo.setLibro(new Libro(isbn));
 		servicio.insertarCapitulo(capitulo);
-		return "redirect: ../../capitulos-libro";
+		return "redirect: ../../capitulos-libro?isbn="+isbn;
 	}
 }
