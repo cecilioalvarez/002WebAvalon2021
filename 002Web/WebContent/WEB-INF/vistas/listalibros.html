@@ -12,9 +12,11 @@
 			<td th:text="${libro.isbn}"></td>
 			<td th:text="${libro.titulo}"></td>
 			<td th:text="${libro.autor}"></td>
+			<td><a th:href="@{borrarlibro(isbn=${libro.isbn})}">borrar</a>
+			<td><a th:href="@{detallelibro(isbn=${libro.isbn})}">detalle</a>
 		</tr>
 
-	
+
 	</table>
 	<a href="formulariolibro">nuevo libro</a>
 

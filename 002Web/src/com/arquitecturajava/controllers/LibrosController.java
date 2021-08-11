@@ -28,6 +28,25 @@ public class LibrosController {
 		return "listalibros";
 	}
 	
+	@RequestMapping("/detallelibro")
+	public String detallelibro(Model modelo,String isbn) {
+		
+		Libro libro= servicio.buscarUno(isbn);
+		// aqui es como cuando pasabamos en el request el setattribute
+		
+		modelo.addAttribute("libro",libro);
+		
+		return "detallelibro";
+	}
+	
+	
+	@RequestMapping("/borrarlibro")
+	public String borrarlibro(Model modelo,String isbn) {
+		
+		servicio.borrar(new Libro(isbn));
+		return "redirect:listalibros";
+	}
+	
 	@RequestMapping("/formulariolibro")
 	public String formularioLibro(Model modelo) {
 		
@@ -38,9 +57,7 @@ public class LibrosController {
 	public String insertarlibro(Model modelo,Libro libro) {
 		
 		servicio.insertar(libro);
-		modelo.addAttribute("libros",servicio.buscarTodos());
-		
-		
-		return "listalibros";
+		//aqui tenia buscar libros un addattribute
+		return  "redirect:listalibros";
 	}
 }
