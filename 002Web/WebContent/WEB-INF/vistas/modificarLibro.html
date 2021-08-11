@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form action="modificado" method="POST">
+	<form action="salvar" method="POST">
 	<p>
 		ISBN: <input type="text" disabled="disabled" th:value="${milibro.isbn}"/>
 		<input type="hidden" name="isbn" th:value="${milibro.isbn}"/>
@@ -19,6 +19,6 @@
 	</p>
 	<input style="background-color: green;color: white;border-color: green" type="submit" value="Guardar Cambios"/>
 	</form>
-	<a href="lista">Volver</a>
+	<a href="../lista">Volver</a>
 </body>
 </html>

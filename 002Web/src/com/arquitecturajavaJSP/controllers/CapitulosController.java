@@ -11,7 +11,7 @@ import com.arquitecturajavaJSP.negocio.Libro;
 import com.arquitecturajavaJSP.servicios.LibroService;
 
 @Controller
-@RequestMapping("/libros")
+@RequestMapping("/libros/{isbn}/capitulos-libro")
 public class CapitulosController {
 	
 	private LibroService servicio;
@@ -22,7 +22,7 @@ public class CapitulosController {
 	}
 
 	
-	@RequestMapping("/{isbn}/capitulos-libro/nuevo")
+	@RequestMapping("/nuevo")
 	public String formulario(Model modelo,@PathVariable String isbn) {
 		
 		modelo.addAttribute("miIsbn",isbn);
@@ -30,7 +30,7 @@ public class CapitulosController {
 		
 	}
 	
-	@RequestMapping(value="/{isbn}/capitulos-libro/insertar",method=RequestMethod.POST)
+	@RequestMapping(value="/insertar",method=RequestMethod.POST)
 	public String insertar(Model modelo,Capitulo chapter,@PathVariable String isbn) {
 		
 		chapter.setLibro(new Libro(isbn));
@@ -41,27 +41,37 @@ public class CapitulosController {
 		
 		modelo.addAttribute("libro",libro);
 		
-		return "../lista";
+		return "redirect: ../detalle";
 	}
 	
-	@RequestMapping("/{isbn}/capitulos-libro/borrar")
+	@RequestMapping("/borrar")
 	public String borrarCapitulo(Model modelo,@PathVariable String isbn,String titulo) {
 		
 		servicio.removeChapter(new Capitulo(titulo,new Libro(isbn)));
 		
-		Libro libro = servicio.buscarLibro(isbn);
-		libro.setListacoCapitulos(servicio.buscarTodosCapitulos(new Libro(isbn)));
-		
-		modelo.addAttribute("libro",libro);
-		
-		return "../lista";
+		return "redirect: ../detalle";
 	}
 	
-	@RequestMapping("/{isbn}/capitulos-libro/detalle")
-	public String detalleChapter(Model modelo,String isbn,String titulo) {
+	@RequestMapping("/detalle")
+	public String detalleChapter(Model modelo,@PathVariable String isbn,String titulo) {
 		
 		modelo.addAttribute("chapter",servicio.getOneChapter(new Capitulo(titulo, new Libro(isbn))));
 		
 		return "detalleCapitulo";
+	}
+	
+	@RequestMapping("/editar")
+	public String formModificarCapitulo(Model modelo,String titulo,@PathVariable String isbn) {
+		modelo.addAttribute("miCapitulo",servicio.getOneChapter(new Capitulo(titulo, new Libro(isbn))));
+		
+		return "modificarCapitulo";
+	}
+	
+	@RequestMapping(value="/salvar",method=RequestMethod.POST)
+	public String salvarCapitulo(Model modelo,Capitulo chapter,@PathVariable String isbn) {
+		chapter.setLibro(new Libro(isbn));
+		servicio.modifyChapter(chapter);
+		
+		return "redirect: ../detalle";
 	}
 }

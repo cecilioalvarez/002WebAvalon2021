@@ -26,9 +26,9 @@
 				<td th:text="${libro.isbn}"></td>
 				<td th:text="${libro.titulo}"></td>
 				<td th:text="${libro.autor}"></td>
-				<td><a th:href="@{borrar(isbn=${libro.isbn})}" style="text-decoration: none;color: red;">Borrar</a></td>
-				<td><a th:href="@{detalle(isbn=${libro.isbn})}" style="text-decoration: none;color: orange;">Detalle</a></td>
-				<td><a th:href="@{editar(isbn=${libro.isbn})}" style="text-decoration: none;color: purple;">Modificar</a></td>
+				<td><a th:href="@{${libro.isbn}+'/borrar'}" style="text-decoration: none;color: red;">Borrar</a></td>
+				<td><a th:href="@{${libro.isbn}+'/detalle'}" style="text-decoration: none;color: orange;">Detalle</a></td>
+				<td><a th:href="@{${libro.isbn}+'/editar'}" style="text-decoration: none;color: purple;">Modificar</a></td>
 			</tr>
 			
 		</table>

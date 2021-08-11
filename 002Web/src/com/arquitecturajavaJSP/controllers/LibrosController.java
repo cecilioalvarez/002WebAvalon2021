@@ -2,6 +2,7 @@ package com.arquitecturajavaJSP.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,15 +45,15 @@ public class LibrosController {
 		return "redirect:lista";
 	}
 	
-	@RequestMapping(value="/borrar",method=RequestMethod.GET)
-	public String borrarLibro(Model modelo,String isbn) {
+	@RequestMapping(value="/{isbn}/borrar",method=RequestMethod.GET)
+	public String borrarLibro(Model modelo,@PathVariable String isbn) {
 		servicio.removeBook(new Libro(isbn));
 		
-		return "redirect:lista";
+		return "redirect:../lista";
 	}
 	
-	@RequestMapping("/detalle")
-	public String detalleLibro(Model modelo,String isbn) {
+	@RequestMapping("/{isbn}/detalle")
+	public String detalleLibro(Model modelo,@PathVariable String isbn) {
 		Libro libro = servicio.buscarLibro(isbn);
 		libro.setListacoCapitulos(servicio.buscarTodosCapitulos(new Libro(isbn)));
 		
@@ -61,18 +62,18 @@ public class LibrosController {
 		return "detalleLibro";
 	}
 	
-	@RequestMapping("/editar")
-	public String formModificarLibro(Model modelo,String isbn) {
+	@RequestMapping("/{isbn}/editar")
+	public String formModificarLibro(Model modelo,@PathVariable String isbn) {
 		modelo.addAttribute("milibro",servicio.buscarLibro(isbn));
 		
 		return "modificarLibro";
 	}
 	
-	@RequestMapping(value="/modificado",method=RequestMethod.POST)
+	@RequestMapping(value="/{isbn}/salvar",method=RequestMethod.POST)
 	public String modificarLibro(Model modelo,Libro libro) {
 		servicio.modifyBook(libro);
 		
-		return "redirect:lista";
+		return "redirect:../lista";
 	}
 	
 }

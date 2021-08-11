@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Editar</title>
+</head>
+<body>
+
+	<form action="salvar" method="POST">
+		<p>
+			Titulo de Capitulo: <input type="text" disabled="disabled" th:value="${miCapitulo.titulo}"/>
+			<input type="hidden" name="titulo" th:value="${miCapitulo.titulo}"/>
+		</p>
+		<p>
+			Páginas: <input type="number" name="paginas" th:value="${miCapitulo.paginas}"/>
+		</p>
+		<p>
+			Libro ISBN: <input type="text" name="isbn" th:value="${miCapitulo.libro.isbn}"/>
+		</p>
+		<input style="background-color: green;color: white;border-color: green" type="submit" value="Guardar Cambios"/>
+	</form>
+	<a href="../detalle" style="color: blue">Volver</a>
+</body>
+</html>
