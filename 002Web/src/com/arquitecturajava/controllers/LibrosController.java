@@ -22,14 +22,38 @@ public class LibrosController {
 		this.servicio = servicio;
 	}
 
-	@RequestMapping("/listalibros")
-	public String listaLibros(Model modelo) {
-		
+	@RequestMapping("/lista")
+	public String lista(Model modelo) {
 		modelo.addAttribute("libros",servicio.buscarTodos());
-		
-		
 		return "listalibros";
 	}
+	
+	@RequestMapping("/detalle")
+	public String detallelibro(Model modelo,String isbn) {
+		
+		Libro libro= servicio.buscarUno(isbn);	
+		modelo.addAttribute("libro",libro);
+		return "detallelibro";
+	}
+	@RequestMapping("/borrar")
+	public String borrar(Model modelo,String isbn) {
+		servicio.borrar(new Libro(isbn));
+		return "redirect:lista";
+	}
+	
+	@RequestMapping("/nuevo")
+	public String nuevo(Model modelo) {
+		return "formulariolibro";
+	}
+	
+	@RequestMapping(value="/insertar",method=RequestMethod.POST)
+	public String insertar(Model modelo,Libro libro) {
+		servicio.insertar(libro);
+		return  "redirect:lista";
+	}
+	
+	
+	
 	
 	@RequestMapping("/vercapitulos")
 	public String verCapitulos(Model modelo,Libro libro) {
@@ -42,24 +66,8 @@ public class LibrosController {
 		return "listacapitulos";
 	}
 	
-	@RequestMapping("/detallelibro")
-	public String detallelibro(Model modelo,String isbn) {
-		
-		Libro libro= servicio.buscarUno(isbn);
-		// aqui es como cuando pasabamos en el request el setattribute
-		
-		modelo.addAttribute("libro",libro);
-		
-		return "detallelibro";
-	}
 	
 	
-	@RequestMapping("/borrarlibro")
-	public String borrarlibro(Model modelo,String isbn) {
-		
-		servicio.borrar(new Libro(isbn));
-		return "redirect:listalibros";
-	}
 	@RequestMapping("/formularioeditar")
 	public String formularioEditar(Model modelo,String isbn) {
 		
@@ -71,19 +79,6 @@ public class LibrosController {
 		return "formularioeditar";
 	}
 	
-	@RequestMapping("/formulariolibro")
-	public String formularioLibro(Model modelo) {
-		
-			
-		return "formulariolibro";
-	}
-	@RequestMapping(value="/insertarlibro",method=RequestMethod.POST)
-	public String insertarlibro(Model modelo,Libro libro) {
-		
-		servicio.insertar(libro);
-		//aqui tenia buscar libros un addattribute
-		return  "redirect:listalibros";
-	}
 	
 	@RequestMapping(value="/salvarlibro",method=RequestMethod.POST)
 	public String salvarLibro(Model modelo,Libro libro) {
