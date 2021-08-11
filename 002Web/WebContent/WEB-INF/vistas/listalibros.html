@@ -15,13 +15,13 @@
 			<td th:text="${libro.autor}"></td>
 			<td><a th:href="@{borrar(isbn=${libro.isbn})}">borrar</a>
 			<td><a th:href="@{detalle(isbn=${libro.isbn})}">detalle</a>
-			<td><a th:href="@{formularioeditar(isbn=${libro.isbn})}">editar</a>
-			<td><a th:href="@{vercapitulos(isbn=${libro.isbn})}">vercapitulos</a>
+			<td><a th:href="@{editar(isbn=${libro.isbn})}">editar</a>
+			<td><a th:href="@{capitulos-libro(isbn=${libro.isbn})}">capitulos</a>
 		</tr>
 
 
 	</table>
-	<a href="formulariolibro">nuevo libro</a>
+	<a href="nuevo">nuevo libro</a>
 
 </body>
 </html>

@@ -29,6 +29,9 @@ public class Capitulo {
 	}
 	
 	
+	public Capitulo() {
+		super();
+	}
 	public Capitulo(String titulo) {
 		super();
 		this.titulo = titulo;
