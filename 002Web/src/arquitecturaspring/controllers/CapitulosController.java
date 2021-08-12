@@ -11,7 +11,7 @@ import negocio.Libro;
 import repositorio.servicios.LibroService;
 
 @Controller
-@RequestMapping("/libros")
+@RequestMapping("/libros/{isbn}/capitulos/")
 public class CapitulosController {
 	private LibroService servicio;
 
@@ -20,20 +20,20 @@ public class CapitulosController {
 		this.servicio = servicio;
 	}
 
-	@RequestMapping("/{isbn}/capitulos/nuevo")
+	@RequestMapping("nuevo")
 	public String formulario(Model modelo, @PathVariable String isbn) {
 		modelo.addAttribute("isbn", isbn);
 		return "formularioCapitulo";
 	}
 
-	@RequestMapping(value = "/{isbn}/capitulos/insertar", method = RequestMethod.POST)
+	@RequestMapping(value = "insertar", method = RequestMethod.POST)
 	public String insertar(Model modelo, Capitulo capitulo, @PathVariable String isbn) {
 		capitulo.setLibro(new Libro(isbn));
 		servicio.insertarCapitulo(capitulo);
 		return "redirect: ../capitulos";
 	}
 	
-	@RequestMapping(value="/{isbn}/capitulos/borrar")
+	@RequestMapping(value="borrar")
 	public String borrar(Model modelo,String titulo, @PathVariable String isbn) {
 		
 		Capitulo c= new Capitulo();
