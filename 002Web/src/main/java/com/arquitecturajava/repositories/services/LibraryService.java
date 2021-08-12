@@ -12,12 +12,18 @@ public interface LibraryService {
     int deleteBooks(Author fk_author);
 
     int insert(Book book);
+    
+    int insert(Book ...book);
+    
+    Book selectBook(Book book);
+
+    Book selectBookWithChapters(Book book);
+    
+    List<Book> selectBooks();
+    
+    List<Book> selectBooksWithChapters();
 
     List<Book> selectBooks(Author fk_author);
-
-    Book selectWithChapters(Book book);
-
-    List<Book> selectWithChapters();
 
     int update(Book book);
 
@@ -38,6 +44,8 @@ public interface LibraryService {
     int delete(Chapter chapter);
     
     int deleteChapters(Book book);
+    
+    int updateChapter(Chapter oldChapter, Chapter newChapter);
     
     int updateTitle(Chapter chapter, String title);
     

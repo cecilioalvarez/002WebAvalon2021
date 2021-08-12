@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface BookRepository {
     
-    Book selectWithChapters(Book book);
+    Book selectBook(Book book);
     
-    List<Book> selectWithChapters();
+    Book selectBookWithChapters(Book book);
+    
+    List<Book> selectBooks();
+    
+    List<Book> selectBooksWithChapters();
     
     List<Book> select(Author fk_author);
     

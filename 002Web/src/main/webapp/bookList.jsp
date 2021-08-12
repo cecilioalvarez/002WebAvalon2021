@@ -6,24 +6,14 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="function" %>
-<%@page import="com.arquitecturajava.repositories.services.LibraryServiceImplementation"%>
-<%@page import="com.arquitecturajava.repositories.services.LibraryService"%>
-<%@page import="java.util.List"%>
-<%@page import="com.arquitecturajava.repositories.BookRepositoryJDBC"%>
-<%@page import="com.arquitecturajava.repositories.BookRepository"%>
 <%@page import="com.arquitecturajava.business.Book"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
-        <meta name="description" content="Formulario de visualización de Libros en la BD."/>
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
-        <title>Formulario: Lista de libros</title>
-    </head>
+    <jsp:include page="head.jsp">
+        <jsp:param name="title" value="Formulario: Lista de libros"/>
+        <jsp:param name="description" value="Formulario de visualización de Libros de la BD."/>
+    </jsp:include>
     <body>
         <header>
             <h1>DATOS DE LOS LIBROS</h1>
@@ -57,6 +47,10 @@
                     </core:forEach>
                 </tbody>
             </table>
+            <div>
+                <a href='LibraryServiceController?action=addBook'>Añadir un libro</a>
+                <a href='LibraryServiceController?action=add2Books'>Añadir dos libros</a>
+            </div>
         </main>
     </body>
 </html>

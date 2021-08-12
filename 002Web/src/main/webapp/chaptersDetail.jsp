@@ -12,15 +12,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
-        <meta name="description" content="Formulario de visualización de los capítulos del libro."/>
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
-        <title>Capítulos del libro</title>
-    </head>
+    <jsp:include page="head.jsp">
+        <jsp:param name="title" value="Capítulos del libro"/>
+        <jsp:param name="description" value="Formulario de visualización de los capítulos de un libro."/>
+    </jsp:include>
     <body>
         <header>
             <h1>CAPÍTULOS DE «${fn:toUpperCase(book.title)}»</h1>
@@ -37,9 +32,9 @@
                 <tbody>
                      <c:forEach var="chapter" items="${book.chapters}">
                     <tr>
-                        <td class="greatCell">${chapter.pk_title}</td>
-                        <td class="veryTinyCell">${chapter.pages}</td>
-                        <td class="tinyCell">
+                        <td class="cell-70">${chapter.pk_title}</td>
+                        <td class="cell-10">${chapter.pages}</td>
+                        <td class="cell-20">
                             <a href='LibraryServiceController?action=deleteChapter&isbn=${book.pk_isbn}&title=${chapter.pk_title}'>Borrar</a>
                         </td>
                     </tr>

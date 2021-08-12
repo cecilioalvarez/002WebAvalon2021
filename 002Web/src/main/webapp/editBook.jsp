@@ -4,28 +4,18 @@
     Author: Germán Zunzunegui
 --%>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page import="com.arquitecturajava.repositories.services.LibraryServiceImplementation"%>
-<%@page import="com.arquitecturajava.repositories.services.LibraryService"%>
-<%@page import="java.util.List"%>
-<%@page import="com.arquitecturajava.business.Author"%>
-<%@page import="com.arquitecturajava.repositories.AuthorRepositoryJDBC"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="function" %>
 <%@page import="com.arquitecturajava.business.Book"%>
-<%@page import="com.arquitecturajava.repositories.BookRepositoryJDBC"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.arquitecturajava.business.Author"%>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
-        <meta name="description" content="Formulario de visualización de Libros en la BD."/>
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
-        <title>Formulario: Edición de libro</title>
-    </head>
+    <jsp:include page="head.jsp">
+        <jsp:param name="title" value="Formulario: Edición de libro"/>
+        <jsp:param name="description" value="Formulario de edición de un Libro de la BD."/>
+    </jsp:include>
     <body>
         <header>
             <h1>Formulario de edición de un libro</h1>
@@ -36,7 +26,7 @@
                     <legend>Datos del libro</legend>
                     <div>
                         <label for="isbn">ISBN:</label>
-                        <input type="text" id="isbn" name="isbn" value="${fn:toUpperCase(book.pk_isbn)}" readonly/>
+                        <input type="text" id="isbn" name="isbn" value="${function:toUpperCase(book.pk_isbn)}" readonly/>
                     </div>
                     <div>
                         <label for="title">Título:</label>
@@ -44,14 +34,14 @@
                     </div>
                     <div>
                         <label for="author">Autor:</label>
-                        <select id="author" name="author">
-                            <c:forEach var="author" items="${authors}">
-                            <option name="author" value="${author.pk_id}" 
-                                    <c:if test="${author == book.fk_author}">
+                        <select id="author" name="fk_author">
+                            <core:forEach var="author" items="${authors}">
+                            <option name="fk_author" value="${author.pk_id}" 
+                                    <core:if test="${author == book.fk_author}">
                                     selected="true"
-                                    </c:if>
+                                    </core:if>
                             >${author.name}</option>
-                            </c:forEach>
+                            </core:forEach>
                         </select>
                     </div>
                 </fieldset>

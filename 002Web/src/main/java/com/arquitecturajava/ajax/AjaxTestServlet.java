@@ -20,7 +20,7 @@ public class AjaxTestServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            final List<Book> BOOKS = new BookRepositoryJDBC().select();
+            final List<Book> BOOKS = new BookRepositoryJDBC().selectBooks();
             ObjectMapper mapper = new ObjectMapper();
             out.println(mapper.writeValueAsString(BOOKS));
         } catch (IOException io_ex) {

@@ -18,6 +18,8 @@ public interface ChapterRepository {
     
     int delete(Book book);
     
+    int updateChapter(Chapter oldChapter, Chapter newChapter);
+    
     int updateTitle(Chapter chapter, String title);
     
     int updatePages(Chapter chapter, int pages);

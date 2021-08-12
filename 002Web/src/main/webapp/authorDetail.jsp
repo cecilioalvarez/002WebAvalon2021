@@ -10,15 +10,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
-        <meta name="description" content="Formulario de visualización de Autor en la BD."/>
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
-        <title>Detalles de autor</title>
-    </head>
+    <jsp:include page="head.jsp">
+        <jsp:param name="title" value="Detalles de autor"/>
+        <jsp:param name="description" value="Tabla de visualización de Autor de la BD."/>
+    </jsp:include>
     <body>
         <header>
             <h1>DATOS DEL AUTOR</h1>
@@ -34,9 +29,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="tinyCell">${fn:toUpperCase(author.pk_id)}</td>
-                        <td class="standardCell">${author.name}</td>
-                        <td class="tinyCell">${author.age}</td>
+                        <td class="cell-20">${fn:toUpperCase(author.pk_id)}</td>
+                        <td class="cell-60">${author.name}</td>
+                        <td class="cell-20">${author.age}</td>
                     </tr>
                 </tbody>
             </table>

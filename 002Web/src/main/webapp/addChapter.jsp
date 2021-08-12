@@ -6,18 +6,13 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
 <%@page import="com.arquitecturajava.business.Book"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="author" content="Germán Zunzunegui Rodríguez"/>
-        <meta name="description" content="Formulario de creación de capítulos."/>
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" type="image/x-icon" href="img/avalon.ico"/>
-        <title>Creación de capítulo</title>
-    </head>
+    <jsp:include page="head.jsp">
+        <jsp:param name="title" value="Formulario: Creación de capítulo"/>
+        <jsp:param name="description" value="Formulario de creación de capítulos."/>
+    </jsp:include>
     <body>
         <header>
             <h1>Formulario de creación de un nuevo capítulo</h1>
@@ -27,7 +22,7 @@
                 <fieldset>
                     <legend>Datos del nuevo capítulo de «${book.title}»</legend>
                     <div>
-                        <label for="isbn">Título:</label>
+                        <label for="title">Título:</label>
                         <input type="text" id="title" name="title" maxlength="64"/>
                     </div>
                     <div>
