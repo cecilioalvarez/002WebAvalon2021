@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -67,11 +68,11 @@ public class LibrosController {
 	
 	//////////////////////////////
 	
-	@RequestMapping("/capitulos-libro")
-	public String verCapitulos(Model modelo,Libro libro) {
+	@RequestMapping("/{isbn}/capitulos")
+	public String verCapitulos(Model modelo,@PathVariable String isbn) {
 		
-		modelo.addAttribute("isbn",libro.getIsbn());
-		modelo.addAttribute("capitulos",servicio.buscarTodosCapitulos(libro));
+		modelo.addAttribute("isbn",isbn);
+		modelo.addAttribute("capitulos",servicio.buscarTodosCapitulos(new Libro(isbn)));
 		return "listacapitulos";
 	}
 	

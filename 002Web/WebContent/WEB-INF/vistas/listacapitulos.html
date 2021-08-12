@@ -17,12 +17,12 @@
 			<tr th:each="capitulo:${capitulos}">
 				<td th:text="${capitulo.titulo}"></td>
 				<td th:text="${capitulo.paginas}"></td>
-				<td><a th:href="@{${isbn}+ '/capitulos-libro/borrar?titulo=' +${capitulo.titulo}}">borrar</a></td>
+				<td><a th:href="@{'borrar?titulo=' +${capitulo.titulo}}">borrar</a></td>
 			</tr>
 		</tbody>
 	</table>
 
-	<a th:href="@{${isbn}+'/capitulos-libro/nuevo'}">Nuevo capitulo</a>
+	<a th:href="nuevo">Nuevo capitulo</a>
 	<a th:href="lista">volver</a>
 
 </body>
