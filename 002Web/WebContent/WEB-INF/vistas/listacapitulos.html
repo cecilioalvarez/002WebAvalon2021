@@ -10,18 +10,21 @@
 		<thead>
 			<tr>
 				<th>Titulo</th>
-				<th>Paginas</th>	
+				<th>Paginas</th>
+				<th>Borrar</th>	
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="capitulo:${capitulos}">
 				<td th:text="${capitulo.titulo}"></td>
 				<td th:text="${capitulo.paginas}"></td>
+				<td><a th:href="'capitulos/'+ @{'borrar?titulo=' +${capitulo.titulo}}">borrar</a></td>
+				
 			</tr>
 		</tbody>
 	</table>
-
-	<a th:href="@{${isbn}+'/capitulos/formulariocapitulo'}">Nuevo capitulo</a>
+	<p><a href="../lista">Volver</a></p>
+	<a href="capitulos/nuevo">Nuevo capitulo</a>
 
 </body>
 </html>

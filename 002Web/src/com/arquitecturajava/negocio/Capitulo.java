@@ -9,6 +9,9 @@ public class Capitulo {
 	@JsonIgnore
 	private Libro libro;
 	
+	public Capitulo() {
+		super();
+	}
 	public Libro getLibro() {
 		return libro;
 	}
