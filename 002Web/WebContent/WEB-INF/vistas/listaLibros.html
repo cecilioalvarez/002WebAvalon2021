@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="../recursos/styles.css">
 <head>
 <meta charset="ISO-8859-1">
 <title>Lista libros</title>
@@ -10,10 +11,12 @@
 			<td th:text="${libro.isbn}"></td>
 			<td th:text="${libro.titulo}"></td>
 			<td th:text="${libro.autor}"></td>
-			<td><a th:href="@{borrarlibro(isbn=${libro.isbn})}">borrar</a></td>
-			<td><a th:href="@{detallelibro(isbn=${libro.isbn})}">detalle</a></td>
+			<td><a th:href="@{borrar(isbn=${libro.isbn})}">borrar</a>
+			<td><a th:href="@{detalle(isbn=${libro.isbn})}">detalle</a>
+			<td><a th:href="@{editar(isbn=${libro.isbn})}">editar</a>
+			<td><a th:href="@{${libro.isbn}+ '/capitulos'}">capitulos</a>
 		</tr>
 	</table>
-	<a href="formulariolibro">Nuevo libro</a>
+	<a href="nuevo">Nuevo libro</a>
 </body>
 </html>

@@ -16,6 +16,9 @@ public class Capitulo {
 	public Capitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	public Capitulo() {
+
+	}
 	public Libro getLibro() {
 		return libro;
 	}

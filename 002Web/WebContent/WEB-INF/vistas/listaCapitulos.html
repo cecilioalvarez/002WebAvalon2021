@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="../recursos/styles.css">
+<head>
+<meta charset="UTF-8">
+<title>ListaCapitulos</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Titulo</th>
+				<th>Paginas</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="capitulo:${capitulos}">
+				<td th:text="${capitulo.titulo}"></td>
+				<td th:text="${capitulo.paginas}"></td>
+				<td><a th:href="@{'capitulos/borrar?titulo=' +${capitulo.titulo}}">borrar</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="capitulos/nuevo">Nuevo capitulo</a>
+	<a href="../lista">Volver</a>
+
+</body>
+</html>
