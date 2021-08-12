@@ -56,7 +56,7 @@ public class BookController {
         return "editBook";
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("/{pk_isbn}/update")
     public String updateBookAction(Model model, Book book) {
         this.LIBRARY_SERVICE.update(book);
         return "redirect:/books/list";

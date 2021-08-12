@@ -28,7 +28,7 @@
                             <a th:href="@{${book.pk_isbn} + '/chapters/list'}">Ver capítulos</a>
                         </td>
                         <td th:block th:unless="${author == null}">
-                            <a th:href="@{${book.pk_isbn} + '../edit'}">Editar</a>
+                            <a th:href="@{'../' + ${book.pk_isbn} + '/edit'}">Editar</a>
                             <a th:href="@{../delete(pk_isbn=${book.pk_isbn})}">Borrar</a>
                             <a th:href="@{'../' + ${book.pk_isbn} + '/chapters/list'}">Ver capítulos</a>
                         </td>
