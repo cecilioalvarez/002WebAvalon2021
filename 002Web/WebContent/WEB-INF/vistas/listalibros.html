@@ -16,7 +16,7 @@
 			<td><a th:href="@{borrar(isbn=${libro.isbn})}">borrar</a></td>
 			<td><a th:href="@{detalle(isbn=${libro.isbn})}">detalle</a></td>
 			<td><a th:href="@{editar(isbn=${libro.isbn})}">editar</a></td>
-			<td><a th:href="@{capitulos-libro(isbn=${libro.isbn})}">Ver capitulos</a></td>
+			<td><a th:href="@{${libro.isbn} + '/capitulos'}">Ver capitulos</a></td>
 		</tr>
 	</table>
 	<a href="nuevo">Nuevo libro</a>

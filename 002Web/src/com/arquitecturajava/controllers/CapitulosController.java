@@ -21,19 +21,19 @@ public class CapitulosController {
 		this.servicio = servicio;
 	}
 
-	@RequestMapping("/{isbn}/capitulos-libro/nuevo")
+	@RequestMapping("/{isbn}/capitulos/nuevo")
 	public String formulario(Model modelo, @PathVariable String isbn) {
 		modelo.addAttribute("isbn", isbn);
 		return "formulariocapitulo";
 	}
-	@RequestMapping(value= "/{isbn}/capitulos-libro/insertar",  method=RequestMethod.POST)
-	public String insertar(Model modelo, Capitulo capitulo, String isbn) {
+	@RequestMapping(value= "/{isbn}/capitulos/insertar",  method=RequestMethod.POST)
+	public String insertar(Model modelo, Capitulo capitulo, @PathVariable String isbn) {
 		capitulo.setLibro(new Libro(isbn));
 		servicio.insertarCapitulo(capitulo);
-		return "redirect:../../capitulos-libro?isbn="+isbn;
+		return "redirect:../capitulos";
 	}
 	
-	@RequestMapping(value= "/{isbn}/capitulos-libro/borrar")
+	@RequestMapping(value= "/{isbn}/capitulos/borrar")
 	public String borrar(Model modelo, String titulo, @PathVariable String isbn) {
 		//Creamos un capitulo
 		Capitulo c = new Capitulo();
@@ -43,6 +43,7 @@ public class CapitulosController {
 		//c.setLibro(new Libro(isbn));
 		//Utilizamos el metodo borrar del servicio y le pasamos el capitulo
 		servicio.borrarCapitulo(c);
-		return "redirect:../../capitulos-libro?isbn="+isbn;
+		//return "redirect:../../capitulos-libro?isbn="+isbn;
+		return "redirect:../capitulos";
 	}
 }
