@@ -39,7 +39,7 @@
                 <a href='add'>Añadir un libro</a>
             </div>
             <div class="links" th:unless="${author == null}">
-                <a th:href="${'/web/authors/' + author.pk_id}">Volver al autor</a>
+                <a th:href="${'../../authors/' + author.pk_id}">Volver al autor</a>
                 <a href='../list'>Ver todos los libros</a>
             </div>
         </main>

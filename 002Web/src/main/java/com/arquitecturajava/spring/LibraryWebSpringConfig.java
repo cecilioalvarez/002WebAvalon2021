@@ -1,5 +1,6 @@
 package com.arquitecturajava.spring;
 
+import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.CacheControl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -92,6 +94,9 @@ public class LibraryWebSpringConfig implements WebMvcConfigurer, ApplicationCont
     
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/")
+                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePublic());
+        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
     }
 }
